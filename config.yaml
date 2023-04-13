@@ -14,7 +14,7 @@ carpentry: 'incubator'
 title: 'Intermediate Slurm' # FIXME
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: ~ 2023-04-13
+created: '2023-04-13'
 
 # Comma-separated list of keywords for the lesson
 keywords: 'Slurm, HPC' # FIXME
