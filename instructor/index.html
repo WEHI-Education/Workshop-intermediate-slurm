@@ -135,12 +135,19 @@
                   <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         Summary and Schedule
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+        
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#learning-objectives">Learning Objectives</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
         
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -204,15 +211,76 @@
       <hr></nav><main id="main-content" class="main-content"><h1 class="schedule-heading">Summary and Schedule</h1>
       
 
-<p>This is a new lesson built with <a href="https://carpentries.github.io/sandpaper-docs" class="external-link">The Carpentries
-Workbench</a>.</p>
+<p>Welcome to Intermediate Slurm! Delivered by WEHI’s Research Computing
+Platform.</p>
+<p>This lesson is targeted to learners who are researchers who have
+started using Slurm on Milton, and now have a sense of how to submit
+Slurm jobs and request resources through <code>sbatch</code>.</p>
+<p>It aims to improve learner’s jobs’ resource utilization and
+performance. But each researcher’s software is different! So this lesson
+will show learners the <em>tools</em> and teach basic concepts that the
+learners can use to evaluate the performance of their jobs and the
+software they’re using in those jobs.</p>
+<p>The lesson also shows the learner a few Slurm features that can be
+used to help them organise their jobs in ways that can simplify
+submission of many similar jobs, or help organise jobs that depend on
+each other.</p>
+<p>Finally, the lesson will show how learners can submit R or python
+scripts as Slurm jobs instead of the common Shell or Bash script. It
+will also show some of R and Python’s powerful file parsing
+functionality and how that can make Slurm job arrays even more
+robust!</p>
+<section id="learning-objectives"><h2 class="section-heading">Learning Objectives<a class="anchor" aria-label="anchor" href="#learning-objectives"></a>
+</h2>
+<hr class="half-width"><p>After completing this lesson, learners are expected to know:</p>
+<ul><li>Which tools to use to evaluate performance of their
+<em>CPU-only</em> Slurm jobs</li>
+<li>Which tools to use to evaluate performance of their <em>GPU</em>
+Slurm jobs</li>
+<li>How to customize Slurm information-collecting commands</li>
+<li>How to make use of Slurm array jobs to parallelise job
+submission</li>
+<li>How to use job dependencies to create simple Slurm job
+pipelines</li>
+<li>How to write Python and R Slurm scripts</li>
+</ul><div id="prereq1" class="callout prereq">
+<div class="callout-square">
+<i class="callout-icon" data-feather="check"></i>
+</div>
+<div id="skills" class="callout-inner">
+<h3 class="callout-title">Skills<a class="anchor" aria-label="anchor" href="#prereq1"></a>
+</h3>
+<div class="callout-content">
+<p>It’s expected that you’ve submitted Slurm jobs before, and that
+you’ve used <code>sbatch</code> and <code>squeue</code> before. Some
+beginner-level command-line experience is necessary too. It’s assumed
+that you know how to do the things delivered in <a href="https://monashdatafluency.github.io/shell-novice/" class="external-link">this
+introductory command-line course</a></p>
+</div>
+</div>
+</div>
+<div id="prereq2" class="callout prereq">
+<div class="callout-square">
+<i class="callout-icon" data-feather="check"></i>
+</div>
+<div id="setup" class="callout-inner">
+<h3 class="callout-title">Setup<a class="anchor" aria-label="anchor" href="#prereq2"></a>
+</h3>
+<div class="callout-content">
+<p>The entirety of this lesson is delivered on Milton! To follow along,
+you will need command-line access to Milton via SSH (Secure SHell). If
+you don’t, please send an email to <a href="../mailto:support@wehi.edu.au" class="email">support@wehi.edu.au</a>.</p>
+<p>SSH access to any cluster using the Slurm scheduler will also work,
+although the setup may differ slightly from what is shown in the
+lesson.</p>
+</div>
+</div>
+</div>
 <!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
-
-
-      <section id="schedule"><table class="table table schedule table-striped" role="presentation"><tbody><tr><td></td><td><a href="#setup">Setup Instructions</a></td><td> Download files required for the lesson</td>
+</section><section id="schedule"><table class="table table schedule table-striped" role="presentation"><tbody><tr><td></td><td><a href="#setup">Setup Instructions</a></td><td> Download files required for the lesson</td>
           </tr><tr><td>
 <span class="visually-hidden">Duration: </span>00h 00m
 </td>
@@ -237,76 +305,15 @@ any links that you are not going to use.
  --></tbody></table><p>
       The actual schedule may vary slightly depending on the topics and exercises chosen by the instructor.
       </p>
-      </section><section id="setup"><p>FIXME: Setup instructions live in this document. Please specify the
-tools and the data sets the Learner needs to have installed.</p>
-<section id="data-sets"><h2 class="section-heading">Data Sets<a class="anchor" aria-label="anchor" href="#data-sets"></a>
+      </section><section id="setup"><section id="example-files"><h2 class="section-heading">Example Files<a class="anchor" aria-label="anchor" href="#example-files"></a>
 </h2>
 <hr class="half-width"><!--
 FIXME: place any data you want learners to use in `episodes/data` and then use
        a relative link ( [data zip file](data/lesson-data.zip) ) to provide a
        link to it, replacing the example.com link.
---><p>Download the <a href="https://example.com/FIXME" class="external-link">data zip file</a>
-and unzip it to your Desktop</p>
-</section><section id="software-setup"><h2 class="section-heading">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a>
-</h2>
-<hr class="half-width"><div id="discussion1" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div id="details" class="callout-inner">
-<h3 class="callout-title">Details<a class="anchor" aria-label="anchor" href="#discussion1"></a>
-</h3>
-<div class="callout-content">
-<p>Setup for different systems can be presented in dropdown menus via a
-<code>solution</code> tag. They will join to this discussion block, so
-you can give a general overview of the software used in this lesson here
-and fill out the individual operating systems (and potentially add more,
-e.g. online setup) in the solutions blocks.</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">
-  Windows
-  </h4>
-</button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
-<div class="accordion-body">
-<p>Use PuTTY</p>
-</div>
-</div>
-</div>
-</div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2">
-  MacOS
-  </h4>
-</button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
-<div class="accordion-body">
-<p>Use Terminal.app</p>
-</div>
-</div>
-</div>
-</div>
-<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
-  <h4 class="accordion-header" id="headingSolution3">
-  Linux
-  </h4>
-</button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
-<div class="accordion-body">
-<p>Use Terminal</p>
-</div>
-</div>
-</div>
-</div>
+--><p>Download the <a href="../data/example-programs.zip">demo programs
+zip</a> and unzip it on Milton. If you have VAST Scratch, unzip it
+there. Your home directory is ok too.</p>
 <!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
@@ -361,8 +368,8 @@ any links that you are not going to use.
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/index.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/index.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-04-13",
-  "datePublished": "2023-04-13"
+  "dateModified": "2023-04-14",
+  "datePublished": "2023-04-14"
 }
 
   </script><script>
