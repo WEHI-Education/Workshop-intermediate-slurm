@@ -59,7 +59,9 @@ contact: 'research.computing@wehi.edu.au' # FIXME
 
 # Order of episodes in your lesson
 episodes: 
-- introduction.Rmd
+- 01-introduction.Rmd
+- 02-cpumonitoring.Rmd
+- 04-jobarrays.Rmd
 
 # Information for Learners
 learners: 
