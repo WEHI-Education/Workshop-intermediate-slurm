@@ -177,7 +177,31 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="introduction.html">1. Introduction</a>
+        <a href="01-introduction.html">1. Introduction</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="02-cpumonitoring.html">2. Monitoring a Jobs performance</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush4">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading4">
+        <a href="04-jobarrays.html">3. Job Arrays</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -247,9 +271,46 @@ any links that you are not going to use.
  -->
 
 
-      <section id="aggregate-instructor-notes"><section id="introduction"><h2 class="section-heading"><a href="introduction.html">Introduction</a></h2>
+      <section id="aggregate-instructor-notes"><section id="01-introduction"><h2 class="section-heading"><a href="01-introduction.html">Introduction</a></h2>
 <hr class="half-width">
 <p>The challenges can be done together with the researchers input.</p>
+<hr></section><section id="02-cpumonitoring"><h2 class="section-heading"><a href="02-cpumonitoring.html">Monitoring a Jobs performance</a></h2>
+<hr class="half-width">
+<p>You might get questions as to why <code>srun</code> should be used.
+In many cases it’s not important, but <code>srun</code> helps Slurm
+collect CPU efficiency, memory usage, and IO data about the command it’s
+being used to run. Which is important for this purpose!</p>
+<p>The most beneficial aspect of using <code>srun</code> inside
+<code>sbatch</code> is that if the job fails or is cancelled, the CPU
+efficiency, memory usage, and IO data is saved, which makes
+<code>seff</code> and <code>sacct</code> still useful. If
+<code>srun</code> is not used, performance data from <code>seff</code>
+and <code>sacct</code> are useless if the job ends prematurely.</p>
+<hr>
+<p>You may wish to explain how to distinguish processes of interest from
+system processes. Usually, the process of interest will be identifiable
+by the command that is being run.</p>
+<hr>
+<p>The output from the last challenge may suggest to learners that using
+4 CPUs only results in a 2 times speedup, but this result is due to
+hyperthreading being enabled on Milton, and when you request 2 CPUs from
+Slurm, you get 2 hyperthreads which are both assigned to the same
+physical CPU core.</p>
+<hr>
+<p>With regard to the last exercise, you may wish to highlight what
+happens when you try to run a program inside <code>sbatch</code>,
+requesting multiple nodes, but executing the program without
+<code>srun</code>.</p>
+<p>The result is that one node will do all the work, and any other nodes
+requested will be idle. Whereas with <code>srun</code>, multiple copies
+of the program will be started.</p>
+<hr></section><section id="04-jobarrays"><h2 class="section-heading"><a href="04-jobarrays.html">Job Arrays</a></h2>
+<hr class="half-width">
+<p><a href="https://monashdatafluency.github.io/shell-novice/" class="external-link">Intro to
+Linux Command Line</a> is specified as a prerequisite, so learners
+should know how to work with. But due to the infrequency of these
+workshops, this isn’t guaranteed, so you might want to remind people
+what environment variables are.</p>
 <hr></section></section>
 </div>
     </main>
@@ -299,8 +360,8 @@ any links that you are not going to use.
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/instructor-notes.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/instructor-notes.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-05-09",
-  "datePublished": "2023-05-09"
+  "dateModified": "2023-05-12",
+  "datePublished": "2023-05-12"
 }
 
   </script><script>

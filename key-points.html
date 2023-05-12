@@ -179,7 +179,31 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="introduction.html">1. Introduction</a>
+        <a href="01-introduction.html">1. Introduction</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="02-cpumonitoring.html">2. Monitoring a Jobs performance</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush4">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading4">
+        <a href="04-jobarrays.html">3. Job Arrays</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -241,7 +265,7 @@
     <main id="main-content" class="main-content"><div class="container lesson-content">
         
         
-<section id="introduction"><h2 class="section-heading"><a href="introduction.html">Introduction</a></h2>
+<section id="01-introduction"><h2 class="section-heading"><a href="01-introduction.html">Introduction</a></h2>
 <hr class="half-width">
 <ul>
 <li>Slurm, together with Linux system tools, can help you ensure jobs
@@ -249,6 +273,44 @@ are utilizing resources effectively.</li>
 <li>Slurm job arrays is a neater solution to submitting many similar
 jobs.</li>
 <li>Slurm job dependencies can help you organise pipelines.</li>
+</ul></section><section id="02-cpumonitoring"><h2 class="section-heading"><a href="02-cpumonitoring.html">Monitoring a Jobs performance</a></h2>
+<hr class="half-width">
+<ul>
+<li>Requesting more resources from Slurm doesn’t mean your job knows how
+to use them!
+<ul>
+<li>Many programs don’t work in parallel by default - either that
+functionality doesn’t exist, or needs to be turned on!</li>
+<li>Parallelism across nodes is differently parallelism within nodes.
+You usually need to run them a little differently than a normal
+program</li>
+</ul>
+</li>
+<li>The <code>htop</code> system tool is a great way to get live
+information about how effective your job is</li>
+<li>
+<code>seff</code> and <code>sacct</code> can be used to get summary
+stats about jobs</li>
+<li>More CPUs doesn’t always mean an equivalent speedup!</li>
+</ul></section><section id="04-jobarrays"><h2 class="section-heading"><a href="04-jobarrays.html">Job Arrays</a></h2>
+<hr class="half-width">
+<ul>
+<li>Requesting more resources from Slurm doesn’t mean your job knows how
+to use them!
+<ul>
+<li>Many programs don’t work in parallel by default - either that
+functionality doesn’t exist, or needs to be turned on!</li>
+<li>Parallelism across nodes is differently parallelism within nodes.
+You usually need to run them a little differently than a normal
+program</li>
+</ul>
+</li>
+<li>The <code>htop</code> system tool is a great way to get live
+information about how effective your job is</li>
+<li>
+<code>seff</code> and <code>sacct</code> can be used to get summary
+stats about jobs</li>
+<li>More CPUs doesn’t always mean an equivalent speedup!</li>
 </ul></section>
 </div>
     </main>
@@ -298,8 +360,8 @@ jobs.</li>
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/key-points.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/key-points.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-05-09",
-  "datePublished": "2023-05-09"
+  "dateModified": "2023-05-12",
+  "datePublished": "2023-05-12"
 }
 
   </script><script>
