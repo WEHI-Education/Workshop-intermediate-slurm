@@ -182,6 +182,10 @@ use however many CPUs I've requested automatically by using the `SLURM_CPUS_PER_
 srun pi-cpu -p ${SLURM_CPUS_PER_TASK}
 ```
 
+But be careful: some Slurm environment variables only have a value if you've set it as a flag.
+For example, in the above example script, `SLURM_CPUS_PER_TASK` has a value because we supplied `--cpus-per-task`.
+But if you didn't set `--cpus-per-task`, the corresponding environment variable would be empty!
+
 ::::::::::::
 
 ::: instructor
@@ -265,86 +269,54 @@ Let's call it `iterations.txt`, which contains:
 ```
 
 But how do we use the job array index to retrieve each of these lines? We can use
-the `sed` Linux command line utility.
+the `readarray` command line utility.
 
-To take the nth line out of a text file, you can run:
+`readarray` is a neat tool that can split text into a Bash array. 
+Executing the command will start an interactive prompt. To exit, press Ctrl+D.
 
 ```bash
-sed "Nq;d" <file>
+readarray
+# start typing
+this
+is an
+example # pree Ctrl+D to exit
 ```
-
-where `N` is the line number to retrieve. For example, `sed "1q;d" <file>` will
-retrieve the first lin of the file `<file>`.
-
-::: challenge
-
-Try use run the above command with a few different values of `N`!
-
-See what happens if you pass an `N` value greater than the number of lines in the file.
-
-What if you don't pass a value at all (i.e., leave N empty)?
-
-:::::::::::::
-
-::: solution
-
-Taking the 3rd line of `iterations.txt`:
-
+Your text gets saved into the `MAPFILE` array variable (each index corresponds to a line):
 ```bash
-sed "3q;d" iterations.txt
+echo "line1: ${MAPFILE[0]}, line2: ${MAPFILE[1]}, line3: ${MAPFILE[2]}"
 ```
 ```output
-10000
+line1: this, line2: is an, line3: example
 ```
 
-and the 7th:
+A couple things to note about referencing elements in bash arrays:
+* Array indices start at 0
+* `${}` are on the outside of `array[index]`.
+
+Instead of supplying it input manually, we can pass it a file using redirection:
 
 ```bash
-sed "7q;d" iterations.txt
+readarray < iterations.txt
+echo ${MAPFILE[@]}
 ```
 ```output
-100000000
+100 1000 10000 100000 1000000 10000000 100000000
 ```
 
-There's only 7 lines in `iterations.txt`, so what if I pass `N=8`?
+The `@` symbol means "all the elements in the array". Instead of saving the array
+into `MAPFILE`, we can pass a variable name to `readarray` and it will save the array
+into that variable instead e.g.:
 
 ```bash
-sed "8q;d" iterations.txt
+readarray niterations < iterations.txt
+echo ${niterations[@]}
 ```
 ```output
-
+100 1000 10000 100000 1000000 10000000 100000000
 ```
 
-Nothing is returned! What if I don't pass a value?
-
-```bash
-sed "q;d" iterations.txt
-```
-```output
-100
-```
-
-`sed` seems to take out just the first value. Keep these behaviours in mind when
-using `sed`!
-
-::::::::::::
-
-::: discussion
-
-### Comments on `sed`
-
-`sed` is a Linux command line text-processsing tool that can be very powerful! But, it requires
-time to learn as well as practice as the syntax is not very intuitive. The `sed` command that is shown here
-is simple, but not necessarily easily understood to the uninitiated. As an alternative RCP has
-developed a [Python package](https://github.com/wehi-ResearchComputing/slarray) that can be used as an alternative.
-
-Additionally, R and Python users may prefer to do use Slurm job arrays in those languages.
-How this can be done will be showed in later episodes.
-
-::::::::::::::
-
-Now that we've established that we can use `sed`, we need to implement it into
-our script. 
+Can you start to see how we might combine the Slurm array index and our bash array
+to pass different iteration values to `pi-cpu`?
 
 ::: callout
 ### Tests
@@ -352,43 +324,24 @@ It's generally good practice to *test* your array job before you run it for real
 is especially true if you plan to run a large number of tasks! 
 :::::::::::
 
-Let's first test that we know how to properly combine the `SLURM_ARRAY_TASK_ID` environment variable together with `sed`.
+Let's first test that we know how to properly combine the `SLURM_ARRAY_TASK_ID` environment variable together with `readarray`.
 Take your script and modify it:
 
 ```bash
 #!/bin/bash
 
 #SBATCH --job-name=myjob
-#SBATCH --array=1-3
+#SBATCH --array=0-2
 
 echo "hello world from task ${SLURM_ARRAY_TASK_ID}"
-niterations=$(sed "${SLURM_ARRAY_TASK_ID}q;d" iterations.txt)
-echo "I will run ${niterations}!"
+readarray niterations < iterations.txt
+echo "I will run ${niterations[$SLURM_ARRAY_TASK_ID]}!"
 ```
 
-::: discussion
+Note that we've changed the array task range from 1-3 to 0-3 since the bash array
+is 0-indexed.
 
-### Command Substitution
-
-```bash
-niterations=$(sed "${SLURM_ARRAY_TASK_ID}q;d" iterations.txt)
-```
-This line is taking one line of test from `iteractions.txt` and saving it into
-the `niterations` variable. This is done by executing the command 
-```bash
-sed "${SLURM_ARRAY_TASK_ID}q;d" iterations.txt
-```
-`${SLURM_ARRAY_TASK_ID}` is being used as the `N` parameter. 
-
-This entire command is contained
-within `$()`. This is known as "Command Substitution". This allows the output of the command
-within the brackets to be used inside another command.
-
-In this case, we've run the `sed` command and saved the output into the `niterations` variable.
-
-::::::::::::::
-
-Let's submit this script to confirm that we've used `sed` correctly.
+Let's submit this script to confirm that we've used `readarray`` correctly.
 
 ```bash
 sbatch myjob-array.sh
@@ -396,28 +349,328 @@ sbatch myjob-array.sh
 ```output
 Submitted batch job 11784737
 ```
-Because we've only passed the range `1-3` to the `--array` option, we should expect
+Because we've only passed the range `0-1` to the `--array` option, we should expect
 to only see outputs for the first 3 rows in `iterations.txt`:
 ```bash
 cat slurm-11784737_*.out
 ```
 ```output
+hello world from task 0
+I will run 100
+!
 hello world from task 1
-I will run 100!
+I will run 1000
+!
 hello world from task 2
-I will run 1000!
-hello world from task 3
-I will run 10000!
+I will run 10000
+!
 ```
-Which demonstrates that we've taken the first 3 lines of `iterations.txt` correctly!
+Which demonstrates that we've taken the first 3 lines of `iterations.txt` correctly! 
+But there's something wrong... the exclamation marks on the next line instead of at the end of the number!
+This is because `readarray` keeps newline characters when parsing the file.
+To turn off this behavior we need to add the `-t` option, so our `readarray` command becomes:
+
+```bash
+readarray -t niterations < iteration.txt
+```
+
+We can now make use of these values by passing the number of iterations to the `pi-cpu` command.
+We also need to change the array range to pull all the lines of the `iterations.txt` file.
+Change the array range and add the `pi-cpu` command to your script:
+
+```bash
+...
+#SBATCH --array=0-6
+#SBATCH --cpus-per-task=4
+
+srun ./pi-cpu -p ${SLURM_CPUS_PER_TASK} -n ${niterations[$SLURM_ARRAY_TASK_ID]}
+```
+
+You will also need to ensure that `--cpus-per-task` is provided here, as without
+that option, `SLURM_CPUS_PER_TASK` doesn't get set either.
+
+We can then submit the script:
+
+```bash
+sbatch myjob-array.sh
+# wait for the job tasks to finish...
+cat slurm-*.out
+```
+```output
+$ cat slurm-11913780_*.out
+hello world from task 0
+I will run 100!
+Result: 3.1600000000000 Error:  0.0184072589874 Time: 0.0003s
+... skipped output
+
+hello world from task 1
+I will run 1000!
+Result: 3.0480000000000 Error: -0.0935927410126 Time: 0.0004s
+... skipped output
+
+hello world from task 2
+I will run 10000!
+Result: 3.1344000000000 Error: -0.0071927410126 Time: 0.0056s
+... skipped output
+
+hello world from task 3
+I will run 100000!
+Result: 3.1431600000000 Error:  0.0015672589874 Time: 0.0013s
+... skipped output
+
+hello world from task 4
+I will run 1000000!
+Result: 3.1421880000000 Error:  0.0005952589874 Time: 0.0100s
+... skipped output
+
+hello world from task 5
+I will run 10000000!
+Result: 3.1419520000000 Error:  0.0003592589874 Time: 0.0936s
+... skipped output
+
+hello world from task 6
+I will run 100000000!
+Result: 3.1414855200000 Error: -0.0001072210126 Time: 0.9331s
+... skipped output
+```
+
+And now you can see the magnitude of the error, and the speed decreasing as we increase the
+number of iterations.
+
+### Multi-column data
+
+So far you've only needed one column of data (the number of iterations) to investigate accuracy with number of iterations.
+But, in many cases you might be interested in varying multiple variables with each array task.
+
+We can do this by adding another column to our data. Create a new file called iter-cpu.txt with the content:
+
+```
+iters cpus
+100 2
+100 4
+1000 2
+1000 4
+10000 2
+10000 4
+```
+
+The first row is now a header and rows 2-7 contains the data we'll use in our job arrays.
+Here, we're going to vary the value passed to `-p`.
+
+We can still execute `readarray` on this file:
+
+```bash
+readarray filedata < iter-cpu.txt
+echo ${filedata[0]}
+```
+```output
+iters cpus
+```
+
+But the columns don't get split!
+
+So how do we split the columns? `cut` is a tool you might be aware of (for example from an [introductory course](https://monashdatafluency.github.io/shell-novice/)).
+But, this time, lets split the lines of text using the `read` utility.
+
+We can use the "heredoc" operator `<<<` to pass text to the `read` command:
+
+```bash
+read <<< "hello world"
+echo $REPLY
+```
+```output
+hello world
+```
+
+By default, `read` saves what we send it to the variable `REPLY`.
+Note that unlike `readarray`, `REPLY` is not an array.
+We can choose the variable to save our input to by giving `read` a variable name:
+
+```bash
+read myvar <<< "hello world"
+echo $myvar
+```
+```output
+hello world
+```
+
+`read` is also useful because if we pass it more variable names, it will split the words into each of thoses variables.
+So, if we add another variable name to our previous `read` command:
+
+```bash
+read myvar1 myvar2 <<< "hello world"
+echo "myvar1: $myvar1, myvar2: $myvar2"
+```
+```output
+myvar1: hello, myvar2: world
+```
+
+::: challenge
+
+### parsing the `iter-cpu.txt` file
+
+We now know how to split lines of a file into an array using `readarray` and, as well as splitting strings with spaces into individual words!
+
+See if you can apply this to our current case: try and get **the first line** from `iter-cpu.txt` and save the first column into `niterations` and the second column into `ncpus` bash variables
+
+:::::::::::::
+
+::: solution
+
+As shown already we can save `iter-cpu.txt` into an array using
+
+```bash
+readarray -t rowdata < iter-cpu.txt
+```
+This gives us an array, `rowdata`, where each element is a line of text from `iter-cpu.txt`.
+To split the first line of the file into variables `niterations` and `ncpus`:
+
+```bash
+read niterations ncpus <<< "${rowdata[0]}"
+```
+
+`${rowdata[0]}` is referencing the first element of `rowdata`, and therefore the first line of text in `iter-cpu.txt`.
+`read` will take this the row data, and split the two words into `niterations` and `ncpus` variables.
+
+::::::::::::
+
+::: challenge
+
+### Which array indices?
+
+Our new text file not only has a new column, but we've also added headers.
+
+So, before we make use of `readarray` in our job array, should we change the range passed to `--array` to make sure our new Slurm array script works?
+
+:::::::::::::
+
+::: solution
+
+Yes we do! While we have the same number of rows in `iter-cpu.txt`, the first row
+is headers. If we passed those headers to `pi-cpu` instead of integer values, the program would fail.
+We need to ensure only array tasks 1-6 are being run (remember: the 0th index is the first row in the file i.e., the headers).
+
+Be aware of this when you write your own files and job array scripts!
+
+::::::::::::
+
+::: challenge
+
+### Use the second columns `iter-cpu.txt`
+
+Adapt your array job to use what we've learnt so far about `readarray` and `read` to adapt your script to make use of the 2 columns in `iter-cpu.txt`!
+The first column should be passed to `-n` and the second should be passed to `-p`.
+
+:::::::::::::
+
+::: solution
+
+We first need to modify the `readarray` line to read the correct file, and to use an appropriately named array variable:
+
+```bash
+readarray -t rowdata < iter-cpu.txt
+```
+
+We then need to split `rowdata` further into `niterations` and `ncpus`.
+To do this, we will adapt what we wrote for "Parsing the `iter-cpu.txt` file" challenge.
+Instead of reading the first "0th" element of `rowdata`, we'll use the `SLURM_ARRAY_TASK_ID` environment variable:
+
+```bash
+read niterations ncpus <<< ${rowdata[$SLURM_CPUS_PER_TASK]}
+```
+
+And finally, we can add `niterations` and `ncpus` to our echo and `pi-cpu` execution command!
+
+```bash
+echo "I will run $niterations iterations and with $ncpus CPUs!"
+
+srun pi-cpu -p $ncpus -n $niterations
+```
+
+Our final script should look something like:
+
+```bash
+#!/bin/bash
+
+#SBATCH --job-name=myjob
+#SBATCH --array=1-6
+#SBATCH --cpus-per-task=4
+
+
+echo "hello world from task ${SLURM_ARRAY_TASK_ID}"
+
+readarray -t rowdata < iter-cpu.txt
+read niterations ncpus <<< ${rowdata[$SLURM_CPUS_PER_TASK]}
+
+echo "I will run $niterations with $ncpus CPUs!"
+
+srun pi-cpu -p $ncpus -n $niterations
+```
+
+::::::::::::
+
+::: instructor
+
+You may wish to highlight that you cannot change the resource request between
+job array tasks. Everything controlled by an `sbatch` option is fixed between
+all the array tasks!
+
+::::::::::::::
+
+::: challenge
+
+### Different delimiters (optional)
+
+Here we showed how to split text that is seperated by spaces. e.g.
+
+```bash
+string="hello world"
+read word1 word1 <<< "$string"
+```
+
+But different delimiters can be used using the following syntax:
+
+```bash
+string="hello world"
+IFS=<delimiter> read word1 word2 <<< "$string"
+```
+
+`IFS` is a special environment variable used by bash to determine how to split strings.
+By setting it to a different character(s), you can control how `read` splits your string.
+What should you set `IFS` to to get the following output from `echo "word1: $word1, word2: $word2"`?
+
+1. `word1: hello , word2: orld`
+2. `word1: , word2: ello world`
+
+:::::::::::::
+
+::: solution
+
+1. `IFS=w`:
+```bash
+string="hello world"
+IFS=w read word1 word2 <<< "$string"
+echo "word1: $word1, word2: $word2"
+```
+```output
+word1: hello , word2: orld
+```
+2. `IFS=h`
+```bash
+string="hello world"
+IFS=h read word1 word2 <<< "$string"
+echo "word1: $word1, word2: $word2"
+```
+```output
+word1: , word2: ello world
+```
+::::::::::::
 
 ::: keypoints
 
--   Requesting more resources from Slurm doesn't mean your job knows how to use them!
-    - Many programs don't work in parallel by default - either that functionality doesn't exist, or needs to be turned on!
-    - Parallelism across nodes is differently parallelism within nodes. You usually need to run them a little differently than a normal program
--   The `htop` system tool is a great way to get live information about how effective your job is
--   `seff` and `sacct` can be used to get summary stats about jobs
--   More CPUs doesn't always mean an equivalent speedup!
+-   Slurm job arrays are a great way to parallelise similar jobs!
+-   The `SLURM_ARRAY_TASK_ID` environment variable is used to control individual array tasks' work
+-   A file with all the parameters can be used to control array task parameters
+-   `readarray` and `read` are useful tools to help you parse files. But it can also be done many other ways!
 
 :::
