@@ -293,22 +293,14 @@ stats about jobs</li>
 </ul></section><section id="04-jobarrays"><h2 class="section-heading"><a href="04-jobarrays.html">Job Arrays</a></h2>
 <hr class="half-width">
 <ul>
-<li>Requesting more resources from Slurm doesn’t mean your job knows how
-to use them!
-<ul>
-<li>Many programs don’t work in parallel by default - either that
-functionality doesn’t exist, or needs to be turned on!</li>
-<li>Parallelism across nodes is differently parallelism within nodes.
-You usually need to run them a little differently than a normal
-program</li>
-</ul>
-</li>
-<li>The <code>htop</code> system tool is a great way to get live
-information about how effective your job is</li>
+<li>Slurm job arrays are a great way to parallelise similar jobs!</li>
+<li>The <code>SLURM_ARRAY_TASK_ID</code> environment variable is used to
+control individual array tasks’ work</li>
+<li>A file with all the parameters can be used to control array task
+parameters</li>
 <li>
-<code>seff</code> and <code>sacct</code> can be used to get summary
-stats about jobs</li>
-<li>More CPUs doesn’t always mean an equivalent speedup!</li>
+<code>readarray</code> and <code>read</code> are useful tools to
+help you parse files. But it can also be done many other ways!</li>
 </ul></section>
 </div>
     </main>
@@ -334,7 +326,7 @@ stats about jobs</li>
         <p>Materials licensed under <a href="../LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.11.16" class="external-link">sandpaper (0.11.16)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper" class="external-link">sandpaper (0.11.18)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
       and <a href="https://github.com/carpentries/varnish/tree/0.2.16" class="external-link">varnish (0.2.16)</a>.</p>
 			</div>
@@ -358,8 +350,8 @@ stats about jobs</li>
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/key-points.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/key-points.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-05-16",
-  "datePublished": "2023-05-16"
+  "dateModified": "2023-05-19",
+  "datePublished": "2023-05-19"
 }
 
   </script><script>
