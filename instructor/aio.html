@@ -324,12 +324,12 @@ to run optimally. Maybe you’ve received emails from grumpy sysadmins
 about inappropriately using resources. Or maybe you want to know how to
 make it easier to more easily submit many similar jobs or jobs that
 depend on each other.</p>
-<div id="discussion1" class="callout discussion">
+<div id="how-would-you-do-it" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="how-would-you-do-it" class="callout-inner">
-<h3 class="callout-title">How would you do it?<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+<h3 class="callout-title">How would you do it?<a class="anchor" aria-label="anchor" href="#how-would-you-do-it"></a>
 </h3>
 <div class="callout-content">
 <p>Let’s imagine you have hundreds of files that you need to run the
@@ -345,7 +345,7 @@ so how would you go about submitting those jobs at first?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>If you’re new to Linux, you might’ve thought about submitting these
 jobs manually! If you’ve done a bit of scripting, you might’ve thought
@@ -357,12 +357,12 @@ submit many similar jobs in one go!</p>
 </div>
 </div>
 </div>
-<div id="discussion2" class="callout discussion">
+<div id="how-would-you-do-it-1" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="how-would-you-do-it-1" class="callout-inner">
-<h3 class="callout-title">How would you do it?<a class="anchor" aria-label="anchor" href="#discussion2"></a>
+<h3 class="callout-title">How would you do it?<a class="anchor" aria-label="anchor" href="#how-would-you-do-it-1"></a>
 </h3>
 <div class="callout-content">
 <p>What about workflows that happen in steps and where these steps have
@@ -379,7 +379,7 @@ is single-threaded only?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>If the second step is short, you might put the two steps into a
 single Slurm job. But what if the second step takes a large amount of
@@ -401,7 +401,7 @@ to help with pipelines. We’ll cover this in a future episode!</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>The challenges can be done together with the researchers input.</p>
 </div>
@@ -479,12 +479,12 @@ about at a conference recently. A useful feature is that it works in
 parallel, and is consequently quite fast! You try running the program on
 your laptop, and it takes about 4 seconds for each calculation of <span class="math inline">\(\pi\)</span>. This is a little slow, so you try
 running it on Milton</p>
-<div id="discussion1" class="callout discussion">
+<div id="running-the-program" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="running-the-program" class="callout-inner">
-<h3 class="callout-title">Running the Program<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+<h3 class="callout-title">Running the Program<a class="anchor" aria-label="anchor" href="#running-the-program"></a>
 </h3>
 <div class="callout-content">
 <p>In the example-programs.zip file, is the <code>pi-cpu</code>
@@ -618,13 +618,13 @@ and <code>sacct</code> are useless if the job ends prematurely.</p>
 </div>
 </div>
 </div>
-<div id="discussion2" class="callout discussion">
+<div id="sbatch---wrap" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="sbatch---wrap" class="callout-inner">
 <h3 class="callout-title">
-<code>sbatch --wrap</code><a class="anchor" aria-label="anchor" href="#discussion2"></a>
+<code>sbatch --wrap</code><a class="anchor" aria-label="anchor" href="#sbatch---wrap"></a>
 </h3>
 <div class="callout-content">
 <p>the <code>--wrap</code> option lets us pass a singular command to
@@ -757,12 +757,12 @@ work in parallel.</p>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> 11089020</span></code></pre>
 </div>
-<div id="discussion3" class="callout discussion">
+<div id="job-summary-with-seff" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="job-summary-with-seff" class="callout-inner">
-<h3 class="callout-title">Job summary with <code>seff</code><a class="anchor" aria-label="anchor" href="#discussion3"></a>
+<h3 class="callout-title">Job summary with <code>seff</code><a class="anchor" aria-label="anchor" href="#job-summary-with-seff"></a>
 </h3>
 <div class="callout-content">
 <p>Now that the job is over, try verfying the efficiency of the job with
@@ -921,12 +921,12 @@ physical CPU core.</p>
 </div>
 </div>
 </div>
-<div id="discussion5" class="callout discussion">
+<div id="using-more-cpu-cores" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="using-more-cpu-cores" class="callout-inner">
-<h3 class="callout-title">Using more CPU cores<a class="anchor" aria-label="anchor" href="#discussion5"></a>
+<h3 class="callout-title">Using more CPU cores<a class="anchor" aria-label="anchor" href="#using-more-cpu-cores"></a>
 </h3>
 <div class="callout-content">
 <p>You’re really determined to get the run-time down on this calculation
@@ -1015,12 +1015,12 @@ but <em>faster</em>.</p>
 </div>
 </div>
 </div>
-<div id="discussion6" class="callout discussion">
+<div id="hyperthreading" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="hyperthreading" class="callout-inner">
-<h3 class="callout-title">Hyperthreading<a class="anchor" aria-label="anchor" href="#discussion6"></a>
+<h3 class="callout-title">Hyperthreading<a class="anchor" aria-label="anchor" href="#hyperthreading"></a>
 </h3>
 <div class="callout-content">
 <p>Do a rough calculation of the speedup efficiency of
@@ -1115,12 +1115,12 @@ facilities equate Slurm CPUs to physical CPU cores, not hypertheads.</p>
 </div>
 </div>
 </div>
-<div id="discussion7" class="callout discussion">
+<div id="using-multiple-nodes" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="using-multiple-nodes" class="callout-inner">
-<h3 class="callout-title">Using multiple nodes<a class="anchor" aria-label="anchor" href="#discussion7"></a>
+<h3 class="callout-title">Using multiple nodes<a class="anchor" aria-label="anchor" href="#using-multiple-nodes"></a>
 </h3>
 <div class="callout-content">
 <p>You may already be aware of the fact that you can request
@@ -1396,12 +1396,12 @@ above job submission produced:</p>
 </h3>
 <pre class="output" tabindex="0"><code>slurm-11784178_1.out  slurm-11784178_2.out  slurm-11784178_3.out</code></pre>
 </div>
-<div id="discussion1" class="callout discussion">
+<div id="cancelling-array-jobs" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="cancelling-array-jobs" class="callout-inner">
-<h3 class="callout-title">Cancelling array jobs<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+<h3 class="callout-title">Cancelling array jobs<a class="anchor" aria-label="anchor" href="#cancelling-array-jobs"></a>
 </h3>
 <div class="callout-content">
 <p>When cancelling jobs, you can reference individual array tasks, a
@@ -1470,7 +1470,7 @@ Memory: 4096MB</code></pre>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>The Slurm environment variables needed here are
 <code>SLURM_CPUS_PER_TASK</code>, <code>SLURM_JOB_NODELIST</code>, and
@@ -1519,7 +1519,7 @@ would be empty!</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p><a href="https://monashdatafluency.github.io/shell-novice/" class="external-link">Intro to
 Linux Command Line</a> is specified as a prerequisite, so learners
@@ -1672,12 +1672,12 @@ that variable instead e.g.:</p>
 <p>Can you start to see how we might combine the Slurm array index and
 our bash array to pass different iteration values to
 <code>pi-cpu</code>?</p>
-<div id="callout1" class="callout callout">
+<div id="tests" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div id="tests" class="callout-inner">
-<h3 class="callout-title">Tests<a class="anchor" aria-label="anchor" href="#callout1"></a>
+<h3 class="callout-title">Tests<a class="anchor" aria-label="anchor" href="#tests"></a>
 </h3>
 <div class="callout-content">
 <p>It’s generally good practice to <em>test</em> your array job before
@@ -1893,13 +1893,13 @@ add another variable name to our previous <code>read</code> command:</p>
 </h3>
 <pre class="output" tabindex="0"><code>myvar1: hello, myvar2: world</code></pre>
 </div>
-<div id="discussion3" class="callout discussion">
+<div id="parsing-the-iter-cpu.txt-file" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="parsing-the-iter-cpu.txt-file" class="callout-inner">
 <h3 class="callout-title">parsing the <code>iter-cpu.txt</code>
-file<a class="anchor" aria-label="anchor" href="#discussion3"></a>
+file<a class="anchor" aria-label="anchor" href="#parsing-the-iter-cpu.txt-file"></a>
 </h3>
 <div class="callout-content">
 <p>We now know how to split lines of a file into an array using
@@ -1919,7 +1919,7 @@ into <code>ncpus</code> bash variables</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>As shown already we can save <code>iter-cpu.txt</code> into an array
 using</p>
@@ -1946,12 +1946,12 @@ data, and split the two words into <code>niterations</code> and
 </div>
 </div>
 </div>
-<div id="discussion4" class="callout discussion">
+<div id="which-array-indices" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="which-array-indices" class="callout-inner">
-<h3 class="callout-title">Which array indices?<a class="anchor" aria-label="anchor" href="#discussion4"></a>
+<h3 class="callout-title">Which array indices?<a class="anchor" aria-label="anchor" href="#which-array-indices"></a>
 </h3>
 <div class="callout-content">
 <p>Our new text file not only has a new column, but we’ve also added
@@ -1969,7 +1969,7 @@ our new Slurm array script works?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Yes we do! While we have the same number of rows in
 <code>iter-cpu.txt</code>, the first row is headers. If we passed those
@@ -1983,13 +1983,13 @@ scripts!</p>
 </div>
 </div>
 </div>
-<div id="discussion5" class="callout discussion">
+<div id="use-the-second-columns-iter-cpu.txt" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="use-the-second-columns-iter-cpu.txt" class="callout-inner">
 <h3 class="callout-title">Use the second columns
-<code>iter-cpu.txt</code><a class="anchor" aria-label="anchor" href="#discussion5"></a>
+<code>iter-cpu.txt</code><a class="anchor" aria-label="anchor" href="#use-the-second-columns-iter-cpu.txt"></a>
 </h3>
 <div class="callout-content">
 <p>Adapt your array job to use what we’ve learnt so far about
@@ -2007,7 +2007,7 @@ should be passed to <code>-n</code> and the second should be passed to
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>We first need to modify the <code>readarray</code> line to read the
 correct file, and to use an appropriately named array variable:</p>
@@ -2069,7 +2069,7 @@ command!</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
 <div class="accordion-body">
 <p>You may wish to highlight that you cannot change the resource request
 between job array tasks. Everything controlled by an <code>sbatch</code>
@@ -2078,12 +2078,12 @@ option is fixed between all the array tasks!</p>
 </div>
 </div>
 </div>
-<div id="discussion6" class="callout discussion">
+<div id="different-delimiters-optional" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="different-delimiters-optional" class="callout-inner">
-<h3 class="callout-title">Different delimiters (optional)<a class="anchor" aria-label="anchor" href="#discussion6"></a>
+<h3 class="callout-title">Different delimiters (optional)<a class="anchor" aria-label="anchor" href="#different-delimiters-optional"></a>
 </h3>
 <div class="callout-content">
 <p>Here we showed how to split text that is seperated by spaces.
@@ -2120,7 +2120,7 @@ What should you set <code>IFS</code> to to get the following output from
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -2208,9 +2208,9 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="../LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper" class="external-link">sandpaper (0.11.18)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper" class="external-link">sandpaper (0.12.1)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
-      and <a href="https://github.com/carpentries/varnish/tree/0.2.16" class="external-link">varnish (0.2.16)</a>.</p>
+      and <a href="https://github.com/carpentries/varnish/tree/0.2.17" class="external-link">varnish (0.2.17)</a>.</p>
 			</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -2232,8 +2232,8 @@ any links that you are not going to use.
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/aio.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/aio.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-05-19",
-  "datePublished": "2023-05-19"
+  "dateModified": "2023-05-26",
+  "datePublished": "2023-05-26"
 }
 
   </script><script>

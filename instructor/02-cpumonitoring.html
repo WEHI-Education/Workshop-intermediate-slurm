@@ -281,12 +281,12 @@ about at a conference recently. A useful feature is that it works in
 parallel, and is consequently quite fast! You try running the program on
 your laptop, and it takes about 4 seconds for each calculation of <span class="math inline">\(\pi\)</span>. This is a little slow, so you try
 running it on Milton</p>
-<div id="discussion1" class="callout discussion">
+<div id="running-the-program" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="running-the-program" class="callout-inner">
-<h3 class="callout-title">Running the Program<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+<h3 class="callout-title">Running the Program<a class="anchor" aria-label="anchor" href="#running-the-program"></a>
 </h3>
 <div class="callout-content">
 <p>In the example-programs.zip file, is the <code>pi-cpu</code>
@@ -415,13 +415,13 @@ and <code>sacct</code> are useless if the job ends prematurely.</p>
 </div>
 </div>
 </div>
-<div id="discussion2" class="callout discussion">
+<div id="sbatch---wrap" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="sbatch---wrap" class="callout-inner">
 <h3 class="callout-title">
-<code>sbatch --wrap</code><a class="anchor" aria-label="anchor" href="#discussion2"></a>
+<code>sbatch --wrap</code><a class="anchor" aria-label="anchor" href="#sbatch---wrap"></a>
 </h3>
 <div class="callout-content">
 <p>the <code>--wrap</code> option lets us pass a singular command to
@@ -554,12 +554,12 @@ work in parallel.</p>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> 11089020</span></code></pre>
 </div>
-<div id="discussion3" class="callout discussion">
+<div id="job-summary-with-seff" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="job-summary-with-seff" class="callout-inner">
-<h3 class="callout-title">Job summary with <code>seff</code><a class="anchor" aria-label="anchor" href="#discussion3"></a>
+<h3 class="callout-title">Job summary with <code>seff</code><a class="anchor" aria-label="anchor" href="#job-summary-with-seff"></a>
 </h3>
 <div class="callout-content">
 <p>Now that the job is over, try verfying the efficiency of the job with
@@ -717,12 +717,12 @@ physical CPU core.</p>
 </div>
 </div>
 </div>
-<div id="discussion5" class="callout discussion">
+<div id="using-more-cpu-cores" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="using-more-cpu-cores" class="callout-inner">
-<h3 class="callout-title">Using more CPU cores<a class="anchor" aria-label="anchor" href="#discussion5"></a>
+<h3 class="callout-title">Using more CPU cores<a class="anchor" aria-label="anchor" href="#using-more-cpu-cores"></a>
 </h3>
 <div class="callout-content">
 <p>You’re really determined to get the run-time down on this calculation
@@ -811,12 +811,12 @@ but <em>faster</em>.</p>
 </div>
 </div>
 </div>
-<div id="discussion6" class="callout discussion">
+<div id="hyperthreading" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="hyperthreading" class="callout-inner">
-<h3 class="callout-title">Hyperthreading<a class="anchor" aria-label="anchor" href="#discussion6"></a>
+<h3 class="callout-title">Hyperthreading<a class="anchor" aria-label="anchor" href="#hyperthreading"></a>
 </h3>
 <div class="callout-content">
 <p>Do a rough calculation of the speedup efficiency of
@@ -911,12 +911,12 @@ facilities equate Slurm CPUs to physical CPU cores, not hypertheads.</p>
 </div>
 </div>
 </div>
-<div id="discussion7" class="callout discussion">
+<div id="using-multiple-nodes" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div id="using-multiple-nodes" class="callout-inner">
-<h3 class="callout-title">Using multiple nodes<a class="anchor" aria-label="anchor" href="#discussion7"></a>
+<h3 class="callout-title">Using multiple nodes<a class="anchor" aria-label="anchor" href="#using-multiple-nodes"></a>
 </h3>
 <div class="callout-content">
 <p>You may already be aware of the fact that you can request
@@ -1081,9 +1081,9 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="../LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper" class="external-link">sandpaper (0.11.18)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper" class="external-link">sandpaper (0.12.1)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
-      and <a href="https://github.com/carpentries/varnish/tree/0.2.16" class="external-link">varnish (0.2.16)</a>.</p>
+      and <a href="https://github.com/carpentries/varnish/tree/0.2.17" class="external-link">varnish (0.2.17)</a>.</p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1105,7 +1105,7 @@ any links that you are not going to use.
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/02-cpumonitoring.html",
   "dateCreated": "2023-04-13",
   "dateModified": "2023-05-12",
-  "datePublished": "2023-05-19"
+  "datePublished": "2023-05-26"
 }
 
   </script><script>
