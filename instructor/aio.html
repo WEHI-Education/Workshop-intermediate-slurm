@@ -502,7 +502,7 @@ in less time than 4s?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -602,7 +602,7 @@ job with <code>sbatch</code>. We can do so by</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>You might get questions as to why <code>srun</code> should be used.
 In many cases it’s not important, but <code>srun</code> helps Slurm
@@ -686,7 +686,7 @@ CPU usage.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
 <div class="accordion-body">
 <p>You may wish to explain how to distinguish processes of interest from
 system processes. Usually, the process of interest will be identifiable
@@ -778,7 +778,7 @@ work in parallel.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -844,7 +844,7 @@ cores on Slurm!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Both the documentation and <code>--help</code> output would’ve shown
 that the <code>-p &lt;N&gt;</code> option is needed to execute the code
@@ -910,7 +910,7 @@ the machine you’re running on.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
 <div class="accordion-body">
 <p>The output from the last challenge may suggest to learners that using
 4 CPUs only results in a 2 times speedup, but this result is due to
@@ -945,7 +945,7 @@ number of CPUs and see what happens with the time it takes to calculate
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1042,7 +1042,7 @@ requesting 4 cores from Slurm, but still using <code>-p 2</code>?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <p>Comparing 1 CPU with 2 CPUs:</p>
 <div class="codewrapper sourceCode" id="cb33">
@@ -1163,7 +1163,7 @@ be!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
 <div class="accordion-body">
 <p>in the <a href="https://dummy.com#parallel-scheme" class="external-link">parallel
 scheme</a> section, you will find that to run the program across nodes,
@@ -1215,7 +1215,7 @@ distributed computing frameworks exist, like Spark + Hadoop.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
+<div id="collapseInstructor4" class="accordion-collapse collapse" aria-labelledby="headingInstructor4" data-bs-parent="#accordionInstructor4">
 <div class="accordion-body">
 <p>With regard to the last exercise, you may wish to highlight what
 happens when you try to run a program inside <code>sbatch</code>,
@@ -2208,7 +2208,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="../LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper" class="external-link">sandpaper (0.12.1)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.2" class="external-link">sandpaper (0.12.2)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
       and <a href="https://github.com/carpentries/varnish/tree/0.2.17" class="external-link">varnish (0.2.17)</a>.</p>
 			</div>
@@ -2232,8 +2232,8 @@ any links that you are not going to use.
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/aio.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/aio.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-05-26",
-  "datePublished": "2023-05-26"
+  "dateModified": "2023-05-30",
+  "datePublished": "2023-05-30"
 }
 
   </script><script>
