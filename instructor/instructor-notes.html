@@ -201,7 +201,55 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="04-jobarrays.html">3. Job Arrays</a>
+        <a href="03-moremonitoring.html">3. Memory and GPU utilization</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="04-jobarrays.html">4. Job Arrays</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="05-jobdependencies.html">5. Organising dependent Slurm jobs</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush7">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading7">
+        <a href="06-rpython.html">6. R and Python Slurm scripts</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush8">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading8">
+        <a href="07-usefulopts.html">7. Job Arrays</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -321,6 +369,15 @@ requesting multiple nodes, but executing the program without
 requested will be idle. Whereas with <code>srun</code>, multiple copies
 of the program will be started.</p>
 <hr>
+<br></section><section id="03-moremonitoring"><h2 class="section-heading"><a href="03-moremonitoring.html">Memory and GPU utilization</a></h2>
+<hr class="half-width">
+<h3 id="03-moremonitoring-headingInstructor1">
+<a href="03-moremonitoring.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#03-moremonitoring-headingInstructor1"></a>
+</h3>
+<p><code>pi-gpu</code>’s numtrials parameter is not a direct analogy to
+chunk-size parameters in data processing programs, so you may need to
+explain further.</p>
+<hr>
 <br></section><section id="04-jobarrays"><h2 class="section-heading"><a href="04-jobarrays.html">Job Arrays</a></h2>
 <hr class="half-width">
 <h3 id="04-jobarrays-headingInstructor1">
@@ -339,7 +396,10 @@ what environment variables are.</p>
 between job array tasks. Everything controlled by an <code>sbatch</code>
 option is fixed between all the array tasks!</p>
 <hr>
-<br></section></section>
+<br></section><section id="05-jobdependencies"><h2 class="section-heading"><a href="05-jobdependencies.html">Organising dependent Slurm jobs</a></h2>
+<hr class="half-width"></section><section id="06-rpython"><h2 class="section-heading"><a href="06-rpython.html">R and Python Slurm scripts</a></h2>
+<hr class="half-width"></section><section id="07-usefulopts"><h2 class="section-heading"><a href="07-usefulopts.html">Job Arrays</a></h2>
+<hr class="half-width"></section></section>
 </div>
     </main>
 </div>

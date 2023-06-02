@@ -201,7 +201,55 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="04-jobarrays.html">3. Job Arrays</a>
+        <a href="03-moremonitoring.html">3. Memory and GPU utilization</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="04-jobarrays.html">4. Job Arrays</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="05-jobdependencies.html">5. Organising dependent Slurm jobs</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush7">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading7">
+        <a href="06-rpython.html">6. R and Python Slurm scripts</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush8">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading8">
+        <a href="07-usefulopts.html">7. Job Arrays</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -290,7 +338,56 @@ information about how effective your job is</li>
 <code>seff</code> and <code>sacct</code> can be used to get summary
 stats about jobs</li>
 <li>More CPUs doesn’t always mean an equivalent speedup!</li>
+</ul></section><section id="03-moremonitoring"><h2 class="section-heading"><a href="03-moremonitoring.html">Memory and GPU utilization</a></h2>
+<hr class="half-width">
+<ul>
+<li>Choosing the right memory for you Slurm jobs takes a bit of trial
+and error, but it helps to know a bit about how your program
+behaves!</li>
+<li>
+<code>htop</code> should be used to observe memory usage when memory
+usage varies frequently throughout the lifespan of the program.
+<code>sacct</code> and <code>seff</code> are good for programs that
+maintain steady memory usage.</li>
+<li>
+<code>nvtop</code> is a <code>htop</code>-like tool for monitoring
+GPU activity</li>
+<li>When optimizing GPU programs’ parameters, try to aim for full
+utilization!</li>
 </ul></section><section id="04-jobarrays"><h2 class="section-heading"><a href="04-jobarrays.html">Job Arrays</a></h2>
+<hr class="half-width">
+<ul>
+<li>Slurm job arrays are a great way to parallelise similar jobs!</li>
+<li>The <code>SLURM_ARRAY_TASK_ID</code> environment variable is used to
+control individual array tasks’ work</li>
+<li>A file with all the parameters can be used to control array task
+parameters</li>
+<li>
+<code>readarray</code> and <code>read</code> are useful tools to
+help you parse files. But it can also be done many other ways!</li>
+</ul></section><section id="05-jobdependencies"><h2 class="section-heading"><a href="05-jobdependencies.html">Organising dependent Slurm jobs</a></h2>
+<hr class="half-width">
+<ul>
+<li>Slurm job arrays are a great way to parallelise similar jobs!</li>
+<li>The <code>SLURM_ARRAY_TASK_ID</code> environment variable is used to
+control individual array tasks’ work</li>
+<li>A file with all the parameters can be used to control array task
+parameters</li>
+<li>
+<code>readarray</code> and <code>read</code> are useful tools to
+help you parse files. But it can also be done many other ways!</li>
+</ul></section><section id="06-rpython"><h2 class="section-heading"><a href="06-rpython.html">R and Python Slurm scripts</a></h2>
+<hr class="half-width">
+<ul>
+<li>Slurm job arrays are a great way to parallelise similar jobs!</li>
+<li>The <code>SLURM_ARRAY_TASK_ID</code> environment variable is used to
+control individual array tasks’ work</li>
+<li>A file with all the parameters can be used to control array task
+parameters</li>
+<li>
+<code>readarray</code> and <code>read</code> are useful tools to
+help you parse files. But it can also be done many other ways!</li>
+</ul></section><section id="07-usefulopts"><h2 class="section-heading"><a href="07-usefulopts.html">Job Arrays</a></h2>
 <hr class="half-width">
 <ul>
 <li>Slurm job arrays are a great way to parallelise similar jobs!</li>

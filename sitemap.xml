@@ -7,7 +7,19 @@
     <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/02-cpumonitoring.html</loc>
   </url>
   <url>
+    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/03-moremonitoring.html</loc>
+  </url>
+  <url>
     <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/04-jobarrays.html</loc>
+  </url>
+  <url>
+    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/05-jobdependencies.html</loc>
+  </url>
+  <url>
+    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/06-rpython.html</loc>
+  </url>
+  <url>
+    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/07-usefulopts.html</loc>
   </url>
   <url>
     <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/404.html</loc>
@@ -34,7 +46,19 @@
     <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/02-cpumonitoring.html</loc>
   </url>
   <url>
+    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/03-moremonitoring.html</loc>
+  </url>
+  <url>
     <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/04-jobarrays.html</loc>
+  </url>
+  <url>
+    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/05-jobdependencies.html</loc>
+  </url>
+  <url>
+    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/06-rpython.html</loc>
+  </url>
+  <url>
+    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/07-usefulopts.html</loc>
   </url>
   <url>
     <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/404.html</loc>

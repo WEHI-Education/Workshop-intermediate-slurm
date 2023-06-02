@@ -201,7 +201,55 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="04-jobarrays.html">3. Job Arrays</a>
+        <a href="03-moremonitoring.html">3. Memory and GPU utilization</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="04-jobarrays.html">4. Job Arrays</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="05-jobdependencies.html">5. Organising dependent Slurm jobs</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush7">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading7">
+        <a href="06-rpython.html">6. R and Python Slurm scripts</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush8">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading8">
+        <a href="07-usefulopts.html">7. Job Arrays</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -345,7 +393,7 @@ so how would you go about submitting those jobs at first?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>If you’re new to Linux, you might’ve thought about submitting these
 jobs manually! If you’ve done a bit of scripting, you might’ve thought
@@ -379,7 +427,7 @@ is single-threaded only?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>If the second step is short, you might put the two steps into a
 single Slurm job. But what if the second step takes a large amount of
@@ -401,7 +449,7 @@ to help with pipelines. We’ll cover this in a future episode!</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>The challenges can be done together with the researchers input.</p>
 </div>
@@ -503,7 +551,7 @@ in less time than 1.2s?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -605,7 +653,7 @@ indefinitely. We can do so by</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>You might get questions as to why <code>srun</code> should be used.
 In many cases it’s not important, but <code>srun</code> helps Slurm
@@ -689,7 +737,7 @@ CPU usage.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <p>You may wish to explain how to distinguish processes of interest from
 system processes. Usually, the process of interest will be identifiable
@@ -782,7 +830,7 @@ with <code>seff</code>. What is the CPU Efficiency (%) that the
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -848,7 +896,7 @@ cores on Slurm!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Both the documentation and <code>--help</code> output would’ve shown
 that the <code>-p &lt;N&gt;</code> option is needed to execute the code
@@ -914,7 +962,7 @@ the machine you’re running on.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
 <div class="accordion-body">
 <p>The output from the last challenge may suggest to learners that using
 4 CPUs only results in a 2 times speedup, but this result is due to
@@ -949,7 +997,7 @@ number of CPUs and see what happens with the time it takes to calculate
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1046,7 +1094,7 @@ requesting 4 cores from Slurm, but still using <code>-p 2</code>?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>Comparing 1 CPU with 2 CPUs:</p>
 <div class="codewrapper sourceCode" id="cb33">
@@ -1167,7 +1215,7 @@ be!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
 <div class="accordion-body">
 <p>in the <a href="https://dummy.com#parallel-scheme" class="external-link">parallel
 scheme</a> section, you will find that to run the program across nodes,
@@ -1219,7 +1267,7 @@ distributed computing frameworks exist, like Spark + Hadoop.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor4" class="accordion-collapse collapse" aria-labelledby="headingInstructor4" data-bs-parent="#accordionInstructor4">
+<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
 <div class="accordion-body">
 <p>With regard to the last exercise, you may wish to highlight what
 happens when you try to run a program inside <code>sbatch</code>,
@@ -1265,6 +1313,643 @@ stats about jobs</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
+</section></section><section id="aio-03-moremonitoring"><p>Content from <a href="03-moremonitoring.html">Memory and GPU utilization</a></p>
+<hr>
+<p> Last updated on 2023-06-02 | 
+        
+        <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/03-moremonitoring.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right"> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>How do I track how much memory my jobs are using?</li>
+<li>How do I select an appropriate memory value for my Slurm job?</li>
+<li>How can I monitor performance of jobs that use GPUs?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Learn how to use <code>htop</code>, <code>seff</code>, and
+<code>sacct</code> to view memory usage</li>
+<li>Learn how to use <code>nvidia-smi</code>, <code>nvtop</code>, and
+<code>dcgmstats</code> to query GPU activity</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="investigating-other-implementations-of-the-pi-algorithm"><h2 class="section-heading">Investigating other implementations of the <span class="math inline">\(\pi\)</span> algorithm<a class="anchor" aria-label="anchor" href="#investigating-other-implementations-of-the-pi-algorithm"></a>
+</h2>
+<hr class="half-width">
+<p>Some time after your initial investigation, your supervisor shares
+that the authors of the previous <code>pi-cpu</code> program has now
+released the <code>pi-cpu2</code> program, as well as the
+<code>pi-gpu</code> program - both implementing the same algorithm for
+calculating <span class="math inline">\(\pi\)</span>.
+<code>pi-gpu</code> ports the <span class="math inline">\(\pi\)</span>
+calculation algorithm to the GPU, and <code>pi-cpu2</code> changes the
+algorithm to improve speed at the cost of memory usage.</p>
+</section><section id="investigating-memory-usage-of-pi-cpu2"><h2 class="section-heading">Investigating memory usage of <code>pi-cpu2</code><a class="anchor" aria-label="anchor" href="#investigating-memory-usage-of-pi-cpu2"></a>
+</h2>
+<hr class="half-width">
+<p>In the example programs, there should be the <code>pi-cpu2</code>
+executable. Lets verify the authors claims that it should be faster
+using <code>srun</code>. Make sure to add the <code>--constraint</code>
+option to ensure your times are consistent!</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>srun: job 12064697 queued and waiting for resources
+srun: job 12064697 has been allocated resources
+slurmstepd: error: Detected 1 oom_kill event in StepId=12064697.0. Some of the step tasks have been OOM Killed.
+srun: error: il-n01: task 0: Out Of Memory</code></pre>
+</div>
+<p>Ok, that wasn’t what we expected! The error message says that our job
+was <code>OOM Killed</code> and that <code>task 0: Out Of Memory</code>.
+Here, <code>OOM</code> is an abbreviation for Out Of Memory. The overall
+error message is indicating that your job exceeded the memory allocation
+of your job, which caused Slurm to cancel it. If we use
+<code>seff</code> on that job:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">seff</span> 12064697</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Job ID: 12064697
+Cluster: milton
+User/Group: yang.e/allstaff
+State: OUT_OF_MEMORY (exit code 0)
+Nodes: 1
+Cores per node: 2
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 00:00:00 core-walltime
+Job Wall-clock time: 00:00:00
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 20.00 MB (10.00 MB/core)</code></pre>
+</div>
+<p>You will find that it produces only the requested resources and the
+<code>OUT_OF_MEMORY</code> state and no utilization information is
+found. Similarly, if we execute <code>sacct</code>, we should see
+<code>OUT_OF_ME+</code> and <code>0:125</code> under the
+<code>STATE</code> and <code>ExitCode</code> columns, respectively:</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>JobID           JobName  Partition    Account  AllocCPUS      State ExitCode 
+------------ ---------- ---------- ---------- ---------- ---------- --------
+... skipped output...
+12064697        pi-cpu2    regular       wehi          2 OUT_OF_ME+    0:125 
+12064697.ex+     extern                  wehi          2 OUT_OF_ME+    0:125 
+12064697.0      pi-cpu2                  wehi          2 OUT_OF_ME+    0:125</code></pre>
+</div>
+<div id="discussion1" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion1"></a>
+</h3>
+<div class="callout-content">
+<p>This job failed because it started and then ran out of memory almost
+immediately. Some jobs may only request large amounts of memory after
+the program has been running awhile. In those cases, <code>seff</code>
+and <code>sacct</code> may still produce meaningful output.</p>
+</div>
+</div>
+</div>
+<p>Unfortunately, Slurm hasn’t given you a lot of information about how
+much memory you <em>should</em> request. When you’re first testing out a
+program, a good test is to run the program on your laptop or on the
+login node (for a short amount of time) and monitor the process using
+<code>htop</code>.</p>
+<div id="revising-htop" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="revising-htop" class="callout-inner">
+<h3 class="callout-title">Revising <code>htop</code><a class="anchor" aria-label="anchor" href="#revising-htop"></a>
+</h3>
+<div class="callout-content">
+<p>You learnt how to use <code>htop</code> in the previous lesson, but
+for when your job is running on a compute node. So you can find out how
+much memory to request from Slurm, try run <code>pi-cpu2</code> on one
+of the login nodes to see how much memory it needs. Remember: you’re
+interested in the <code>RES</code> column!</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">
+  Show me the solution
+  </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
+<p>On one of the login nodes, execute the <code>pi-cpu2</code> program.
+You will want to ensure it runs indefinitely, so you have time to run
+<code>htop</code>:</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./pi-cpu2</span> <span class="at">-r</span> <span class="at">-1</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Result: 3.1418780541911 Error:  0.0002853131785 Time: 6.2856s
+Result: 3.1416545913891 Error:  0.0000618503765 Time: 4.6628s
+Result: 3.1414653105873 Error: -0.0001274304252 Time: 4.1556s
+... It will continue on...</code></pre>
+</div>
+<p>In another terminal, you can ssh to the same login node you ran
+<code>pi-cpu2</code> on and then run <code>htop</code>:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> slurm-login01</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+</div>
+<figure><img src="../fig/htop-screenshot-pi2.png" alt="" class="figure mx-auto d-block"><figcaption><code>htop</code> screenshot with
+<code>pi-cpu2</code> running</figcaption></figure><p>The RES column should show a <em>peak</em> usage of roughly 1900MB,
+but that number will fluctuate while the program runs.</p>
+</div>
+</div>
+</div>
+</div>
+<p>You now know that requesting 2GB of memory from Slurm should be
+sufficient. The default memory on Milton is 10MB per CPU, and that
+definitely wouldn’t be enough! Try running <code>pi-cpu2</code> with the
+appropriate amount of memory:</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>2G <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>srun: job 12066042 queued and waiting for resources
+srun: job 12066042 has been allocated resources
+Result: 3.1416610065891 Error:  0.0000682655765 Time: 2.9627s
+Result: 3.1416797985893 Error:  0.0000870575767 Time: 2.9501s
+Result: 3.1418230713906 Error:  0.0002303303780 Time: 2.9519s</code></pre>
+</div>
+<p>And it’s now running successfully! We can also see that the program
+is indeed faster, as the old version took roughly 3.6s for each
+calculation of <span class="math inline">\(\pi\)</span> on one core.</p>
+<div id="discussion3" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion3"></a>
+</h3>
+<div class="callout-content">
+<p>Determining how much memory to request from Slurm is not
+straightforward. Sometimes, the documentation may provide some
+indication of how much resources the software will use. However if this
+isn’t the case, testing the program on your laptop or the login node can
+be used to give an indication.</p>
+<p>If your program uses too much memory, see if you can find smaller
+test cases, and study how the memory usage changes with the size or
+types of these inputs. You can use this to infer how much memory your
+program might use with your real inputs.</p>
+<p>But if neither of those options are available, the easiest way to go
+about it is to over-allocate and to use the tools discussed so far to
+refine your future jobs’ resource request.</p>
+</div>
+</div>
+</div>
+</section><section id="comparing-htop-and-seff-memory-values"><h2 class="section-heading">Comparing <code>htop</code> and <code>seff</code> memory values<a class="anchor" aria-label="anchor" href="#comparing-htop-and-seff-memory-values"></a>
+</h2>
+<hr class="half-width">
+<p>You might be wondering how <code>htop</code> and <code>seff</code>
+may be used differently, since they both provide information about your
+job. Mainly, <code>htop</code> gives a more detailed view into your job,
+whereas <code>seff</code> provides only a single summary stat.
+Furthermore, <code>seff</code> results are only available at the end of
+the job. Another important distinction between <code>htop</code> and
+<code>seff</code>, is the accuracy of the statistics.</p>
+<p>We now know that the maximum memory used by the <code>pi-cpu2</code>
+program is approximately 1900MB. We can check this by trying to run the
+program in Slurm, but requesting only 1800MB.</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>1800M <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>srun: job 12066092 queued and waiting for resources
+srun: job 12066092 has been allocated resources
+slurmstepd: error: Detected 1 oom_kill event in StepId=12066092.0. Some of the step tasks have been OOM Killed.
+srun: error: il-n02: task 0: Out Of Memory</code></pre>
+</div>
+<p>This confirms our job’s maximum memory is somewhere between 1800MB
+and 2GB (based on our runs so far). Now try running running
+<code>pi-cpu2</code> on Slurm again with the right amount of memory.
+Make the <code>pi-cpu2</code> program calculate <span class="math inline">\(\pi\)</span> 15 times with <code>-r 15</code>, so
+it runs for long enough for memory usage stats to be collected by
+Slurm.</p>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>2G <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2 <span class="at">-r</span> 15</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>srun: job 12066094 queued and waiting for resources
+srun: job 12066094 has been allocated resources
+Result: 3.1415999649886 Error:  0.0000072239760 Time: 2.9642s
+... skipped output...</code></pre>
+</div>
+<p>And now let’s execute <code>seff</code> on the job and look at the
+<code>Memory Utilized</code> field:</p>
+<div class="codewrapper sourceCode" id="cb16">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">seff</span> 12066094</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>... skipped output...
+Memory Utilized: 377.43 MB
+Memory Efficiency: 18.43% of 2.00 GB</code></pre>
+</div>
+<p>We know that <code>pi-cpu2</code> will need at least 1800MB of memory
+to even calculate <span class="math inline">\(\pi\)</span> once, but the
+value shown by <code>seff</code> will be <em>far lower</em> than
+that!</p>
+<div id="slurm-job-resource-utilization-accuracy" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="slurm-job-resource-utilization-accuracy" class="callout-inner">
+<h3 class="callout-title">Slurm job resource utilization accuracy<a class="anchor" aria-label="anchor" href="#slurm-job-resource-utilization-accuracy"></a>
+</h3>
+<div class="callout-content">
+<p>Slurm collects job information by occasionally asking the system how
+much resources the job is using. This is not a problem for jobs whose
+memory usage stays steady throughout the lifetime of the job. However,
+this is insufficient for jobs whose memory usage changes suddenly or
+frequently.</p>
+</div>
+</div>
+</div>
+</section><section id="monitoring-gpu-activity"><h2 class="section-heading">Monitoring GPU activity<a class="anchor" aria-label="anchor" href="#monitoring-gpu-activity"></a>
+</h2>
+<hr class="half-width">
+<p>You’re consumed by the need-for-speed, and you’re ready to try the
+<code>pi-gpu</code> program published by the same authors! When running
+the program, you will need:</p>
+<ul>
+<li>1GB memory</li>
+<li>1 GPU (of any kind)</li>
+<li>the <code>cuda/11.7.1</code> module loaded</li>
+</ul>
+<div class="codewrapper sourceCode" id="cb18">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load cuda/11.7.1</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:1 <span class="at">--mem</span><span class="op">=</span>1G pi-gpu</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>srun: job 12066158 queued and waiting for resources
+srun: job 12066158 has been allocated resources
+Result: 3.1415535681881 Error: -0.0000390854017 Time: 0.2894s
+Result: 3.1416463617890 Error:  0.0000537081992 Time: 0.2065s
+Result: 3.1415584281882 Error: -0.0000342254016 Time: 0.2060s
+...</code></pre>
+</div>
+<p>The job ran on a P100 GPU and it it’s about <code>3.0/0.2 = 15</code>
+times faster than <code>pi-cpu2</code>! You find out from the
+<code>--help</code> option, that <code>pi-gpu</code> also has a
+<code>-p</code> option which can help you with running the program on
+more GPUs on the same node. Try it out with <code>-p 2</code> and see if
+you get a 2x speedup.</p>
+<div class="codewrapper sourceCode" id="cb20">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G pi-gpu <span class="at">-p</span> 2</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>srun: job 12066179 queued and waiting for resources
+srun: job 12066179 has been allocated resources
+Result: 3.1415107353877 Error: -0.0000819182020 Time: 0.4006s
+Result: 3.1417724625901 Error:  0.0001798090003 Time: 0.1990s
+Result: 3.1413390477862 Error: -0.0002536058036 Time: 0.1988s
+...</code></pre>
+</div>
+<p>The speedup seems to be minimal!</p>
+<div class="section level3">
+<h3 id="introducing-nvtop">Introducing <code>nvtop</code>
+<a class="anchor" aria-label="anchor" href="#introducing-nvtop"></a>
+</h3>
+<p>Let’s investigate the program’s behavior on the GPUs. We’ll do this
+inside a <code>salloc</code> session instead of via <code>srun</code>
+like we have so far:</p>
+<div class="codewrapper sourceCode" id="cb22">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">salloc</span> <span class="at">--partition</span><span class="op">=</span>gpuq <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>salloc: Pending job allocation 12066180
+salloc: job 12066180 queued and waiting for resources
+salloc: job 12066180 has been allocated resources
+salloc: Granted job allocation 12066180
+salloc: Waiting for resource configuration
+salloc: Nodes gpu-p100-n02 are ready for job</code></pre>
+</div>
+<p>Now on a seperate terminal, ssh to the node you’ve been allocated and
+execute the <code>nvtop</code> command:</p>
+<div class="codewrapper sourceCode" id="cb24">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> gpu-p100-n02</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">nvtop</span></span></code></pre>
+</div>
+<p>A terminal user interface should open that looks similar to:</p>
+<p><img src="../fig/nvtop-screenshot-empty.png" alt="screenshot of nvtop output" class="figure"> Your output may differ if other
+people’s jobs are running on the same node. The interface will be
+reminiscent of <code>htop</code> but with differences:</p>
+<ul>
+<li>The top section doesn’t show the CPU utilization bars. Instead, they
+show information about the device (we won’t be covering this
+section).</li>
+<li>The middle section shows a time-series chart of each GPU’s compute
+(cyan) and memory (olive) utilization percentage over time.</li>
+<li>The bottom section shows process information in a format similar to
+<code>htop</code>:
+<ul>
+<li>
+<code>PID</code>: process ID, which will correspond to a process on
+<code>htop</code>
+</li>
+<li>
+<code>USER</code>: The user the process is owned by</li>
+<li>
+<code>DEV</code>: the GPU ID the process is running on</li>
+<li>
+<code>GPU</code>: the “compute” utilization of the GPU (in
+percentage)</li>
+<li>
+<code>GPU MEM</code>: the memory utilization of the GPU (in MB)</li>
+<li>
+<code>CPU</code>: the CPU utilization of the process</li>
+<li>
+<code>HOST MEM</code>: the CPU memory utilization of the
+process</li>
+<li>
+<code>Command</code>: the command that the GPU is running</li>
+</ul>
+</li>
+</ul>
+<p><code>nvtop</code> is a useful tool in evaluating utilization of the
+GPU while your job is running. This tool can be used as a way to check
+that</p>
+<ol style="list-style-type: lower-alpha">
+<li>the GPUs you requested are actually being used, and</li>
+<li>that they are being fully utilized</li>
+</ol>
+<p>Back in your <code>salloc</code> session, try running
+<code>pi-gpu -p 2 -r -1</code> again. The <code>-r -1</code> option is
+added to ensure it continues running. Once it’s running, return to your
+<code>nvtop</code> window.</p>
+<div class="codewrapper sourceCode" id="cb25">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Result: 3.1415107353877 Error: -0.0000819182020 Time: 0.4045s
+Result: 3.1417724625901 Error:  0.0001798090003 Time: 0.1996s
+Result: 3.1413390477862 Error: -0.0002536058036 Time: 0.1987s
+...</code></pre>
+</div>
+<figure><img src="../fig/nvtop-screenshot-m1.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> interface with
+<code>pi-gpu -p 2 -r -1</code> running</figcaption></figure><p>Two new processes would’ve popped up in the process list with your
+<code>pi-gpu</code> command. You will also see that utilization charts
+will start to move.</p>
+<p>In the process list, you will see two entries corresponding to the
+two GPUs that <code>pi-gpu</code> is using. Under <code>DEV</code> you
+will see the device IDs which <code>pi-gpu</code> is using. In the
+example screenshot above, they are GPU 0 and GPU 1. But,
+<code>nvtop</code> shows the information for all the GPUs on the node by
+default. To see the GPUs assigned to <code>pi-gpu</code>, quit
+<code>nvtop</code> by pressing <code>q</code> on your keyboard, and then
+execute <code>nvtop</code> again, but with the
+<code>--gpu-select &lt;GPUs&gt;</code> where <code>&lt;GPUs</code> is a
+colon (<code>:</code>) seperated list of GPU IDs. As per the example
+above, the command would be:</p>
+<div class="codewrapper sourceCode" id="cb27">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nvtop</span> <span class="at">--gpu-select</span> 0:1</span></code></pre>
+</div>
+<p>Change the ID’s based on the GPUs you see <code>pi-gpu</code> running
+on. You should now see information only for the GPUs you specified:</p>
+<figure><img src="../fig/nvtop-screenshot-myjob.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> with only our job’s GPUs</figcaption></figure>
+</div>
+<div class="section level3">
+<h3 id="interpreting-nvtop-output">Interpreting <code>nvtop</code> output<a class="anchor" aria-label="anchor" href="#interpreting-nvtop-output"></a>
+</h3>
+<p>A good place to start when determining if your program is using the
+GPU well is looking at the utilization. Many programs have parameters
+which can affect this utilization - especially programs that process
+data.</p>
+<p>Many programs process data on the GPU in chunks as the GPU memory is
+typically too small to handle the entire data set at once. These are
+often controlled through chunk size or number of chunks parameters (you
+might also see the word “block” being used instead). Typically, you want
+to tune the parameters such that utilization is high.</p>
+<p>In our case, the GPU utilization of each GPU that <code>pi-gpu</code>
+is using, is approximately 78%. Which is not necessarily ideal.</p>
+<div id="seeing-chunk-size-in-action" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="seeing-chunk-size-in-action" class="callout-inner">
+<h3 class="callout-title">Seeing chunk-size in action!<a class="anchor" aria-label="anchor" href="#seeing-chunk-size-in-action"></a>
+</h3>
+<div class="callout-content">
+<p><code>pi-gpu</code> doesn’t process data, but it does have a
+parameter which is similar to a data set chunk: the number of trials
+parameter! In your <code>salloc</code> session, try changing the number
+of trials <code>pi-gpu</code> uses using the <code>-n</code> flag
+e.g.</p>
+<div class="codewrapper sourceCode" id="cb28">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> <span class="op">&lt;</span>numtrials<span class="op">&gt;</span></span></code></pre>
+</div>
+<p>Note that the default is 123,456,789</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">
+  Show me the solution
+  </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
+<p>Trying 12,345,678 (about 10x fewer trials than default):</p>
+<div class="codewrapper sourceCode" id="cb29">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 12345678</span></code></pre>
+</div>
+<figure><img src="../fig/nvtop-screenshot-1e7.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> shows <code>pi-gpu</code> GPU
+utilization at around 57% when number of trials is 10x less than
+default</figcaption></figure><p>Trying 1,234,567 (about 100x fewer trials than default):</p>
+<div class="codewrapper sourceCode" id="cb30">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 1234567</span></code></pre>
+</div>
+<figure><img src="../fig/nvtop-screenshot-1e6.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> shows <code>pi-gpu</code> GPU
+utilization at around 40% when number of trials is 100x less than
+default</figcaption></figure><p>Trying 500,000,000 (about 4x as many trials than default):</p>
+<div class="codewrapper sourceCode" id="cb31">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 500000000</span></code></pre>
+</div>
+<figure><img src="../fig/nvtop-screenshot-5e8.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> shows <code>pi-gpu</code> “spiky”
+GPU utilization when number of trials is 4x more than default</figcaption></figure><p>Importantly, you should’ve seen that the utilization of the GPU grows
+as you increase the number of trials for <code>pi-gpu</code> to use to
+estimate <span class="math inline">\(\pi\)</span>! And the opposite
+should also be observed when you lower the number of trials.</p>
+<p>In this case, increasing the number of trials can be roughly
+interpreted as giving the GPUs enough work to keep them busy, whereas if
+too few trials are being used, then there may not be enough work to keep
+the GPU’s “compute units” busy.</p>
+<p>When tuning your GPU programs, it’s important to keep the GPU
+utilized. Note that if you are <em>writing</em> a program that uses the
+GPU, utilization is not the only consideration!</p>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">
+  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>
+  Instructor Note
+  </h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div class="accordion-body">
+<p><code>pi-gpu</code>’s numtrials parameter is not a direct analogy to
+chunk-size parameters in data processing programs, so you may need to
+explain further.</p>
+</div>
+</div>
+</div>
+</div>
+<p>So far, we’ve highlighted GPU utilization as a key indicator of
+performance, but we can see that on two P100 GPUs, <code>pi-gpu</code>
+the utilization of both GPUs is at about 78% - not quite fully
+utilized.</p>
+<p>If you look at the output of <code>pi-gpu --help</code>, you’ll see
+that the “mode” flag is available, which can be used to enable an
+experimental, higher-performance, algorithm. Trying that “experimental
+mode” with the default number of trials:</p>
+<div class="codewrapper sourceCode" id="cb32">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> <span class="at">-2</span> <span class="at">-r</span> <span class="at">-1</span> <span class="at">-m</span> 2</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Result: 3.1416099117887 Error:  0.0000172581989 Time: 0.2929s
+Result: 3.1415823393884 Error: -0.0000103142014 Time: 0.0546s
+Result: 3.1418233305906 Error:  0.0002306770008 Time: 0.0567s
+...</code></pre>
+</div>
+<p>You should be able to see that the time to calculate <span class="math inline">\(\pi\)</span> is almost 4 times faster than the
+default algorithm. If you look at the output of <code>nvtop</code>, you
+should be able to see the difference in utilization:</p>
+<figure><img src="../fig/nvtop-screenshot-m2.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> with the experimental algorithm
+enabled showing higher utilization</figcaption></figure><p>In this case, the utilization has shot up to about 98%! GPU memory
+utilization has also increased, which is a reflection of the algorithm
+used in this new mode.</p>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Keypoints<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+</h3>
+<div class="callout-content">
+<ul>
+<li>Choosing the right memory for you Slurm jobs takes a bit of trial
+and error, but it helps to know a bit about how your program
+behaves!</li>
+<li>
+<code>htop</code> should be used to observe memory usage when memory
+usage varies frequently throughout the lifespan of the program.
+<code>sacct</code> and <code>seff</code> are good for programs that
+maintain steady memory usage.</li>
+<li>
+<code>nvtop</code> is a <code>htop</code>-like tool for monitoring
+GPU activity</li>
+<li>When optimizing GPU programs’ parameters, try to aim for full
+utilization!</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</div>
 </section></section><section id="aio-04-jobarrays"><p>Content from <a href="04-jobarrays.html">Job Arrays</a></p>
 <hr>
 <p> Last updated on 2023-05-19 | 
@@ -2187,7 +2872,179 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
 </div>
-</section></section>
+</section></section><section id="aio-05-jobdependencies"><p>Content from <a href="05-jobdependencies.html">Organising dependent Slurm jobs</a></p>
+<hr>
+<p> Last updated on 2023-06-02 | 
+        
+        <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/05-jobdependencies.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right"> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>How can I organise jobs that depend on each other?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Know how to use the <code>--dependency</code> <code>sbatch</code>
+option</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Keypoints<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+</h3>
+<div class="callout-content">
+<ul>
+<li>Slurm job arrays are a great way to parallelise similar jobs!</li>
+<li>The <code>SLURM_ARRAY_TASK_ID</code> environment variable is used to
+control individual array tasks’ work</li>
+<li>A file with all the parameters can be used to control array task
+parameters</li>
+<li>
+<code>readarray</code> and <code>read</code> are useful tools to
+help you parse files. But it can also be done many other ways!</li>
+</ul>
+</div>
+</div>
+</div></section><section id="aio-06-rpython"><p>Content from <a href="06-rpython.html">R and Python Slurm scripts</a></p>
+<hr>
+<p> Last updated on 2023-06-02 | 
+        
+        <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/06-rpython.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right"> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>How do I write Slurm scripts in languages other than Bash?</li>
+<li>How can I combine Slurm with other languages?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>How to use different interpreters to write Slurm scripts</li>
+<li>How to write job arrays using other languages</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Keypoints<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+</h3>
+<div class="callout-content">
+<ul>
+<li>Slurm job arrays are a great way to parallelise similar jobs!</li>
+<li>The <code>SLURM_ARRAY_TASK_ID</code> environment variable is used to
+control individual array tasks’ work</li>
+<li>A file with all the parameters can be used to control array task
+parameters</li>
+<li>
+<code>readarray</code> and <code>read</code> are useful tools to
+help you parse files. But it can also be done many other ways!</li>
+</ul>
+</div>
+</div>
+</div></section><section id="aio-07-usefulopts"><p>Content from <a href="07-usefulopts.html">Job Arrays</a></p>
+<hr>
+<p> Last updated on 2023-06-02 | 
+        
+        <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/07-usefulopts.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right"> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>What <code>sbatch</code> lesser-known, but useful Slurm options are
+there?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Understand how to use the <code>sbatch</code> options:</li>
+<li><code>--requeue</code></li>
+<li>
+<code>--constraint</code> and <code>--prefer</code>
+</li>
+<li>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Keypoints<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+</h3>
+<div class="callout-content">
+<ul>
+<li>Slurm job arrays are a great way to parallelise similar jobs!</li>
+<li>The <code>SLURM_ARRAY_TASK_ID</code> environment variable is used to
+control individual array tasks’ work</li>
+<li>A file with all the parameters can be used to control array task
+parameters</li>
+<li>
+<code>readarray</code> and <code>read</code> are useful tools to
+help you parse files. But it can also be done many other ways!</li>
+</ul>
+</div>
+</div>
+</div></section>
 </div>
     </main>
 </div>

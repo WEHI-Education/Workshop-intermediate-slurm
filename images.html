@@ -203,7 +203,55 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="04-jobarrays.html">3. Job Arrays</a>
+        <a href="03-moremonitoring.html">3. Memory and GPU utilization</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="04-jobarrays.html">4. Job Arrays</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="05-jobdependencies.html">5. Organising dependent Slurm jobs</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush7">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading7">
+        <a href="06-rpython.html">6. R and Python Slurm scripts</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush8">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading8">
+        <a href="07-usefulopts.html">7. Job Arrays</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -287,7 +335,46 @@
 <h3 id="02-cpumonitoring-figure-6">Figure 6</h3>
 <p aria-hidden="true">Image 1 of 1: ‘[decorative]’</p>
 <figure><img src="fig/htop-picpu-2.png" alt="" class="figure mx-auto d-block"><figcaption>processes associated with <code>pi-cpu</code> after
-requesting more CPUs from Slurm</figcaption></figure><hr></section><section id="04-jobarrays"><h2 class="section-heading"><a href="04-jobarrays.html">Job Arrays</a></h2>
+requesting more CPUs from Slurm</figcaption></figure><hr></section><section id="03-moremonitoring"><h2 class="section-heading"><a href="03-moremonitoring.html">Memory and GPU utilization</a></h2>
+<hr class="half-width">
+<h3 id="03-moremonitoring-figure-1">Figure 1</h3>
+<p aria-hidden="true">Image 1 of 1: ‘[decorative]’</p>
+<figure><img src="fig/htop-screenshot-pi2.png" alt="" class="figure mx-auto d-block"><figcaption><code>htop</code> screenshot with
+<code>pi-cpu2</code> running</figcaption></figure><hr>
+<h3 id="03-moremonitoring-figure-2">Figure 2</h3>
+<p aria-hidden="true">Image 1 of 1: ‘screenshot of nvtop output’</p>
+<p><img src="fig/nvtop-screenshot-empty.png" alt="screenshot of nvtop output" class="figure"> Your output may differ if other
+people’s jobs are running on the same node. The interface will be
+reminiscent of <code>htop</code> but with differences:</p>
+<hr>
+<h3 id="03-moremonitoring-figure-3">Figure 3</h3>
+<p aria-hidden="true">Image 1 of 1: ‘[decorative]’</p>
+<figure><img src="fig/nvtop-screenshot-m1.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> interface with
+<code>pi-gpu -p 2 -r -1</code> running</figcaption></figure><hr>
+<h3 id="03-moremonitoring-figure-4">Figure 4</h3>
+<p aria-hidden="true">Image 1 of 1: ‘[decorative]’</p>
+<figure><img src="fig/nvtop-screenshot-myjob.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> with only our job’s GPUs</figcaption></figure><hr>
+<h3 id="03-moremonitoring-figure-5">Figure 5</h3>
+<p aria-hidden="true">Image 1 of 1: ‘[decorative]’</p>
+<figure><img src="fig/nvtop-screenshot-1e7.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> shows <code>pi-gpu</code> GPU
+utilization at around 57% when number of trials is 10x less than
+default</figcaption></figure><hr>
+<h3 id="03-moremonitoring-figure-6">Figure 6</h3>
+<p aria-hidden="true">Image 1 of 1: ‘[decorative]’</p>
+<figure><img src="fig/nvtop-screenshot-1e6.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> shows <code>pi-gpu</code> GPU
+utilization at around 40% when number of trials is 100x less than
+default</figcaption></figure><hr>
+<h3 id="03-moremonitoring-figure-7">Figure 7</h3>
+<p aria-hidden="true">Image 1 of 1: ‘[decorative]’</p>
+<figure><img src="fig/nvtop-screenshot-5e8.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> shows <code>pi-gpu</code> “spiky”
+GPU utilization when number of trials is 4x more than default</figcaption></figure><hr>
+<h3 id="03-moremonitoring-figure-8">Figure 8</h3>
+<p aria-hidden="true">Image 1 of 1: ‘[decorative]’</p>
+<figure><img src="fig/nvtop-screenshot-m2.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> with the experimental algorithm
+enabled showing higher utilization</figcaption></figure><hr></section><section id="04-jobarrays"><h2 class="section-heading"><a href="04-jobarrays.html">Job Arrays</a></h2>
+<hr class="half-width"></section><section id="05-jobdependencies"><h2 class="section-heading"><a href="05-jobdependencies.html">Organising dependent Slurm jobs</a></h2>
+<hr class="half-width"></section><section id="06-rpython"><h2 class="section-heading"><a href="06-rpython.html">R and Python Slurm scripts</a></h2>
+<hr class="half-width"></section><section id="07-usefulopts"><h2 class="section-heading"><a href="07-usefulopts.html">Job Arrays</a></h2>
 <hr class="half-width"></section>
 </div>
     </main>
