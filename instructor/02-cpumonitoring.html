@@ -232,7 +232,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Monitoring a Jobs performance</h1>
-        <p> Last updated on 2023-05-12 | 
+        <p> Last updated on 2023-06-02 | 
         
         <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/02-cpumonitoring.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -279,8 +279,9 @@ calculating <span class="math inline">\(\pi\)</span>. Your PI has
 recommended using an existing piece of software he saw someone talk
 about at a conference recently. A useful feature is that it works in
 parallel, and is consequently quite fast! You try running the program on
-your laptop, and it takes about 4 seconds for each calculation of <span class="math inline">\(\pi\)</span>. This is a little slow, so you try
-running it on Milton</p>
+your laptop, and it takes about 1.2 seconds for each calculation of
+<span class="math inline">\(\pi\)</span>. This is a little slow, so you
+try running it on Milton</p>
 <div id="running-the-program" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -293,7 +294,7 @@ running it on Milton</p>
 executable. This is the program your supervisor has recommended.
 <strong>Try running it with <code>srun</code> on Milton!</strong> Does
 it perform each calculation of <span class="math inline">\(\pi\)</span>
-in less time than 4s?</p>
+in less time than 1.2s?</p>
 </div>
 </div>
 </div>
@@ -304,7 +305,7 @@ in less time than 4s?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -316,13 +317,13 @@ in less time than 4s?</p>
 </h3>
 <pre class="output" tabindex="0"><code>srun: job 11087600 queued and waiting for resources
 srun: job 11087600 has been allocated resources
-   3.1415074000000001        5.9151714229956269     
-   3.1413628999999998        5.9161072040442377     
-   3.1414266999999998        5.9398186031030491
+Result: 3.1414796637875 Error: -0.0001130772251 Time: 3.0970s
+Result: 3.1417489401899 Error:  0.0001561991773 Time: 3.0912s
+Result: 3.1415377569880 Error: -0.0000549840246 Time: 3.1001s
 ...</code></pre>
 </div>
 <p>Each calculation of <span class="math inline">\(\pi\)</span> takes
-about 6 seconds - <em>slower</em> than your laptop! This is something to
+about 3 seconds - <em>slower</em> than your laptop! This is something to
 remember about HPC: The main reason why HPC is “faster” is because it
 has <em>many</em> CPU cores, but the cores working individually are
 probably slower than your PC’s CPU cores. HPC’s usefulness comes from
@@ -333,7 +334,7 @@ hundreds or thousands of CPU cores working in parallel!</p>
 </div>
 <p>You tell your supervisor that HPC isn’t helping! But they assure you
 that it should be really fast - the presenter at the conference
-demonstrated times way less than 6 seconds!</p>
+demonstrated times way less than 3 seconds!</p>
 <p>Your job now is to figure out why <code>pi-cpu</code> isn’t
 performing fast for you.</p>
 </section><section id="check-1-is-it-really-working-in-parallel"><h2 class="section-heading">Check 1: Is it really working in parallel?<a class="anchor" aria-label="anchor" href="#check-1-is-it-really-working-in-parallel"></a>
@@ -385,11 +386,13 @@ processes, which is not relevant to us. To get only your processes, quit
 <h3 id="monitoring-pi-cpu-with-htop">Monitoring <code>pi-cpu</code> with <code>htop</code>
 <a class="anchor" aria-label="anchor" href="#monitoring-pi-cpu-with-htop"></a></h3>
 <p>This time, we’re going to submit the <code>pi-cpu</code> command as a
-job with <code>sbatch</code>. We can do so by</p>
+job with <code>sbatch</code>. We’re also going to add the
+<code>-r -1</code> flag and value, so that the program will run
+indefinitely. We can do so by</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -r -1"</span></span></code></pre>
 </div>
 <div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
 <div class="accordion-item">
@@ -399,7 +402,7 @@ job with <code>sbatch</code>. We can do so by</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>You might get questions as to why <code>srun</code> should be used.
 In many cases it’s not important, but <code>srun</code> helps Slurm
@@ -437,7 +440,7 @@ and run <code>htop -u $USER</code>.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--wrap</span><span class="op">=</span>./pi-cpu</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -r -1"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -483,7 +486,7 @@ CPU usage.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <p>You may wish to explain how to distinguish processes of interest from
 system processes. Usually, the process of interest will be identifiable
@@ -511,7 +514,7 @@ any specific number of CPUs in our command after all. Let’s try request
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -r -1"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -546,8 +549,9 @@ Last login: Fri Apr 14 14:40:38 2023 from slurm-login.hpc.wehi.edu.au</code></pr
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
 <figure><img src="../fig/htop-picpu-2.png" alt="" class="figure mx-auto d-block"><figcaption>processes associated with <code>pi-cpu</code> after
-requesting more CPUs from Slurm</figcaption></figure><p>Unfortunately, requesting more CPUs from Slurm didn’t help your job
-work in parallel.</p>
+requesting more CPUs from Slurm</figcaption></figure><p>Unfortunately, the <code>pi-cpu</code> program is still only using
+100% - requesting more CPUs from Slurm didn’t help your job work in
+parallel.</p>
 <p>Now, this job runs forever, so we should cancel it and move on.</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -562,8 +566,8 @@ work in parallel.</p>
 <h3 class="callout-title">Job summary with <code>seff</code><a class="anchor" aria-label="anchor" href="#job-summary-with-seff"></a>
 </h3>
 <div class="callout-content">
-<p>Now that the job is over, try verfying the efficiency of the job with
-<code>seff</code>. What is the CPU Efficiency (%) that the
+<p>Now that the job is over, try verifying the efficiency of the job
+with <code>seff</code>. What is the CPU Efficiency (%) that the
 <code>pi-cpu</code> program achieved?</p>
 </div>
 </div>
@@ -575,7 +579,7 @@ work in parallel.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -640,7 +644,7 @@ cores on Slurm!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Both the documentation and <code>--help</code> output would’ve shown
 that the <code>-p &lt;N&gt;</code> option is needed to execute the code
@@ -657,9 +661,9 @@ issue the command</p>
 </h3>
 <pre class="output" tabindex="0"><code>srun: job 11250525 queued and waiting for resources
 srun: job 11250525 has been allocated resources
-   3.1414699000000001        2.2529371569398791     
-   3.1413426666666666        2.2512652359437197     
-   3.1418013333333334        2.2517284939531237
+Result: 3.1418360637907 Error:  0.0002433227781 Time: 1.4548s
+Result: 3.1416882225894 Error:  0.0000954815768 Time: 1.4527s
+Result: 3.1415296893879 Error: -0.0000630516247 Time: 1.4512s
 ...</code></pre>
 </div>
 <p>which will send the output straight to the terminal. You will notice
@@ -706,7 +710,7 @@ the machine you’re running on.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
 <div class="accordion-body">
 <p>The output from the last challenge may suggest to learners that using
 4 CPUs only results in a 2 times speedup, but this result is due to
@@ -741,7 +745,7 @@ number of CPUs and see what happens with the time it takes to calculate
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -753,9 +757,9 @@ number of CPUs and see what happens with the time it takes to calculate
 </h3>
 <pre class="output" tabindex="0"><code>srun: job 11250526 queued and waiting for resources
 srun: job 11250526 has been allocated resources
-   3.1414699000000001        2.0350698649417609     
-   3.1413426666666666        2.0345501780975610     
-   3.1418013333333334        2.0344599529635161
+Result: 3.1414069905868 Error: -0.0001857504258 Time: 1.1907s
+Result: 3.1416068013886 Error:  0.0000140603760 Time: 1.1880s
+Result: 3.1415671113883 Error: -0.0000256296243 Time: 1.1880s
 ...</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb29">
@@ -768,9 +772,9 @@ srun: job 11250526 has been allocated resources
 </h3>
 <pre class="output" tabindex="0"><code>srun: job 11250527 queued and waiting for resources
 srun: job 11250527 has been allocated resources
-   3.1416017333333333        1.0177347098942846     
-   3.1413272666666665        1.0174216588493437     
-   3.1412556666666664        1.0173165560699999   
+Result: 3.1416164241887 Error:  0.0000236831761 Time: 0.5980s
+Result: 3.1414225749869 Error: -0.0001701660256 Time: 0.5975s
+Result: 3.1417783593902 Error:  0.0001856183776 Time: 0.5978s   
 ...</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb31">
@@ -783,9 +787,9 @@ srun: job 11250527 has been allocated resources
 </h3>
 <pre class="output" tabindex="0"><code>srun: job 11250528 queued and waiting for resources
 srun: job 11250528 has been allocated resources
-   3.1416185666666667       0.50940252700820565     
-   3.1413593000000000       0.58702801703475416     
-   3.1415241333333332       0.51113899215124547 
+Result: 3.1419777489920 Error:  0.0003850079794 Time: 0.3507s
+Result: 3.1415083701877 Error: -0.0000843708248 Time: 0.3018s
+Result: 3.1418214513906 Error:  0.0002287103780 Time: 0.3016s 
 ...</code></pre>
 </div>
 <p>If you’re running on Milton, you should see that 4 CPUs brings down
@@ -838,7 +842,7 @@ requesting 4 cores from Slurm, but still using <code>-p 2</code>?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>Comparing 1 CPU with 2 CPUs:</p>
 <div class="codewrapper sourceCode" id="cb33">
@@ -851,9 +855,9 @@ requesting 4 cores from Slurm, but still using <code>-p 2</code>?</p>
 </h3>
 <pre class="output" tabindex="0"><code>srun: job 11783722 queued and waiting for resources
 srun: job 11783722 has been allocated resources
-   3.1415080000000000        6.0637675179750659     
-   3.1413634333333333        6.1081068610073999     
-   3.1414273333333331        6.0584602250019088
+Result: 3.1419098061914 Error:  0.0003170651788 Time: 3.6352s
+Result: 3.1415063289877 Error: -0.0000864120249 Time: 3.6363s
+Result: 3.1416112401887 Error:  0.0000184991761 Time: 3.6349s
 ...
 ```bash
 srun --cpus-per-task=2 --constraint=Icelake pi-cpu -p 2</code></pre>
@@ -863,9 +867,9 @@ srun --cpus-per-task=2 --constraint=Icelake pi-cpu -p 2</code></pre>
 </h3>
 <pre class="output" tabindex="0"><code>srun: job 11783726 queued and waiting for resources
 srun: job 11783726 has been allocated resources
-   3.1412753333333332        4.2544698690180667     
-   3.1417406666666667        4.2810971069848165     
-   3.1413410666666666        4.2824175169807859
+Result: 3.1416992061895 Error:  0.0001064651769 Time: 2.3672s
+Result: 3.1415531793881 Error: -0.0000395616244 Time: 2.3669s
+Result: 3.1416117585887 Error:  0.0000190175761 Time: 2.3668s
 ...</code></pre>
 </div>
 <p>This is approximately 6/(4.28*2) = 70%. Unfortunately not as close to
@@ -882,9 +886,9 @@ srun: job 11783726 has been allocated resources
 </h3>
 <pre class="output" tabindex="0"><code>srun: job 11783729 queued and waiting for resources
 srun: job 11783729 has been allocated resources
-   3.1412753333333332        2.9079635720700026     
-   3.1417406666666667        2.9081675559282303     
-   3.1413410666666666        2.9077515611425042 
+Result: 3.1413841485866 Error: -0.0002085924260 Time: 1.7224s
+Result: 3.1414291845870 Error: -0.0001635564256 Time: 1.7210s
+Result: 3.1414952805876 Error: -0.0000974604250 Time: 1.7257s 
 ...</code></pre>
 </div>
 <p>Which is now roughly 2.05 times faster than the one-core case! But
@@ -936,12 +940,12 @@ constraint so we can compare the times to the previous tests!</p>
 </h3>
 <pre class="output" tabindex="0"><code>srun: job 11250605 queued and waiting for resources
 srun: job 11250605 has been allocated resources
-   3.1414699000000001        4.0148321390151978     
-   3.1414699000000001        4.0033812769688666     
-   3.1413426666666666        4.0107331259641796     
-   3.1413426666666666        4.0241762008517981     
-   3.1418013333333334        4.0181175109464675     
-   3.1418013333333334        4.0113181709311903
+Result: 3.1414471989872 Error: -0.0001455420254 Time: 2.3712s
+Result: 3.1417839645902 Error:  0.0001912235777 Time: 2.3745s
+Result: 3.1416039501886 Error:  0.0000112091760 Time: 2.3709s
+Result: 3.1415633529882 Error: -0.0000293880243 Time: 2.3729s
+Result: 3.1415167617878 Error: -0.0000759792248 Time: 2.3712s
+Result: 3.1415245053879 Error: -0.0000682356247 Time: 2.3709s
 ...</code></pre>
 </div>
 <p>So our job has started, but wait… The run times are <em>slower</em>
@@ -959,7 +963,7 @@ be!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
 <div class="accordion-body">
 <p>in the <a href="https://dummy.com#parallel-scheme" class="external-link">parallel
 scheme</a> section, you will find that to run the program across nodes,
@@ -982,9 +986,9 @@ the program. We also need to change the number after
 </h3>
 <pre class="output" tabindex="0"><code>srun: job 11250610 queued and waiting for resources
 srun: job 11250610 has been allocated resources
-   3.1414906666666669        2.0491894630249590     
-   3.1410600000000000        1.9775978401303291     
-   3.1420745333333335        2.0391590909566730 
+Result: 3.1414385805871 Error: -0.0001541604255 Time: 1.2036s
+Result: 3.1417610577900 Error:  0.0001683167775 Time: 1.2036s
+Result: 3.1415069445877 Error: -0.0000857964249 Time: 1.2029s 
 ...</code></pre>
 </div>
 <p>And we can see that the program is now calculating <span class="math inline">\(\pi\)</span> in approximately the same time as the
@@ -1009,7 +1013,7 @@ distributed computing frameworks exist, like Spark + Hadoop.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor4" class="accordion-collapse collapse" aria-labelledby="headingInstructor4" data-bs-parent="#accordionInstructor4">
+<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
 <div class="accordion-body">
 <p>With regard to the last exercise, you may wish to highlight what
 happens when you try to run a program inside <code>sbatch</code>,
@@ -1104,8 +1108,8 @@ any links that you are not going to use.
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/02-cpumonitoring.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/02-cpumonitoring.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-05-12",
-  "datePublished": "2023-05-30"
+  "dateModified": "2023-06-02",
+  "datePublished": "2023-06-02"
 }
 
   </script><script>
