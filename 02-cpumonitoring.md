@@ -24,7 +24,7 @@ You're an honours student and your project is looking at ways of calculating $\p
 Your PI has recommended using an existing piece of software he saw someone talk
 about at a conference recently. A useful feature is that it works in parallel,
 and is consequently quite fast! You try running the program on your laptop, and
-it takes about 4 seconds for each calculation of $\pi$. This is a little slow, so
+it takes about 1.2 seconds for each calculation of $\pi$. This is a little slow, so
 you try running it on Milton
 
 ::: challenge
@@ -33,7 +33,7 @@ you try running it on Milton
 
 In the example-programs.zip file, is the `pi-cpu` executable. This is the program
 your supervisor has recommended. **Try running it with `srun` on Milton!** 
-Does it perform each calculation of $\pi$ in less time than 4s?
+Does it perform each calculation of $\pi$ in less time than 1.2s?
 :::::::::::::
 
 ::: solution
@@ -43,12 +43,12 @@ srun pi-cpu
 ```output
 srun: job 11087600 queued and waiting for resources
 srun: job 11087600 has been allocated resources
-   3.1415074000000001        5.9151714229956269     
-   3.1413628999999998        5.9161072040442377     
-   3.1414266999999998        5.9398186031030491
+Result: 3.1414796637875 Error: -0.0001130772251 Time: 3.0970s
+Result: 3.1417489401899 Error:  0.0001561991773 Time: 3.0912s
+Result: 3.1415377569880 Error: -0.0000549840246 Time: 3.1001s
 ...
 ```
-Each calculation of $\pi$ takes about 6 seconds - *slower* than your laptop!
+Each calculation of $\pi$ takes about 3 seconds - *slower* than your laptop!
 This is something to remember about HPC: The main reason why HPC
 is "faster" is because it has *many* CPU cores, but the cores working individually
 are probably slower than your PC's CPU cores. HPC's usefulness comes from hundreds or thousands of CPU
@@ -56,7 +56,7 @@ cores working in parallel!
 ::::::::::::
 
 You tell your supervisor that HPC isn't helping! But they assure you that it should be really fast - 
-the presenter at the conference demonstrated times way less than 6 seconds!
+the presenter at the conference demonstrated times way less than 3 seconds!
 
 Your job now is to figure out why `pi-cpu` isn't performing fast for you.
 
@@ -111,11 +111,12 @@ You should see a list of processes that belong to you only!
 
 ### Monitoring `pi-cpu` with `htop`
 
-This time, we're going to submit the `pi-cpu` command as a job with `sbatch`. We
-can do so by
+This time, we're going to submit the `pi-cpu` command as a job with `sbatch`. 
+We're also going to add the `-r -1` flag and value, so that the program will run
+indefinitely. We can do so by
 
 ```bash
-sbatch --wrap="srun ./pi-cpu"
+sbatch --wrap="srun ./pi-cpu -r -1"
 ```
 
 ::: instructor
@@ -144,7 +145,7 @@ Once you've confirmed the job has started with `squeue`, and determined which
 node it's running on, `ssh` to that node and run `htop -u $USER`. 
 
 ```bash
-sbatch --wrap=./pi-cpu
+sbatch --wrap="srun ./pi-cpu -r -1"
 ```
 ```output
 Submitted batch job 11088927
@@ -197,7 +198,7 @@ scancel 11088927
 
 And then we can try again, but with more CPUs:
 ```bash
-sbatch --cpus-per-task=4 --wrap="srun ./pi-cpu"
+sbatch --cpus-per-task=4 --wrap="srun ./pi-cpu -r -1"
 ```
 ```output
 Submitted batch job 11089020
@@ -222,7 +223,7 @@ htop -u $USER
 
 ![processes associated with `pi-cpu` after requesting more CPUs from Slurm](fig/htop-picpu-2.png)
 
-Unfortunately, requesting more CPUs from Slurm didn't help your job work in parallel.
+Unfortunately, the `pi-cpu` program is still only using 100% - requesting more CPUs from Slurm didn't help your job work in parallel.
 
 Now, this job runs forever, so we should cancel it and move on.
 ```bash
@@ -233,7 +234,7 @@ scancel 11089020
 
 ### Job summary with `seff`
 
-Now that the job is over, try verfying the efficiency of the job with `seff`.
+Now that the job is over, try verifying the efficiency of the job with `seff`.
 What is the CPU Efficiency (%) that the `pi-cpu` program achieved?
 
 :::::::::::::
@@ -294,9 +295,9 @@ srun --cpus-per-task=4 pi-cpu -p 4
 ```output
 srun: job 11250525 queued and waiting for resources
 srun: job 11250525 has been allocated resources
-   3.1414699000000001        2.2529371569398791     
-   3.1413426666666666        2.2512652359437197     
-   3.1418013333333334        2.2517284939531237
+Result: 3.1418360637907 Error:  0.0002433227781 Time: 1.4548s
+Result: 3.1416882225894 Error:  0.0000954815768 Time: 1.4527s
+Result: 3.1415296893879 Error: -0.0000630516247 Time: 1.4512s
 ...
 ```
 which will send the output straight to the terminal. You will notice that the
@@ -361,9 +362,9 @@ srun --cpus-per-task=4 --constraint=Icelake pi-cpu -p 4
 ```output
 srun: job 11250526 queued and waiting for resources
 srun: job 11250526 has been allocated resources
-   3.1414699000000001        2.0350698649417609     
-   3.1413426666666666        2.0345501780975610     
-   3.1418013333333334        2.0344599529635161
+Result: 3.1414069905868 Error: -0.0001857504258 Time: 1.1907s
+Result: 3.1416068013886 Error:  0.0000140603760 Time: 1.1880s
+Result: 3.1415671113883 Error: -0.0000256296243 Time: 1.1880s
 ...
 ```
 ```bash
@@ -372,9 +373,9 @@ srun --cpus-per-task=8 --constraint=Icelake pi-cpu -p 8
 ```output
 srun: job 11250527 queued and waiting for resources
 srun: job 11250527 has been allocated resources
-   3.1416017333333333        1.0177347098942846     
-   3.1413272666666665        1.0174216588493437     
-   3.1412556666666664        1.0173165560699999   
+Result: 3.1416164241887 Error:  0.0000236831761 Time: 0.5980s
+Result: 3.1414225749869 Error: -0.0001701660256 Time: 0.5975s
+Result: 3.1417783593902 Error:  0.0001856183776 Time: 0.5978s   
 ...
 ```
 ```bash
@@ -383,9 +384,9 @@ srun --cpus-per-task=16 --constraint=Icelake pi-cpu -p 16
 ```output
 srun: job 11250528 queued and waiting for resources
 srun: job 11250528 has been allocated resources
-   3.1416185666666667       0.50940252700820565     
-   3.1413593000000000       0.58702801703475416     
-   3.1415241333333332       0.51113899215124547 
+Result: 3.1419777489920 Error:  0.0003850079794 Time: 0.3507s
+Result: 3.1415083701877 Error: -0.0000843708248 Time: 0.3018s
+Result: 3.1418214513906 Error:  0.0002287103780 Time: 0.3016s 
 ...
 ```
 
@@ -441,9 +442,9 @@ srun --constraint=Icelake pi-cpu -p 1
 ```output
 srun: job 11783722 queued and waiting for resources
 srun: job 11783722 has been allocated resources
-   3.1415080000000000        6.0637675179750659     
-   3.1413634333333333        6.1081068610073999     
-   3.1414273333333331        6.0584602250019088
+Result: 3.1419098061914 Error:  0.0003170651788 Time: 3.6352s
+Result: 3.1415063289877 Error: -0.0000864120249 Time: 3.6363s
+Result: 3.1416112401887 Error:  0.0000184991761 Time: 3.6349s
 ...
 ```bash
 srun --cpus-per-task=2 --constraint=Icelake pi-cpu -p 2
@@ -451,9 +452,9 @@ srun --cpus-per-task=2 --constraint=Icelake pi-cpu -p 2
 ```output
 srun: job 11783726 queued and waiting for resources
 srun: job 11783726 has been allocated resources
-   3.1412753333333332        4.2544698690180667     
-   3.1417406666666667        4.2810971069848165     
-   3.1413410666666666        4.2824175169807859
+Result: 3.1416992061895 Error:  0.0001064651769 Time: 2.3672s
+Result: 3.1415531793881 Error: -0.0000395616244 Time: 2.3669s
+Result: 3.1416117585887 Error:  0.0000190175761 Time: 2.3668s
 ...
 ```
 
@@ -468,9 +469,9 @@ srun --cpus-per-task=4 --constraint=Icelake pi-cpu -p 2
 ```output
 srun: job 11783729 queued and waiting for resources
 srun: job 11783729 has been allocated resources
-   3.1412753333333332        2.9079635720700026     
-   3.1417406666666667        2.9081675559282303     
-   3.1413410666666666        2.9077515611425042 
+Result: 3.1413841485866 Error: -0.0002085924260 Time: 1.7224s
+Result: 3.1414291845870 Error: -0.0001635564256 Time: 1.7210s
+Result: 3.1414952805876 Error: -0.0000974604250 Time: 1.7257s 
 ...
 ```
 
@@ -513,12 +514,12 @@ srun --nodes=2 --cpus-per-task=2 --constraint=Icelake pi-cpu -p 4
 ```output
 srun: job 11250605 queued and waiting for resources
 srun: job 11250605 has been allocated resources
-   3.1414699000000001        4.0148321390151978     
-   3.1414699000000001        4.0033812769688666     
-   3.1413426666666666        4.0107331259641796     
-   3.1413426666666666        4.0241762008517981     
-   3.1418013333333334        4.0181175109464675     
-   3.1418013333333334        4.0113181709311903
+Result: 3.1414471989872 Error: -0.0001455420254 Time: 2.3712s
+Result: 3.1417839645902 Error:  0.0001912235777 Time: 2.3745s
+Result: 3.1416039501886 Error:  0.0000112091760 Time: 2.3709s
+Result: 3.1415633529882 Error: -0.0000293880243 Time: 2.3729s
+Result: 3.1415167617878 Error: -0.0000759792248 Time: 2.3712s
+Result: 3.1415245053879 Error: -0.0000682356247 Time: 2.3709s
 ...
 ```
 So our job has started, but wait... The run times are *slower* than our previous
@@ -547,9 +548,9 @@ srun --nodes=2 --cpus-per-task=2 --constraint=Icelake pi-cpu-mpi -p 2
 ```output
 srun: job 11250610 queued and waiting for resources
 srun: job 11250610 has been allocated resources
-   3.1414906666666669        2.0491894630249590     
-   3.1410600000000000        1.9775978401303291     
-   3.1420745333333335        2.0391590909566730 
+Result: 3.1414385805871 Error: -0.0001541604255 Time: 1.2036s
+Result: 3.1417610577900 Error:  0.0001683167775 Time: 1.2036s
+Result: 3.1415069445877 Error: -0.0000857964249 Time: 1.2029s 
 ...
 ```
 And we can see that the program is now calculating $\pi$ in approximately the same
