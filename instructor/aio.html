@@ -393,7 +393,7 @@ so how would you go about submitting those jobs at first?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>If you’re new to Linux, you might’ve thought about submitting these
 jobs manually! If you’ve done a bit of scripting, you might’ve thought
@@ -427,7 +427,7 @@ is single-threaded only?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>If the second step is short, you might put the two steps into a
 single Slurm job. But what if the second step takes a large amount of
@@ -449,7 +449,7 @@ to help with pipelines. We’ll cover this in a future episode!</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>The challenges can be done together with the researchers input.</p>
 </div>
@@ -2159,7 +2159,7 @@ Memory: 4096MB</code></pre>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>The Slurm environment variables needed here are
 <code>SLURM_CPUS_PER_TASK</code>, <code>SLURM_JOB_NODELIST</code>, and
@@ -2208,7 +2208,7 @@ would be empty!</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p><a href="https://monashdatafluency.github.io/shell-novice/" class="external-link">Intro to
 Linux Command Line</a> is specified as a prerequisite, so learners
@@ -2608,7 +2608,7 @@ into <code>ncpus</code> bash variables</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>As shown already we can save <code>iter-cpu.txt</code> into an array
 using</p>
@@ -2658,7 +2658,7 @@ our new Slurm array script works?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Yes we do! While we have the same number of rows in
 <code>iter-cpu.txt</code>, the first row is headers. If we passed those
@@ -2696,7 +2696,7 @@ should be passed to <code>-n</code> and the second should be passed to
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>We first need to modify the <code>readarray</code> line to read the
 correct file, and to use an appropriately named array variable:</p>
@@ -2758,7 +2758,7 @@ command!</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <p>You may wish to highlight that you cannot change the resource request
 between job array tasks. Everything controlled by an <code>sbatch</code>
@@ -2809,7 +2809,7 @@ What should you set <code>IFS</code> to to get the following output from
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -2907,6 +2907,155 @@ option</li>
 </div>
 </div>
 </div>
+<section id="a-pipeline-to-visualize-pi-cpu-results"><h2 class="section-heading">A pipeline to visualize <code>pi-cpu</code> results<a class="anchor" aria-label="anchor" href="#a-pipeline-to-visualize-pi-cpu-results"></a>
+</h2>
+<hr class="half-width">
+<p>In the previous episode, you learnt how to create job arrays to
+investigate how the accuracy of <code>pi-cpu</code> changes with the
+number of trials used. You now want to present these results to your
+supervisor graphically, but you still need to aggregate and process the
+results further to create something presentable. You decide that you
+want to show a bar chart where the X-axis corresponds to the number of
+trials, and the Y-axis is the average absolute error calculated
+determined from multiple calculations of <span class="math inline">\(\pi\)</span>.</p>
+<p>You want to test 7 different number of trials: 1E2 (100), 1E3
+(1,000), … , up to 1E8 (100,000,000). These values are in
+<code>pi-process-input.txt</code>. These values are used inside
+<code>pi-process.sh</code>, which is a script in
+<code>example-programs</code> that is a Slurm job array script like in
+the job array episode.</p>
+<p>You know that you need to write a bit more code to complete the
+pipeline:</p>
+<ol style="list-style-type: decimal">
+<li>For each number of trials, the results from <code>pi-cpu</code> need
+to be averaged.</li>
+<li>The individual averaged results need to be aggregated into a single
+file.</li>
+</ol>
+<p>A diagram of the process looks like:</p>
+<pre><code>n = 1E2    1E3    ...     1E7     1E8
+     |      |              |       |
+     |      |              |       |
+  pi-cpu  pi-cpu         pi-cpu  pi-cpu
+     |      |              |       |
+     |      |              |       |
+    avg    avg            avg     avg
+     |      |              |       |
+     |______|___combine____|_______|
+                results
+                   |
+                   |
+                 final
+                results</code></pre>
+<p>You decide that you want to do this with Slurm jobs because each step
+requires different amounts of resources. But to set this up, you need to
+make use of:</p>
+</section><section id="slurm-job-dependencies"><h2 class="section-heading">Slurm job dependencies<a class="anchor" aria-label="anchor" href="#slurm-job-dependencies"></a>
+</h2>
+<hr class="half-width">
+<p>To setup Slurm jobs that are dependent on each other, you can make
+use of the Slurm <code>--dependency</code>, or <code>-d</code> option.
+The syntax of the option is:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --dependency=condition:jobid   # or</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -d condition:jobid</span></span></code></pre>
+</div>
+<p>This will ask Slurm to ensure that the job that you’re submitting
+doesn’t start until <code>condition</code> is satisfied for job
+<code>jobid</code>. For example,</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --dependency=afterok:1234</span></span></code></pre>
+</div>
+<p>is requesting for the job you’re submitting to start, only if job
+<code>1234</code> completes successfully. This allows you to chain a
+series of jobs together, perhaps with different resource requirements,
+without needing to monitor progress.</p>
+<p>In your <span class="math inline">\(\pi\)</span> calculation
+scenario, submitting the second lot of array jobs (i.e., the
+<code>avg</code> jobs) can be submitted using
+<code>--dependency=afterok:&lt;jobid&gt;</code>. However, this will mean
+that <em>none</em> of the <code>avg</code> job array tasks will start
+until <em>all</em> of the <code>pi-cpu</code> jobs finish. This results
+in lower job throughput as tasks wait around.</p>
+<p>We can achieve better job throughput by making use of the
+<code>aftercorr</code> condition (short for “after corresponding”),
+which tells Slurm that each task in the second job can start once the
+same task in the first job completes successfully.</p>
+</section><section id="setting-up-the-avg-array-job"><h2 class="section-heading">Setting up the <code>avg</code> array job<a class="anchor" aria-label="anchor" href="#setting-up-the-avg-array-job"></a>
+</h2>
+<hr class="half-width">
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pi-postprocess.sh</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=pi-avg</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x-%a.out</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=0-6</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=2</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">./pi-avg</span> pi-process-<span class="va">${SLURM_ARRAY_TASK_ID}</span>.out</span></code></pre>
+</div>
+<div id="setting-up-the-final-combine-job" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="setting-up-the-final-combine-job" class="callout-inner">
+<h3 class="callout-title">Setting up the final <code>combine</code>
+job<a class="anchor" aria-label="anchor" href="#setting-up-the-final-combine-job"></a>
+</h3>
+<div class="callout-content">
+<p>HINT: you can use the <code>cut</code> utility to help you here. You
+might also need for loops</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">
+  Show me the solution
+  </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<p>Script could look like:</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pi-combine.sh</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=pi-combine</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x.out</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> niterations <span class="op">&lt;</span> pi-process-input.txt</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="dt">{</span><span class="dv">0</span><span class="dt">..</span><span class="dv">6</span><span class="dt">}</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="va">${niterations</span><span class="op">[</span><span class="va">$i</span><span class="op">]</span><span class="va">}</span> <span class="va">$(</span><span class="fu">cut</span> <span class="at">-d</span> <span class="st">' '</span> <span class="at">-f</span> 4 pi-avg-<span class="va">${i}</span>.out<span class="va">)</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The driver program:</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pi-driver.sh</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="va">process_jobid</span><span class="op">=</span><span class="va">$(</span><span class="ex">sbatch</span> <span class="at">--parsable</span> pi-process.sh<span class="va">)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="va">avg_jobid</span><span class="op">=</span><span class="va">$(</span><span class="ex">sbatch</span> <span class="at">--parsable</span> <span class="at">--dependency</span><span class="op">=</span>aftercorr:<span class="va">$process_jobid</span> pi-avg.sh<span class="va">)</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--dependency</span><span class="op">=</span>afterok:<span class="va">${avg_jobid}</span> pi-combine.sh</span></code></pre>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -2927,7 +3076,12 @@ help you parse files. But it can also be done many other ways!</li>
 </ul>
 </div>
 </div>
-</div></section><section id="aio-06-rpython"><p>Content from <a href="06-rpython.html">R and Python Slurm scripts</a></p>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</section></section><section id="aio-06-rpython"><p>Content from <a href="06-rpython.html">R and Python Slurm scripts</a></p>
 <hr>
 <p> Last updated on 2023-06-02 | 
         
