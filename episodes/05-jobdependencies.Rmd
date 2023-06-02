@@ -89,6 +89,18 @@ can start once the same task in the first job completes successfully.
 
 ## Setting up the `avg` array job
 
+```bash
+#!/bin/bash
+# pi-postprocess.sh
+
+#SBATCH --job-name=pi-avg
+#SBATCH --output=%x-%a.out
+#SBATCH --array=0-6
+#SBATCH --cpus-per-task=2
+
+./pi-avg pi-process-${SLURM_ARRAY_TASK_ID}.out
+```
+
 ::: challenge
 
 ## Setting up the final `combine` job
@@ -98,6 +110,8 @@ HINT: you can use the `cut` utility to help you here. You might also need for lo
 :::::::::::::
 
 ::: solution
+
+Script could look like:
 
 ```bash
 #!/bin/bash
@@ -115,6 +129,17 @@ done
 ```
 
 ::::::::::::
+
+The driver program:
+
+```bash
+#!/bin/bash
+# pi-driver.sh
+
+process_jobid=$(sbatch --parsable pi-process.sh)
+avg_jobid=$(sbatch --parsable --dependency=aftercorr:$process_jobid pi-avg.sh)
+sbatch --dependency=afterok:${avg_jobid} pi-combine.sh
+```
 
 ::: keypoints
 
