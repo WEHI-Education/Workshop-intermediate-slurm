@@ -190,12 +190,23 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         6. R and Python Slurm scripts
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+        
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#motivation">Motivation</a></li>
+<li><a href="#a-python-script">A Python script</a></li>
+<li><a href="#which-interpreter">Which interpreter?</a></li>
+<li><a href="#slurm-environment-variables">Slurm Environment Variables</a></li>
+<li><a href="#setting-up-job-arrays">Setting Up Job Arrays</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
         
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -260,7 +271,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>R and Python Slurm scripts</h1>
-        <p> Last updated on 2023-06-02 | 
+        <p> Last updated on 2023-06-08 | 
         
         <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/06-rpython.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -295,6 +306,262 @@
 </div>
 </div>
 </div>
+<section id="motivation"><h2 class="section-heading">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
+</h2>
+<hr class="half-width"><p>The chances are, when you first started using Slurm, you probably
+wasn’t all that familiar with Bash. But you begrudgingly learnt it so
+you can make use of the computational capabilities of HPC. If you’re a
+Python or R user, you probably wrote a script which performed a part of
+your analysis, and you might use this script on HPC with a wrapper
+submission script that looks like:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=2</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=4G</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> myRscript.R <span class="op">&lt;</span>arguments<span class="op">&gt;</span></span></code></pre>
+</div>
+<p>And that’s all it really does. But did you know you can bypass this
+wrapper script by submitting the R/python script directly?</p>
+</section><section id="a-python-script"><h2 class="section-heading">A Python script<a class="anchor" aria-label="anchor" href="#a-python-script"></a>
+</h2>
+<hr class="half-width"><p>Let’s consider a Python script <code>pi.py</code> that calculates
+<span class="math inline">\(\pi\)</span>:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pi.py</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># function to calculate pi</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_pi(numtrials):</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(numtrials):</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        r1 <span class="op">=</span> random.random()</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        r2 <span class="op">=</span> random.random()</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (r1<span class="op">*</span>r1 <span class="op">+</span> r2<span class="op">*</span>r2 <span class="op">&lt;</span> <span class="fl">1.</span>):</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>            n <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">4.</span><span class="op">*</span>n<span class="op">/</span>numtrials</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get number of trials from first command line argument</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># produce error if it doesn't work.</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        numtrials <span class="op">=</span> <span class="bu">int</span>(sys.argv[<span class="dv">1</span>])</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>:</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        sys.exit(<span class="st">"There was a problem parsing the command-line arguments</span><span class="ch">\n</span><span class="st">Did you remember to pass an integer?"</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate pi and error</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    pi <span class="op">=</span> calc_pi(numtrials)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    err <span class="op">=</span> <span class="fl">3.141592653589793</span> <span class="op">-</span> pi</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print to terminal</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Result: </span><span class="sc">{</span>pi<span class="sc">}</span><span class="ss">, Error: </span><span class="sc">{</span>err<span class="sc">}</span><span class="ss">"</span>)</span></code></pre>
+</div>
+<p>Which you can run by</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> pi.py 123456789</span></code></pre>
+</div>
+<p>which calculates <span class="math inline">\(\pi\)</span> with
+123,456,789 trials. The output should look similar to</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Result: 3.1416309393888415, Error: -3.8285799048409785e-05</code></pre>
+</div>
+<div id="submitting-this-script-to-slurm" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="submitting-this-script-to-slurm" class="callout-inner">
+<h3 class="callout-title">Submitting this script to Slurm<a class="anchor" aria-label="anchor" href="#submitting-this-script-to-slurm"></a>
+</h3>
+<div class="callout-content">
+<p>Instead of following the common pattern of writing a wrapper
+submissions script, try submitting this Python script directly to
+Slurm!</p>
+<p>You will need to follow the Slurm error messages to convert this into
+a working Slurm script.</p>
+<p>Hint: you can use the system interpreter located in
+<code>/usr/bin/python3</code>.</p>
+<p>Once you have it working as a Slurm script, try adding
+<code>#SBATCH</code> options like you would in a “normal” Slurm
+script.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">
+  Show me the solution
+  </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
+<p>When submitting this script as-is with <code>sbatch pi.py</code>,
+you’ll get the error:</p>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>sbatch: error: This does not look like a batch script.  The first
+sbatch: error: line must start with #! followed by the path to an interpreter.
+sbatch: error: For instance: #!/bin/sh</code></pre>
+</div>
+<p>This is a reminder that your script needs to have a hash-bang
+statement which specifies which the interpreter to use!</p>
+<p>In this lesson, we’ve used <code>/bin/bash</code> all throughout,
+although <code>/bin/sh</code> is also common to see “out in the wild”.
+But in this case, we need to use a Python interpreter instead. We can
+add to the top of the script: <code>#!/usr/bin/python3</code> which is
+installed on Milton. Once we do that, our script should work!</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> pi.py 123456789</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Submitted batch job 12261934</code></pre>
+</div>
+<p>After about 40 seconds of the job running the corresponding
+<code>slurm-12261934.out</code> file should be ready:</p>
+<pre><code>Result: 3.1417136565895944, Error: -0.000121002999801334</code></pre>
+<p>Which shows that it now works as a Slurm script!</p>
+<p>This particular program doesn’t need much resources, but we can still
+check that <code>#SBATCH</code> options still work with
+<code>squeue</code>, <code>sacct</code>, or <code>seff</code>. If you
+add <code>#SBATCH --cpus-per-task=4</code> below the hash-bang statement
+and submit the script, you should see through your preferred query
+command that the job is now requesting 4 CPUs.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="which-interpreter"><h2 class="section-heading">Which interpreter?<a class="anchor" aria-label="anchor" href="#which-interpreter"></a>
+</h2>
+<hr class="half-width"><p>In the above challenge, we used the system Python interpreter.
+However, you often use Python from a virtual or conda environment; and R
+from a module. Consequently, choosing the correct interpreter is
+important so that your packages are picked up properly!</p>
+<div class="section level3">
+<h3 id="the-reproducible-way-but-less-portable">The reproducible way (but less portable)<a class="anchor" aria-label="anchor" href="#the-reproducible-way-but-less-portable"></a></h3>
+<p>The <em>safest</em> way to ensure your preferred interpreter is used
+is to hard-code the path into the hash-bang statement at the top of the
+script.</p>
+<p>For example, if you have an environment located at
+<code>/vast/scratch/users/&lt;userid&gt;/mycondaenv</code>, the
+corresponding interpreter is located in
+<code>/vast/scratch/users/&lt;userid&gt;/mycondaenv/bin/python</code>,
+which you can use in the hash-bang statement. Similarly, with
+<code>Rscript</code>, you can find where your preferred
+<code>Rscript</code> interepreter is by:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> show R/<span class="op">&lt;</span>preferred version<span class="op">&gt;</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>/stornext/System/data/apps/R/R-&lt;version&gt;/lib64/R/bin</code></pre>
+</div>
+<p>and you can add <code>Rscript</code> to the end of the path and place
+it in the hash-bang statement e.g.,
+<code>#!/stornext/System/data/apps/R/R-4.2.1/lib64/R/bin/Rscript</code>.
+This way ensures the same interpreter are used every time</p>
+</div>
+<div class="section level3">
+<h3 id="the-portable-way-but-less-reproducible">The portable way (but less reproducible)<a class="anchor" aria-label="anchor" href="#the-portable-way-but-less-reproducible"></a></h3>
+<p>A common approach is to infer which interpreter to use based on your
+environment. To do this, you can add the
+<code>/usr/bin/env &lt;interpreter&gt;</code> command (note the space
+between <code>/usr/bin/env</code> and <code>&lt;interpreter&gt;</code>).
+For example, adding <code>#!/usr/bin/env python</code> as your hash-bang
+statement will pickup whichever python interpreter is in your
+environment.</p>
+<p>This is more portable and often more convenient, but can be less
+reproducible as you may forget which environment it was supposed to run
+with, or which version of the interpreter was used.</p>
+</div>
+</section><section id="slurm-environment-variables"><h2 class="section-heading">Slurm Environment Variables<a class="anchor" aria-label="anchor" href="#slurm-environment-variables"></a>
+</h2>
+<hr class="half-width"><p>Both R and Python have their own ways of accessing environment
+variables. For example, in Bash, saving the
+<code>SLURM_CPUS_PER_TASK</code> environment variable is done by</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">cpus</span><span class="op">=</span><span class="va">${SLURM_CPUS_PER_TASK}</span></span></code></pre>
+</div>
+<p>Whereas, for Python and R, respectively:</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cpus <span class="op">=</span> os.getenv(<span class="st">"SLURM_CPUS_PER_TASK"</span>)</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cpus</span> <span class="op">=</span> <span class="fu">Sys.getenv</span><span class="op">(</span><span class="st">"SLURM_CPUS_PER_TASK"</span><span class="op">)</span></span></code></pre>
+</div>
+</section><section id="setting-up-job-arrays"><h2 class="section-heading">Setting Up Job Arrays<a class="anchor" aria-label="anchor" href="#setting-up-job-arrays"></a>
+</h2>
+<hr class="half-width"><p>But a major advantage Python and R have over Bash is their ability to
+parse text either natively or through installable packages</p>
+<p>For example, let’s take our <code>iter-cpu.txt</code> file that we
+created back in episode 4 (job arrays):</p>
+<pre><code>iters cpus
+100 2
+100 4
+1000 2
+1000 4
+10000 2
+10000 4</code></pre>
+<p>To read this file in Python, we can use the pandas module:</p>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'iter-cpu.txt'</span>, delimiter<span class="op">=</span><span class="st">' '</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data)</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>   iters  cpus
+0    100     2
+1    100     4
+2   1000     2
+3   1000     4
+4  10000     2
+5  10000     4</code></pre>
+</div>
+<p>For R, it’s even easier:</p>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data</span> <span class="op">=</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">'iter-cpu.txt'</span>, sep<span class="op">=</span><span class="st">' '</span><span class="op">)</span></span>
+<span><span class="fu">str</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>'data.frame':   6 obs. of  2 variables:
+ $ iters: int  100 100 1000 1000 10000 10000
+ $ cpus : int  2 4 2 4 2 4</code></pre>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -318,10 +585,7 @@ help you parse files. But it can also be done many other ways!</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="05-jobdependencies.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="07-usefulopts.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
@@ -374,8 +638,8 @@ any links that you are not going to use.
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/06-rpython.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/06-rpython.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-06-02",
-  "datePublished": "2023-06-06"
+  "dateModified": "2023-06-08",
+  "datePublished": "2023-06-08"
 }
 
   </script><script>
