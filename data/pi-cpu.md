@@ -65,5 +65,3 @@ more GPUs
 ```
 
 asks `pi-gpu` to try to make use of 3 GPUs if they are available on the system.
-
-#### 
