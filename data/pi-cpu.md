@@ -8,7 +8,7 @@ CPU versions are written in Fortran. GPU version is written in C (with CUDA).
 
 ## Algorithm
 
-![](https://felixdmr.com/post-assets/2020-09-20-pi-from-monte-carlo/banner.png)
+![test](https://felixdmr.com/post-assets/2020-09-20-pi-from-monte-carlo/banner.png)
 
 $\pi$ is calculated by generating 2D coordinates with random real values between
 0 and 1. The number of points within the circle of radius 1 is divided by the
@@ -28,6 +28,7 @@ there are detected on the system.
 
 `-r, --reps`: The number of times to estimate $\pi$. Pass `-1` to
 calculate $\pi$ indefinitely.
+
 `-n, --trials`: Number of points to use to estimate $\pi$.
 
 ### Multi-threading
@@ -47,8 +48,10 @@ divided amongst the threads.
 Calculate $\pi$ across multiple nodes using `mpiexec`, or `srun` (for Slurm systems):
 
 ```bash
+# execute pi-cpu-mpi with 2 MPI processes and 1 thread per process
 mpiexec -n 2 ./pi-cpu-mpi
 # OR
+# execute pi-cpu-mpi with 2 MPI processes (across 2 nodes) and 32 threads per process
 srun -N 2 -c 32 ./pi-cpu-mpi -p 32
 ```
 
