@@ -42,7 +42,7 @@ Let's consider a Python script `pi.py` that calculates $\pi$:
 
 ```python
 # pi.py
-import random
+import sys, random
 
 # function to calculate pi
 def calc_pi(numtrials):
@@ -249,12 +249,72 @@ str(data)
  $ cpus : int  2 4 2 4 2 4
 ```
 
+::: challenge
+
+Now that you know how to turn a Python or R script into a Slurm script. Try to
+create a Slurm array script in Python or R where:
+
+* each array task reads the `iter-cpu.txt` file and
+* each array task prints a statement like: `CPUs: <n>, Iterations: <n>`, 
+where `<n>` is the corresponding column and row of `iter-cpu.txt`.
+
+For example, array task 0 should print out:
+```output
+CPUs: 2, Iterations: 100
+```
+
+HINT: you can make use of the `#!/usr/bin/env python3 (or Rscript)` hash-bang
+statement for convenience.
+
+:::::::::::::
+
+::: solution
+
+```python
+#!/usr/bin/env python3
+#SBATCH --array=0-5
+#SBATCH --mem=1G
+
+import os, pandas as pd
+data = pd.read_csv('iter-cpu.txt', delimiter=' ')
+
+taskid = int(os.getenv("SLURM_ARRAY_TASK_ID"))
+
+niter = data['iters'].iloc[taskid]
+ncpus = data['cpus'].iloc[taskid]
+
+print(f'CPUs: {ncpus}, Iterations: {niter}')
+```
+
+```r
+#!/usr/bin/env Rscript
+#SBATCH --array=1-6
+#SBATCH --mem=1G
+
+data = read.csv('iter-cpu.txt', sep=' ')
+
+taskid = as.integer(Sys.getenv("SLURM_ARRAY_TASK_ID"))
+
+ncpus = data[["cpus"]][taskid]
+niter = data[["iters"]][taskid]
+
+paste0("CPUs: ", ncpus,', Iterations: ', niter)
+```
+
+When using Slurm array jobs, remember to make use of appropriate exception
+handling! With Python, you can make use of `try`, `except`, and for R, you can
+check whether `Sys.getenv("SLURM_ARRAY_TASK_ID")` returns `NA`.
+
+::::::::::::
 
 ::: keypoints
 
--   Slurm job arrays are a great way to parallelise similar jobs!
--   The `SLURM_ARRAY_TASK_ID` environment variable is used to control individual array tasks' work
--   A file with all the parameters can be used to control array task parameters
--   `readarray` and `read` are useful tools to help you parse files. But it can also be done many other ways!
+-   Besides the code itself, the only *real* difference between a bash Slurm script and a Python or R Slurm script, is the hash-bang statement!
+-   You can change the hash-bang statement to the `python` or `Rscript` interpreter you wish to use, or you can make use of `/usr/bin/env python` to determine which interpreter to use from your environment.
+-   When using Slurm environment variables in a Python or R script, the same environment variables are available to you, but you must access them in the Python/R way.
+-   Using Python or R Slurm scripts means you can
+    a.  program in a language more familiar to you
+    b.  make use of their broad functionality and packages
+    c.  remove the need to have a wrapper Slurm script around your Python/R scripts.
 
 :::

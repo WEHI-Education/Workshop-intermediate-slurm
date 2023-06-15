@@ -18,7 +18,7 @@ editor_options:
 -   Know how to use `sed` and `read` to parse 
 :::
 
-## Processing Samples
+## Processing Multiple Cases
 
 Now that you feel pretty comfortable with the `pi-cpu` program, your supervisor
 wants you to investigate how the error value of the tool changes with the number
@@ -34,6 +34,36 @@ in the future.
 
 You've heard about Slurm job arrays which is good at breaking up these "parameter
 scans", so you decide to give them a go.
+
+### What does a job array do?
+
+The job array functionality is a lightweight mechanism that Slurm provides to 
+allow users to submit many similar Slurm scripts with a single `sbatch` command.
+
+![Job arrays submit multiple copies of the same script, each with the same job ID, but unique "task IDs", which can be used to control each task's behaviour.](fig/job-array-diagram.png)
+
+Something similar could be achieved with a `for` loop like:
+
+```bash
+for ID in {1..6}
+do
+    sbatch my-script.sh $ID
+done
+```
+
+which submits `my-script.sh` 6 times, and passing the numbers 1 to 6 to each
+submission. However, job arrays have some advantages over this approach:
+
+* job arrays are more self-contained i.e., they do not need additional wrapper scripts
+or code to submit to Slurm.
+* each job array "task" is linked to the same job ID, and can be more easily
+queried with `sacct` and `squeue`. 
+
+Why you might prefer the "for loop" approach over job arrays:
+
+* each task in the job array has the same resources - seperate `sbatch` commands allow you to change the resource request.
+* when the work being done differs significantly between tasks - making it difficult
+to control the behaviour solely through a "task ID".
 
 ### Job Array Syntax
 
@@ -608,6 +638,26 @@ srun pi-cpu -p $ncpus -n $niterations
 ```
 
 ::::::::::::
+
+### Exception handling
+
+Sometimes, you might find that you want to execute your job script from the
+command line, instead of submitting it to Slurm. In this case, your job likely
+won't have a `SLURM_ARRAY_TASK_ID` environment variable set. In this case,
+you will want to make sure the necessary check is present and for the script
+to exit appropriately OR set a reasonable default.
+
+```bash
+if [ -z $SLURM_ARRAY_TASK_ID ]
+then
+    echo "This script needs to be submitted as a Slurm script!"
+    exit 1
+fi
+```
+
+`[ -z $SLURM_ARRAY_TASK_ID ]` returns 0 if `SLURM_ARRAY_TASK_ID` is NOT set.
+You can replace the `echo` and `exit` statement with a reasonable default
+instead e.g., `export SLURM_ARRAY_TASK_ID=1`.
 
 ::: instructor
 

@@ -65,7 +65,6 @@ episodes:
 - 04-jobarrays.Rmd
 - 05-jobdependencies.Rmd
 - 06-rpython.Rmd
-- 07-usefulopts.Rmd
 
 # Information for Learners
 learners:
