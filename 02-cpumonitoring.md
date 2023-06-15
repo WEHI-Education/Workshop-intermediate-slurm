@@ -277,9 +277,8 @@ within the default memory (for Milton, this is 10MB).
 
 ::: challenge
 
-Try looking through `pi-cpu`'s [documentation](https://dummy.com), or running
-`pi-cpu` with the `--help` option. Do you find any clues? See if you can run the
-`pi-cpu` in parallel with 4 cores on Slurm!
+Try  running `pi-cpu` with the `--help` option. Do you find any clues? See if 
+you can run the `pi-cpu` in parallel with 4 cores on Slurm!
 
 :::::::::::::
 
@@ -526,15 +525,15 @@ So our job has started, but wait... The run times are *slower* than our previous
 tests with 4 cores! You might also notice that two lines with identical results
 are printed together every iteration.
 
-Try and have a look in the [documentation](https://dummy.com) again and see why
+Try and have a look in the [documentation](https://github.com/WEHI-ResearchComputing/Workshop-intermediate-slurm/blob/main/episodes/data/pi-cpu.md) again and see why
 that might be!
 
 :::::::::::::
 
 ::: solution
 
-in the [parallel scheme](https://dummy.com#parallel-scheme) section, you will find
-that to run the program across nodes, you will
+in the [multi-node](https://github.com/WEHI-ResearchComputing/Workshop-intermediate-slurm/blob/main/episodes/data/pi-cpu.md#multi-node--multi-threading) 
+section, you will find that to run the program across nodes, you will
 
 1. need to use the `pi-cpu-mpi` program
 2. use `srun` or `mpiexec` to execute the program
