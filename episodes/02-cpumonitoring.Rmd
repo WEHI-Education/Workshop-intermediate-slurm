@@ -525,14 +525,14 @@ So our job has started, but wait... The run times are *slower* than our previous
 tests with 4 cores! You might also notice that two lines with identical results
 are printed together every iteration.
 
-Try and have a look in the [documentation](https://github.com/WEHI-ResearchComputing/Workshop-intermediate-slurm/blob/main/episodes/data/pi-cpu.md) again and see why
+Try and have a look in the [documentation](data/pi-cpu.md) again and see why
 that might be!
 
 :::::::::::::
 
 ::: solution
 
-in the [multi-node](https://github.com/WEHI-ResearchComputing/Workshop-intermediate-slurm/blob/main/episodes/data/pi-cpu.md#multi-node--multi-threading) 
+in the [multi-node](data/pi-cpu.md#multi-node--multi-threading) 
 section, you will find that to run the program across nodes, you will
 
 1. need to use the `pi-cpu-mpi` program
