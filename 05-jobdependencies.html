@@ -86,11 +86,11 @@
   Intermediate Slurm
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 57%" class="percentage">
-    57%
+<aside class="col-md-12 lesson-progress"><div style="width: 67%" class="percentage">
+    67%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 57%" aria-valuenow="57" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 67%" aria-valuenow="67" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -209,15 +209,6 @@
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
-<div class="accordion accordion-flush" id="accordionFlush8">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading8">
-        <a href="07-usefulopts.html">7. Job Arrays</a>
-    </div><!--/div.accordion-header-->
-        
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
                 </div>
               </div>
             </div>
@@ -269,7 +260,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Organising dependent Slurm jobs</h1>
-        <p> Last updated on 2023-06-02 | 
+        <p> Last updated on 2023-06-15 | 
         
         <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/05-jobdependencies.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -305,7 +296,9 @@ option</li>
 </div>
 <section id="a-pipeline-to-visualize-pi-cpu-results"><h2 class="section-heading">A pipeline to visualize <code>pi-cpu</code> results<a class="anchor" aria-label="anchor" href="#a-pipeline-to-visualize-pi-cpu-results"></a>
 </h2>
-<hr class="half-width"><p>In the previous episode, you learnt how to create job arrays to
+<hr class="half-width"><p>Inside the example-programs, there is the folder
+<code>job-depends</code> which contains files used in this episode.</p>
+<p>In the previous episode, you learnt how to create job arrays to
 investigate how the accuracy of <code>pi-cpu</code> changes with the
 number of trials used. You now want to present these results to your
 supervisor graphically, but you still need to aggregate and process the
@@ -316,7 +309,7 @@ determined from multiple calculations of <span class="math inline">\(\pi\)</span
 <p>You want to test 7 different number of trials: 1E2 (100), 1E3
 (1,000), … , up to 1E8 (100,000,000). These values are in
 <code>pi-process-input.txt</code>. These values are used inside
-<code>pi-process.sh</code>, which is a script in
+<code>pi-submit.sh</code>, which is a script in
 <code>example-programs</code> that is a Slurm job array script like in
 the job array episode.</p>
 <p>You know that you need to write a bit more code to complete the
@@ -366,7 +359,28 @@ doesn’t start until <code>condition</code> is satisfied for job
 <code>1234</code> completes successfully. This allows you to chain a
 series of jobs together, perhaps with different resource requirements,
 without needing to monitor progress.</p>
-<p>In your <span class="math inline">\(\pi\)</span> calculation
+<p>Other conditions include:</p>
+<ul><li>
+<code>after</code>: start this job after the specified job
+<strong>starts</strong>
+</li>
+<li>
+<code>afternotok</code>: start this job only if the specified job
+<strong>fails</strong>
+</li>
+<li>
+<code>afterany</code>: start this job after the specified job
+<strong>fails, succeeds, or is cancelled</strong>
+</li>
+<li>
+<code>singleton</code>: Start this job if there are <strong>no other
+running jobs with the same name.</strong>
+</li>
+<li>
+<code>aftercorr</code>: Start this <strong>array task</strong> when
+the <strong>corresponding array task in the specified job completes
+successfully</strong>.</li>
+</ul><p>In your <span class="math inline">\(\pi\)</span> calculation
 scenario, submitting the second lot of array jobs (i.e., the
 <code>avg</code> jobs) can be submitted using
 <code>--dependency=afterok:&lt;jobid&gt;</code>. However, this will mean
@@ -379,19 +393,202 @@ which tells Slurm that each task in the second job can start once the
 same task in the first job completes successfully.</p>
 </section><section id="setting-up-the-avg-array-job"><h2 class="section-heading">Setting up the <code>avg</code> array job<a class="anchor" aria-label="anchor" href="#setting-up-the-avg-array-job"></a>
 </h2>
-<hr class="half-width"><div class="codewrapper sourceCode" id="cb4">
+<hr class="half-width"><p>Each <code>pi-cpu</code> job output will have multiple attempts to
+calculate <span class="math inline">\(\pi\)</span>. So, the goal of each
+<code>avg</code> job array task is to calculate the average error.
+<code>pi-avg.py</code> in the <code>example-programs/job-depends</code>
+directory, is a script made specifically for this purpose. For example,
+if you execute <code>pi-cpu</code> and redirect the output to a
+file:</p>
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pi-postprocess.sh</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=pi-avg</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x-%a.out</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=0-6</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=2</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">./pi-avg</span> pi-process-<span class="va">${SLURM_ARRAY_TASK_ID}</span>.out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./pi-cpu</span> <span class="op">&gt;</span> pis.txt</span></code></pre>
 </div>
+<p>and then run</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> pi-avg.py pis.txt</span></code></pre>
+</div>
+<p>You should get output similar to:</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Average Absolute Error: 0.00016350984148000002</code></pre>
+</div>
+<p>This program can be placed into a Slurm script like so:</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pi-avg.sh</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=pi-avg</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=0-6</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x-%a.out</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=1</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="va">id</span><span class="op">=</span><span class="va">$SLURM_ARRAY_TASK_ID</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> pi-avg.py pi-avg-<span class="va">${id}</span>.out</span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="the-pi-avg-sh-script-line-by-line">The <code>pi-avg.sh</code> script line-by-line<a class="anchor" aria-label="anchor" href="#the-pi-avg-sh-script-line-by-line"></a></h3>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span></code></pre>
+</div>
+<p>is the hash-bang statement. Required by Slurm, but good practice to
+include in any script.</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pi-avg.sh</span></span></code></pre>
+</div>
+<p>is a comment with the name of the script.</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=pi-avg</span></span></code></pre>
+</div>
+<p>is a Slurm option specifying the job name. In this case, it is
+<code>pi-avg</code>.</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=0-6</span></span></code></pre>
+</div>
+<p>is telling Slurm that this job is a job array with task IDs 0 to 6
+(inclusive).</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x-%a.out</span></span></code></pre>
+</div>
+<p>is telling Slurm where to write the output of the script to.
+<code>%x</code> is a placeholder for the job name, and <code>%a</code>
+is a placeholder for the job task array. For example, the job task with
+ID = 0, will have the output file: <code>pi-avg-0.out</code>.</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=1</span></span></code></pre>
+</div>
+<p>is specifying the number of CPUs each job array task needs.</p>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="va">id</span><span class="op">=</span><span class="va">$SLURM_ARRAY_TASK_ID</span></span></code></pre>
+</div>
+<p>sets the <code>id</code> variable to the value stored in the
+<code>SLURM_ARRAY_TASK_ID</code> environment variable.</p>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> pi-avg.py pi-submit-<span class="va">${id}</span>.out</span></code></pre>
+</div>
+<p>is running the <code>pi-avg.py</code> program on the file
+<code>pi-submit-${id}.out</code>, which would be the output from the
+<code>pi-submit.sh</code> job tasks.</p>
+<p>Notably, this script doesn’t have the <code>--dependency</code>
+option set, but this will be discussed later.</p>
+</div>
+<div class="section level3">
+<h3 id="submitting-the-jobs">Submitting the jobs<a class="anchor" aria-label="anchor" href="#submitting-the-jobs"></a></h3>
+<p>Before we submit <code>pi-submit.sh</code>, we need to make sure that
+<code>pi-cpu</code> is in the correct place. <code>pi-submit.sh</code>
+assumes that <code>pi-cpu</code> is in the working directory. So, if
+you’re in the <code>job-depends</code> directory, you must first
+<code>cp ../pi-cpu .</code>, which makes a copy of <code>pi-cpu</code>
+in the <code>job-depends</code> directory.</p>
+<p>Now that we have <code>pi-submit.sh</code> and <code>pi-avg.sh</code>
+we can try submitting them such that <code>pi-avg.sh</code> job tasks
+depend on <code>pi-submit.sh</code> job tasks. We can start this process
+by</p>
+<div class="codewrapper sourceCode" id="cb16">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> pi-submit.sh</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Submitted batch job 12271504</code></pre>
+</div>
+<p>And then submit the next job using the
+<code>--dependency=aftercorr:&lt;jobid&gt;</code> flag:</p>
+<div class="codewrapper sourceCode" id="cb18">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">-d</span> aftercorr:12271504</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Submitted batch job 12271511</code></pre>
+</div>
+<p>Reminder: <code>-d</code> is the short-form of
+<code>--dependency</code>! Depending on how fast you were with
+submitting the jobs and setting up the dependency, when you run
+<code>squeue -u $USER</code>, you might see output similar to:</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+        12271511_6   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+        12271511_5   regular   pi-avg   yang.e PD       0:00      1 (None)
+        12271511_4   regular   pi-avg   yang.e PD       0:00      1 (None)
+        12271511_3   regular   pi-avg   yang.e PD       0:00      1 (None)
+        12271511_2   regular   pi-avg   yang.e PD       0:00      1 (None)
+        12271511_1   regular   pi-avg   yang.e PD       0:00      1 (None)
+        12271511_0   regular   pi-avg   yang.e PD       0:00      1 (None)
+        12271504_6   regular pi-submi   yang.e  R       0:12      1 sml-n02</code></pre>
+</div>
+<p>The <code>pi-submit</code> job (job ID of 12271504) only has task ID
+6 running and all the <code>pi-avg</code> jobs are waiting. To confirm
+that the other <code>pi-submit</code> tasks have completed, you can use
+the command <code>sacct -Xj &lt;pi-submit jobid&gt;</code> e.g.:</p>
+<div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-Xj</span> 12271504</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>JobID           JobName  Partition    Account  AllocCPUS      State ExitCode 
+------------ ---------- ---------- ---------- ---------- ---------- -------- 
+12271504_0    pi-submit    regular       wehi          2  COMPLETED      0:0 
+12271504_1    pi-submit    regular       wehi          2  COMPLETED      0:0 
+12271504_2    pi-submit    regular       wehi          2  COMPLETED      0:0 
+12271504_3    pi-submit    regular       wehi          2  COMPLETED      0:0 
+12271504_4    pi-submit    regular       wehi          2  COMPLETED      0:0 
+12271504_5    pi-submit    regular       wehi          2  COMPLETED      0:0 
+12271504_6    pi-submit    regular       wehi          2    RUNNING      0:0</code></pre>
+</div>
+<p>After a bit of time, you should see the <code>pi-avg</code> job tasks
+begin to go through (should be quite quickly as the job is quite
+short)</p>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+        12271511_3   regular   pi-avg   yang.e CG       0:00      1 sml-n02
+        12271511_4   regular   pi-avg   yang.e CG       0:00      1 sml-n02
+        12271511_5   regular   pi-avg   yang.e CG       0:00      1 sml-n02</code></pre>
+</div>
+<p>Depending on how fast you were submitting the jobs, you likely
+weren’t able to see all the jobs wait in the queue. However, later we’ll
+develop a “driver” script which will automate setting up the
+dependencies.</p>
+
 <div id="setting-up-the-final-combine-job" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -401,8 +598,29 @@ same task in the first job completes successfully.</p>
 job<a class="anchor" aria-label="anchor" href="#setting-up-the-final-combine-job"></a>
 </h3>
 <div class="callout-content">
-<p>HINT: you can use the <code>cut</code> utility to help you here. You
-might also need for loops</p>
+<p>Now that you’ve learnt about how to use the
+<code>--dependency/-d</code> option, try and setup the final job that
+combines the results from <code>pi-avg.sh</code>! Call it
+<code>pi-combine.sh</code></p>
+<p>Reminder: this job should be a single job, that takes the results of
+all the <code>pi-avg.sh</code> and organises the results into a single
+file.</p>
+<p>Your output should look something like</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>100 Average Absolute Error: 0.18431854820252003
+1000 Average Absolute Error: 0.034800000000000005
+10000 Average Absolute Error: 0.014562903594960003
+100000 Average Absolute Error: 0.00271745179748
+1000000 Average Absolute Error: 0.0009526517974799999
+10000000 Average Absolute Error: 0.00037933179748
+100000000 Average Absolute Error: 0.00014778020251999998</code></pre>
+</div>
+<p>HINT1: use <code>pi-process-input.txt</code> to get the data for the
+first column.</p>
+<p>HINT2: you will probably need to use: <code>readarray</code>, a
+<code>for</code> loop, and <code>cat</code>.</p>
 </div>
 </div>
 </div>
@@ -413,40 +631,153 @@ might also need for loops</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Script could look like:</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pi-combine.sh</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=pi-combine</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x.out</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> niterations <span class="op">&lt;</span> pi-process-input.txt</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="dt">{</span><span class="dv">0</span><span class="dt">..</span><span class="dv">6</span><span class="dt">}</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="va">${niterations</span><span class="op">[</span><span class="va">$i</span><span class="op">]</span><span class="va">}</span> <span class="va">$(</span><span class="fu">cut</span> <span class="at">-d</span> <span class="st">' '</span> <span class="at">-f</span> 4 pi-avg-<span class="va">${i}</span>.out<span class="va">)</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pi-combine.sh</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=pi-combine</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x.out</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># read ntrial data into niterations bash array</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> niterations <span class="op">&lt;</span> pi-process-input.txt</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="dt">{</span><span class="dv">0</span><span class="dt">..</span><span class="dv">6</span><span class="dt">}</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get label from niterations array</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="va">label</span><span class="op">=</span><span class="va">${niterations</span><span class="op">[</span><span class="va">$i</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get average error from pi-avg-${i}.out</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="va">data</span><span class="op">=</span><span class="va">$(</span><span class="fu">cat</span> pi-avg-<span class="va">${i}</span>.out<span class="va">)</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print labal with data</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"</span><span class="va">$label</span><span class="st"> </span><span class="va">$data</span><span class="st">"</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<p>The driver program:</p>
-<div class="codewrapper sourceCode" id="cb6">
+<p>You should now have <code>pi-submit.sh</code>,
+<code>pi-avg.sh</code>, and <code>pi-combine.sh</code> Slurm scripts
+which you can now combine into a pipeline! We’ll do this with one more
+script, which will be referred to as the “driver” script as it is
+“driving” the pipeline. This driver script will submit all the jobs and
+set the dependencies.</p>
+<p>This script could look like:</p>
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pi-driver.sh</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="va">process_jobid</span><span class="op">=</span><span class="va">$(</span><span class="ex">sbatch</span> <span class="at">--parsable</span> pi-process.sh<span class="va">)</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="va">avg_jobid</span><span class="op">=</span><span class="va">$(</span><span class="ex">sbatch</span> <span class="at">--parsable</span> <span class="at">--dependency</span><span class="op">=</span>aftercorr:<span class="va">$process_jobid</span> pi-avg.sh<span class="va">)</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--dependency</span><span class="op">=</span>afterok:<span class="va">${avg_jobid}</span> pi-combine.sh</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pi-driver.sh</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># submit the first pi-submit job</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># saves the job ID into the jobid1 variable</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="va">jobid1</span><span class="op">=</span><span class="va">$(</span><span class="ex">sbatch</span> <span class="at">--parsable</span> pi-submit.sh<span class="va">)</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># submit the second pi-avg job.</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co"># due to aftercorr condition, each task </span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># depends on the same task from pi-submit.sh.</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co"># saves the job ID into the jobid2 variable</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="va">jobid2</span><span class="op">=</span><span class="va">$(</span><span class="ex">sbatch</span> <span class="at">--parsable</span> <span class="at">--dependency</span><span class="op">=</span>aftercorr:<span class="va">$jobid1</span> pi-avg.sh<span class="va">)</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co"># submit the last pi-combine job</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co"># this job waits for all tasks from jobid2</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co"># to complete successfully (afterok).</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co"># job ID is not saved as it is not needed.</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--dependency</span><span class="op">=</span>afterok:<span class="va">$jobid2</span> pi-combine.sh</span></code></pre>
 </div>
+<p>The driver script makes use of the <code>--parsable</code> option
+that can be used with <code>sbatch</code>. This makes
+<code>sbatch</code> return the job ID <em>only</em>, instead of the
+statement <code>Submitted batch job &lt;job ID&gt;</code>. This enables
+“parsing” the job ID. In this case, the job IDs are saved into
+<code>jobidN</code> bash variables.</p>
+<p>The driver script does not need to be submitted, it can be run as a
+normal script:</p>
+<div class="codewrapper sourceCode" id="cb30">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x pi-driver.sh</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./pi-driver.sh</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Submitted batch job 12271538</code></pre>
+</div>
+<p>When exeucting the driver script, you should only see one
+<code>Submitted batch job</code> statement printed to the terminal, as
+the first two jobs are submitted with the <code>--parsable</code> option
+and their Job IDs being saved to variables, instead of being printed to
+the terminal.</p>
+<p>If you run <code>squeue -u $USER</code> <em>immediately</em> after
+the completion of the script, you should see your jobs pending in the
+queue, similar to:</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+          12272749   regular pi-combi   yang.e PD       0:00      1 (Dependency)
+    12272748_[0-6]   regular   pi-avg   yang.e PD       0:00      1 (None)
+    12272747_[0-6]   regular pi-submi   yang.e PD       0:00      1 (None)</code></pre>
+</div>
+<p>and as you continue checking the queue, you should be able to see
+Slurm processing your jobs:</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+        12272748_6   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+        12272748_5   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+        12272748_4   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+        12272748_3   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+        12272748_2   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+        12272748_1   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+          12272749   regular pi-combi   yang.e PD       0:00      1 (Dependency)
+        12272748_0   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+    12272747_[0-6]   regular pi-submi   yang.e PD       0:00      1 (None)</code></pre>
+</div>
+<p>This shows Slurm “unrolling” the <code>pi-avg</code> job tasks,
+and</p>
+<pre><code>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+        12272748_6   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+        12272748_5   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+        12272748_4   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+        12272748_3   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+        12272748_2   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+        12272748_1   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+          12272749   regular pi-combi   yang.e PD       0:00      1 (Dependency)
+        12272748_0   regular   pi-avg   yang.e PD       0:00      1 (Dependency)
+        12272747_0   regular pi-submi   yang.e  R       0:01      1 sml-n10
+        12272747_1   regular pi-submi   yang.e  R       0:01      1 sml-n10
+        12272747_2   regular pi-submi   yang.e  R       0:01      1 sml-n10
+        12272747_3   regular pi-submi   yang.e  R       0:01      1 sml-n10
+        12272747_4   regular pi-submi   yang.e  R       0:01      1 sml-n10
+        12272747_5   regular pi-submi   yang.e  R       0:01      1 sml-n07
+        12272747_6   regular pi-submi   yang.e  R       0:01      1 sml-n07</code></pre>
+<p>shows the <code>pi-submit</code> jobs running and the
+<code>pi-avg</code> jobs waiting.</p>
+<p>If all goes well, you should have a <code>pi-combine.out</code> (or
+similar) file with your outputs!</p>
+<div class="codewrapper sourceCode" id="cb35">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> pi-combine.out</span></code></pre>
+</div>
+<pre><code>100 Average Absolute Error: 0.156
+1000 Average Absolute Error: 0.05336290359496
+10000 Average Absolute Error: 0.00736
+100000 Average Absolute Error: 0.00457345179748
+1000000 Average Absolute Error: 0.00152585179748
+10000000 Average Absolute Error: 0.00048161179748
+100000000 Average Absolute Error: 0.00013798799999999997</code></pre>
+<p>You can then plot this in Excel or whichever tool you prefer!</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -455,14 +786,15 @@ might also need for loops</p>
 <h3 class="callout-title">Keypoints<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
 </h3>
 <div class="callout-content">
-<ul><li>Slurm job arrays are a great way to parallelise similar jobs!</li>
-<li>The <code>SLURM_ARRAY_TASK_ID</code> environment variable is used to
-control individual array tasks’ work</li>
-<li>A file with all the parameters can be used to control array task
-parameters</li>
-<li>
-<code>readarray</code> and <code>read</code> are useful tools to
-help you parse files. But it can also be done many other ways!</li>
+<ul><li>Make a job depend on another with the <code>--dependency</code> or
+<code>-d</code> flag for <code>sbatch</code>
+<ul><li>dependency conditions can be used to control when the dependant job
+starts</li>
+<li>the full list of conditions can be better understood from
+<code>man sbatch</code>.</li>
+</ul></li>
+<li>job dependencies can be combined with job arrays to create
+pipelines!</li>
 </ul></div>
 </div>
 </div>
@@ -470,6 +802,7 @@ help you parse files. But it can also be done many other ways!</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
+</div>
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="04-jobarrays.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
@@ -523,8 +856,8 @@ any links that you are not going to use.
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/05-jobdependencies.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/05-jobdependencies.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-06-02",
-  "datePublished": "2023-06-13"
+  "dateModified": "2023-06-15",
+  "datePublished": "2023-06-15"
 }
 
   </script><script>

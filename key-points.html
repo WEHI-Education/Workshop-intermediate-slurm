@@ -248,18 +248,6 @@
 </div>
 <!--/div.accordion-flush-->
 
-<div class="accordion accordion-flush" id="accordionFlush8">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading8">
-        <a href="07-usefulopts.html">7. Job Arrays</a>
-    </div>
-<!--/div.accordion-header-->
-        
-  </div>
-<!--/div.accordion-item-->
-</div>
-<!--/div.accordion-flush-->
-
                 </div>
               </div>
             </div>
@@ -370,36 +358,38 @@ help you parse files. But it can also be done many other ways!</li>
 </ul></section><section id="05-jobdependencies"><h2 class="section-heading"><a href="05-jobdependencies.html">Organising dependent Slurm jobs</a></h2>
 <hr class="half-width">
 <ul>
-<li>Slurm job arrays are a great way to parallelise similar jobs!</li>
-<li>The <code>SLURM_ARRAY_TASK_ID</code> environment variable is used to
-control individual array tasks’ work</li>
-<li>A file with all the parameters can be used to control array task
-parameters</li>
-<li>
-<code>readarray</code> and <code>read</code> are useful tools to
-help you parse files. But it can also be done many other ways!</li>
+<li>Make a job depend on another with the <code>--dependency</code> or
+<code>-d</code> flag for <code>sbatch</code>
+<ul>
+<li>dependency conditions can be used to control when the dependant job
+starts</li>
+<li>the full list of conditions can be better understood from
+<code>man sbatch</code>.</li>
+</ul>
+</li>
+<li>job dependencies can be combined with job arrays to create
+pipelines!</li>
 </ul></section><section id="06-rpython"><h2 class="section-heading"><a href="06-rpython.html">R and Python Slurm scripts</a></h2>
 <hr class="half-width">
 <ul>
-<li>Slurm job arrays are a great way to parallelise similar jobs!</li>
-<li>The <code>SLURM_ARRAY_TASK_ID</code> environment variable is used to
-control individual array tasks’ work</li>
-<li>A file with all the parameters can be used to control array task
-parameters</li>
-<li>
-<code>readarray</code> and <code>read</code> are useful tools to
-help you parse files. But it can also be done many other ways!</li>
-</ul></section><section id="07-usefulopts"><h2 class="section-heading"><a href="07-usefulopts.html">Job Arrays</a></h2>
-<hr class="half-width">
-<ul>
-<li>Slurm job arrays are a great way to parallelise similar jobs!</li>
-<li>The <code>SLURM_ARRAY_TASK_ID</code> environment variable is used to
-control individual array tasks’ work</li>
-<li>A file with all the parameters can be used to control array task
-parameters</li>
-<li>
-<code>readarray</code> and <code>read</code> are useful tools to
-help you parse files. But it can also be done many other ways!</li>
+<li>Besides the code itself, the only <em>real</em> difference between a
+bash Slurm script and a Python or R Slurm script, is the hash-bang
+statement!</li>
+<li>You can change the hash-bang statement to the <code>python</code> or
+<code>Rscript</code> interpreter you wish to use, or you can make use of
+<code>/usr/bin/env python</code> to determine which interpreter to use
+from your environment.</li>
+<li>When using Slurm environment variables in a Python or R script, the
+same environment variables are available to you, but you must access
+them in the Python/R way.</li>
+<li>Using Python or R Slurm scripts means you can
+<ol style="list-style-type: lower-alpha">
+<li>program in a language more familiar to you</li>
+<li>make use of their broad functionality and packages</li>
+<li>remove the need to have a wrapper Slurm script around your Python/R
+scripts.</li>
+</ol>
+</li>
 </ul></section>
 </div>
     </main>
@@ -449,8 +439,8 @@ help you parse files. But it can also be done many other ways!</li>
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/key-points.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/key-points.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-06-13",
-  "datePublished": "2023-06-13"
+  "dateModified": "2023-06-15",
+  "datePublished": "2023-06-15"
 }
 
   </script><script>

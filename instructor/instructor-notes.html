@@ -246,18 +246,6 @@
 </div>
 <!--/div.accordion-flush-->
 
-<div class="accordion accordion-flush" id="accordionFlush8">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading8">
-        <a href="07-usefulopts.html">7. Job Arrays</a>
-    </div>
-<!--/div.accordion-header-->
-        
-  </div>
-<!--/div.accordion-item-->
-</div>
-<!--/div.accordion-flush-->
-
                 </div>
               </div>
             </div>
@@ -397,8 +385,47 @@ between job array tasks. Everything controlled by an <code>sbatch</code>
 option is fixed between all the array tasks!</p>
 <hr>
 <br></section><section id="05-jobdependencies"><h2 class="section-heading"><a href="05-jobdependencies.html">Organising dependent Slurm jobs</a></h2>
-<hr class="half-width"></section><section id="06-rpython"><h2 class="section-heading"><a href="06-rpython.html">R and Python Slurm scripts</a></h2>
-<hr class="half-width"></section><section id="07-usefulopts"><h2 class="section-heading"><a href="07-usefulopts.html">Job Arrays</a></h2>
+<hr class="half-width">
+<h3 id="05-jobdependencies-headingInstructor1">
+<a href="05-jobdependencies.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#05-jobdependencies-headingInstructor1"></a>
+</h3>
+<p>As these jobs are quite small, it is quite hard to capture the full
+effect of using the <code>aftercorr</code> condition. This is because
+Slurm on Milton only processes the queue every 30s or so, and the
+<code>pi-cpu</code> program is expected to last only approximately 20s
+at most.</p>
+<p>If you have time and wish to show the learners the full effect, the
+following scripts should work:</p>
+<div class="codewrapper sourceCode" id="cb25">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># this job is submitted first. It sleeps for ID * 60s</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g., ID 2: sleeps for 120s.</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># it then prints the date.</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=1st</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x-%a.out</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-5</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="bu">let</span> <span class="st">"t = 60 * </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">"</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> <span class="va">$t</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb26">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># this job is submitted second and just prints the date.</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=2nd</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x-%a.out</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-5</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code></pre>
+</div>
+<hr>
+<br></section><section id="06-rpython"><h2 class="section-heading"><a href="06-rpython.html">R and Python Slurm scripts</a></h2>
 <hr class="half-width"></section></section>
 </div>
     </main>
@@ -448,8 +475,8 @@ option is fixed between all the array tasks!</p>
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/instructor-notes.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/instructor-notes.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-06-13",
-  "datePublished": "2023-06-13"
+  "dateModified": "2023-06-15",
+  "datePublished": "2023-06-15"
 }
 
   </script><script>

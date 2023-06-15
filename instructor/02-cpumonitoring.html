@@ -85,11 +85,11 @@
   Intermediate Slurm
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 14%" class="percentage">
-    14%
+<aside class="col-md-12 lesson-progress"><div style="width: 17%" class="percentage">
+    17%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 14%" aria-valuenow="14" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 17%" aria-valuenow="17" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -203,15 +203,6 @@
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
         <a href="06-rpython.html">6. R and Python Slurm scripts</a>
-    </div><!--/div.accordion-header-->
-        
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush8">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading8">
-        <a href="07-usefulopts.html">7. Job Arrays</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -341,7 +332,7 @@ in less time than 1.2s?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -438,7 +429,7 @@ indefinitely. We can do so by</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>You might get questions as to why <code>srun</code> should be used.
 In many cases it’s not important, but <code>srun</code> helps Slurm
@@ -522,7 +513,7 @@ CPU usage.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <p>You may wish to explain how to distinguish processes of interest from
 system processes. Usually, the process of interest will be identifiable
@@ -615,7 +606,7 @@ with <code>seff</code>. What is the CPU Efficiency (%) that the
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -680,7 +671,7 @@ cores on Slurm!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Both the documentation and <code>--help</code> output would’ve shown
 that the <code>-p &lt;N&gt;</code> option is needed to execute the code
@@ -746,7 +737,7 @@ the machine you’re running on.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
 <div class="accordion-body">
 <p>The output from the last challenge may suggest to learners that using
 4 CPUs only results in a 2 times speedup, but this result is due to
@@ -781,7 +772,7 @@ number of CPUs and see what happens with the time it takes to calculate
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -878,7 +869,7 @@ requesting 4 cores from Slurm, but still using <code>-p 2</code>?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>Comparing 1 CPU with 2 CPUs:</p>
 <div class="codewrapper sourceCode" id="cb33">
@@ -999,7 +990,7 @@ be!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
 <div class="accordion-body">
 <p>in the <a href="https://dummy.com#parallel-scheme" class="external-link">parallel
 scheme</a> section, you will find that to run the program across nodes,
@@ -1049,7 +1040,7 @@ distributed computing frameworks exist, like Spark + Hadoop.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor4" class="accordion-collapse collapse" aria-labelledby="headingInstructor4" data-bs-parent="#accordionInstructor4">
+<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
 <div class="accordion-body">
 <p>With regard to the last exercise, you may wish to highlight what
 happens when you try to run a program inside <code>sbatch</code>,
@@ -1145,7 +1136,7 @@ any links that you are not going to use.
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/02-cpumonitoring.html",
   "dateCreated": "2023-04-13",
   "dateModified": "2023-06-02",
-  "datePublished": "2023-06-13"
+  "datePublished": "2023-06-15"
 }
 
   </script><script>
