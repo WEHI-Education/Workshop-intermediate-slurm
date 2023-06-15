@@ -12,6 +12,6 @@
 "episodes/06-rpython.Rmd" "dd6ef26b3ecaf9d40a1f73cb52350ec4" "site/built/06-rpython.md" "2023-06-15"
 "instructors/instructor-notes.md" "cae72b6712578d74a49fea7513099f8c" "site/built/instructor-notes.md" "2023-05-02"
 "learners/reference.md" "1c7cc4e229304d9806a13f69ca1b8ba4" "site/built/reference.md" "2023-05-02"
-"learners/setup.md" "030985636dfaf1ef53cfc8e1571eb54a" "site/built/setup.md" "2023-05-12"
+"learners/setup.md" "9f595bc081e5063fd473407970a9e388" "site/built/setup.md" "2023-06-15"
 "profiles/learner-profiles.md" "60b93493cf1da06dfd63255d73854461" "site/built/learner-profiles.md" "2023-05-02"
 "renv/profiles/lesson-requirements/renv.lock" "7e6ed5826061f0c954127b73f76fca46" "site/built/renv.lock" "2023-05-02"
