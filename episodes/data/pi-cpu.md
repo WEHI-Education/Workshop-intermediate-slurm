@@ -8,7 +8,7 @@ CPU versions are written in Fortran. GPU version is written in C (with CUDA).
 
 ## Algorithm
 
-![test](https://felixdmr.com/post-assets/2020-09-20-pi-from-monte-carlo/banner.png)
+<img src="https://felixdmr.com/post-assets/2020-09-20-pi-from-monte-carlo/banner.png">
 
 $\pi$ is calculated by generating 2D coordinates with random real values between
 0 and 1. The number of points within the circle of radius 1 is divided by the
@@ -65,3 +65,5 @@ more GPUs
 ```
 
 asks `pi-gpu` to try to make use of 3 GPUs if they are available on the system.
+
+#### 
