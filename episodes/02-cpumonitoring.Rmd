@@ -581,7 +581,7 @@ will be idle. Whereas with `srun`, multiple copies of the program will be starte
 
 -   Requesting more resources from Slurm doesn't mean your job knows how to use them!
     - Many programs don't work in parallel by default - either that functionality doesn't exist, or needs to be turned on!
-    - Parallelism across nodes is differently parallelism within nodes. You usually need to run them a little differently than a normal program
+    - Parallelism across nodes is different from parallelism within nodes. You usually need to run them a little differently than a normal program
 -   The `htop` system tool is a great way to get live information about how effective your job is
 -   `seff` and `sacct` can be used to get summary stats about jobs
 -   More CPUs doesn't always mean an equivalent speedup!
