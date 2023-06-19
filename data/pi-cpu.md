@@ -49,9 +49,11 @@ Calculate $\pi$ across multiple nodes using `mpiexec`, or `srun` (for Slurm syst
 
 ```bash
 # execute pi-cpu-mpi with 2 MPI processes and 1 thread per process
+# giving 2 threads in total
 mpiexec -n 2 ./pi-cpu-mpi
 # OR
 # execute pi-cpu-mpi with 2 MPI processes (across 2 nodes) and 32 threads per process
+# this gives 64 threads in total (across two nodes)
 srun -N 2 -c 32 ./pi-cpu-mpi -p 32
 ```
 
