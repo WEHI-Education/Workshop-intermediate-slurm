@@ -259,7 +259,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Monitoring a Jobs performance</h1>
-        <p> Last updated on 2023-06-15 | 
+        <p> Last updated on 2023-06-19 | 
         
         <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/02-cpumonitoring.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -332,7 +332,7 @@ in less time than 1.2s?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -429,7 +429,7 @@ indefinitely. We can do so by</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>You might get questions as to why <code>srun</code> should be used.
 In many cases it’s not important, but <code>srun</code> helps Slurm
@@ -513,7 +513,7 @@ CPU usage.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <p>You may wish to explain how to distinguish processes of interest from
 system processes. Usually, the process of interest will be identifiable
@@ -606,7 +606,7 @@ with <code>seff</code>. What is the CPU Efficiency (%) that the
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -670,7 +670,7 @@ parallel with 4 cores on Slurm!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Both the documentation and <code>--help</code> output would’ve shown
 that the <code>-p &lt;N&gt;</code> option is needed to execute the code
@@ -736,7 +736,7 @@ the machine you’re running on.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
 <div class="accordion-body">
 <p>The output from the last challenge may suggest to learners that using
 4 CPUs only results in a 2 times speedup, but this result is due to
@@ -771,7 +771,7 @@ number of CPUs and see what happens with the time it takes to calculate
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -868,7 +868,7 @@ requesting 4 cores from Slurm, but still using <code>-p 2</code>?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>Comparing 1 CPU with 2 CPUs:</p>
 <div class="codewrapper sourceCode" id="cb33">
@@ -884,9 +884,12 @@ srun: job 11783722 has been allocated resources
 Result: 3.1419098061914 Error:  0.0003170651788 Time: 3.6352s
 Result: 3.1415063289877 Error: -0.0000864120249 Time: 3.6363s
 Result: 3.1416112401887 Error:  0.0000184991761 Time: 3.6349s
-...
-```bash
-srun --cpus-per-task=2 --constraint=Icelake pi-cpu -p 2</code></pre>
+...</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb35">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>2 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -902,10 +905,10 @@ Result: 3.1416117585887 Error:  0.0000190175761 Time: 2.3668s
 100% as one might hope!</p>
 <p>Requesting 4 CPUs from Slurm, but running
 <code>pi-cpu -p 2</code>:</p>
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -956,10 +959,10 @@ more! Let’s try and run <code>pi-cpu</code> on 2 nodes, with 2 CPUs per
 node, which gives our job a total request of 4 CPUs. Remember to add the
 constraint so we can compare the times to the previous tests!</p>
 <p>We will submit this job using <code>srun</code>:</p>
-<div class="codewrapper sourceCode" id="cb38">
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>2 <span class="at">--cpus-per-task</span><span class="op">=</span>2 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 4 </span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>2 <span class="at">--cpus-per-task</span><span class="op">=</span>2 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 4 </span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -989,7 +992,7 @@ again and see why that might be!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
 <div class="accordion-body">
 <p>in the <a href="https://github.com/WEHI-ResearchComputing/Workshop-intermediate-slurm/blob/main/episodes/data/pi-cpu.md#multi-node--multi-threading" class="external-link">multi-node</a>
 section, you will find that to run the program across nodes, you
@@ -1002,10 +1005,10 @@ CPUs per node.</li>
 </ol><p>We’ve been using <code>srun</code> so far, so we only need to change
 the program. We also need to change the number after
 <code>-p</code>:</p>
-<div class="codewrapper sourceCode" id="cb40">
+<div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>2 <span class="at">--cpus-per-task</span><span class="op">=</span>2 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu-mpi <span class="at">-p</span> 2 </span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>2 <span class="at">--cpus-per-task</span><span class="op">=</span>2 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu-mpi <span class="at">-p</span> 2 </span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1039,7 +1042,7 @@ distributed computing frameworks exist, like Spark + Hadoop.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor4" class="accordion-collapse collapse" aria-labelledby="headingInstructor4" data-bs-parent="#accordionInstructor4">
+<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
 <div class="accordion-body">
 <p>With regard to the last exercise, you may wish to highlight what
 happens when you try to run a program inside <code>sbatch</code>,
@@ -1111,7 +1114,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="../LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.3" class="external-link">sandpaper (0.12.3)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.4" class="external-link">sandpaper (0.12.4)</a>,
         <a href="https://github.com/carpentries/pegboard" class="external-link">pegboard (0.5.3)</a>,
       and <a href="https://github.com/carpentries/varnish/tree/0.2.17" class="external-link">varnish (0.2.17)</a>.</p>
 			</div>
@@ -1134,8 +1137,8 @@ any links that you are not going to use.
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/02-cpumonitoring.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/02-cpumonitoring.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-06-15",
-  "datePublished": "2023-06-15"
+  "dateModified": "2023-06-19",
+  "datePublished": "2023-06-19"
 }
 
   </script><script>
