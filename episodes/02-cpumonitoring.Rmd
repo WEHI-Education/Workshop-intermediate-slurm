@@ -458,8 +458,8 @@ Result: 3.1416117585887 Error:  0.0000190175761 Time: 2.3668s
 ...
 ```
 
-This is approximately 6/(4.28*2) = 70%. Unfortunately not as close to 100% as
-one might hope!
+This is approximately 3.64/(2.37*2) = 77% (the times you get may vary).
+Unfortunately not as close to 100% as one might hope!
 
 Requesting 4 CPUs from Slurm, but running `pi-cpu -p 2`:
 
@@ -475,8 +475,8 @@ Result: 3.1414952805876 Error: -0.0000974604250 Time: 1.7257s
 ...
 ```
 
-Which is now roughly 2.05 times faster than the one-core case! But why the
-difference? In both cases, we requested `pi-cpu` to run in parallel with 2 cores right (through the `-p 2` flag)?
+Which is now roughly 2.1 times faster than the one-core case! But why the
+difference? In both cases, we requested `pi-cpu` to run in parallel with 2 cores, right (through the `-p 2` flag)?
 
 This is because on Milton, hyperthreading is turned on, which is often the case
 for modern CPUs. Milton's Slurm is configured such that when you request 1
@@ -486,14 +486,14 @@ one physical CPU core.
 So, when you execute `srun --cpus-per-task=2 pi-cpu -p 2`, `pi-cpu -p 2` is 
 actually executed on a single physical core. But thanks to hyperthreading, you
 manage to get some speedup almost for free! When you execute `srun --cpus-per-task=4 pi-cpu 2`,
-`pi-cpu` is now running on two seperate physical cores, hence we see a speedup!
+`pi-cpu` is now running on two separate physical cores, hence we see a speedup!
 
 This is important to remember because if you forget about how Slurm CPUs are
 equivalent to hyperthreads, rather than physical CPU cores, programs that run
 in parallel might appear less efficient (like in the case of `pi-cpu`!).
 
 NOTE: this configuration is unique to Milton. Most other HPC facilities equate
-Slurm CPUs to physical CPU cores, not hypertheads.
+Slurm CPUs to physical CPU cores, not hyperthreads.
 
 :::::::::::::
 
