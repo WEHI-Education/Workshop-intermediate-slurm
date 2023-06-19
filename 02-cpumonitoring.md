@@ -445,6 +445,7 @@ Result: 3.1419098061914 Error:  0.0003170651788 Time: 3.6352s
 Result: 3.1415063289877 Error: -0.0000864120249 Time: 3.6363s
 Result: 3.1416112401887 Error:  0.0000184991761 Time: 3.6349s
 ...
+```
 ```bash
 srun --cpus-per-task=2 --constraint=Icelake pi-cpu -p 2
 ```
