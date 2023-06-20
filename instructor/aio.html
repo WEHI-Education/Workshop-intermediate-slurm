@@ -468,7 +468,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-02-cpumonitoring"><p>Content from <a href="02-cpumonitoring.html">Monitoring a Jobs performance</a></p>
 <hr>
-<p> Last updated on 2023-06-19 | 
+<p> Last updated on 2023-06-20 | 
         
         <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/02-cpumonitoring.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time <i aria-hidden="true" data-feather="clock"></i> 12 minutes </p>
@@ -1285,7 +1285,7 @@ to use them!
 <ul>
 <li>Many programs don’t work in parallel by default - either that
 functionality doesn’t exist, or needs to be turned on!</li>
-<li>Parallelism across nodes is differently parallelism within nodes.
+<li>Parallelism across nodes is different from parallelism within nodes.
 You usually need to run them a little differently than a normal
 program</li>
 </ul>
@@ -1293,8 +1293,7 @@ program</li>
 <li>The <code>htop</code> system tool is a great way to get live
 information about how effective your job is</li>
 <li>
-<code>seff</code> and <code>sacct</code> can be used to get summary
-stats about jobs</li>
+<code>seff</code> can be used to get summary stats about jobs</li>
 <li>More CPUs doesn’t always mean an equivalent speedup!</li>
 </ul>
 </div>
@@ -2187,7 +2186,7 @@ Memory: 4096MB</code></pre>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>The Slurm environment variables needed here are
 <code>SLURM_CPUS_PER_TASK</code>, <code>SLURM_JOB_NODELIST</code>, and
@@ -2236,7 +2235,7 @@ would be empty!</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p><a href="https://monashdatafluency.github.io/shell-novice/" class="external-link">Intro to
 Linux Command Line</a> is specified as a prerequisite, so learners
@@ -2636,7 +2635,7 @@ into <code>ncpus</code> bash variables</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>As shown already we can save <code>iter-cpu.txt</code> into an array
 using</p>
@@ -2686,7 +2685,7 @@ our new Slurm array script works?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Yes we do! While we have the same number of rows in
 <code>iter-cpu.txt</code>, the first row is headers. If we passed those
@@ -2724,7 +2723,7 @@ should be passed to <code>-n</code> and the second should be passed to
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>We first need to modify the <code>readarray</code> line to read the
 correct file, and to use an appropriately named array variable:</p>
@@ -2809,7 +2808,7 @@ default instead e.g., <code>export SLURM_ARRAY_TASK_ID=1</code>.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
 <div class="accordion-body">
 <p>You may wish to highlight that you cannot change the resource request
 between job array tasks. Everything controlled by an <code>sbatch</code>
@@ -2860,7 +2859,7 @@ What should you set <code>IFS</code> to to get the following output from
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -3664,7 +3663,7 @@ script.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>When submitting this script as-is with <code>sbatch pi.py</code>,
 you’ll get the error:</p>
@@ -3863,7 +3862,7 @@ convenience.</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3992,8 +3991,8 @@ any links that you are not going to use.
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/aio.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/aio.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-06-19",
-  "datePublished": "2023-06-19"
+  "dateModified": "2023-06-20",
+  "datePublished": "2023-06-20"
 }
 
   </script><script>
