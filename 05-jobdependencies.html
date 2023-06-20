@@ -260,7 +260,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Organising dependent Slurm jobs</h1>
-        <p> Last updated on 2023-06-15 | 
+        <p> Last updated on 2023-06-20 | 
         
         <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/05-jobdependencies.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -431,7 +431,7 @@ file:</p>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="va">id</span><span class="op">=</span><span class="va">$SLURM_ARRAY_TASK_ID</span></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> pi-avg.py pi-avg-<span class="va">${id}</span>.out</span></code></pre>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> pi-avg.py pi-submit-<span class="va">${id}</span>.out</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="the-pi-avg-sh-script-line-by-line">The <code>pi-avg.sh</code> script line-by-line<a class="anchor" aria-label="anchor" href="#the-pi-avg-sh-script-line-by-line"></a></h3>
@@ -856,7 +856,7 @@ any links that you are not going to use.
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/05-jobdependencies.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/05-jobdependencies.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-06-15",
+  "dateModified": "2023-06-20",
   "datePublished": "2023-06-20"
 }
 
