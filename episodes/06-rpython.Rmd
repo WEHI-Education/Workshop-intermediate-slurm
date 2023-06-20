@@ -76,7 +76,7 @@ if __name__ == "__main__":
 Which you can run by
 
 ```bash
-python pi.py 123456789
+python3 pi.py 123456789
 ```
 which calculates $\pi$ with 123,456,789 trials. The output should look similar
 to
