@@ -238,11 +238,11 @@ published by the same authors! When running the program, you will need:
 
 * 1GB memory
 * 1 GPU (of any kind)
-* the `cuda/11.7.1` module loaded
+* the `cuda/11.7.1` and `gcc/11.2.0` modules loaded
 
 ```bash
-module load cuda/11.7.1
-srun --gres=gpu:1 --mem=1G pi-gpu
+module load cuda/11.7.1 gcc/11.2.0
+srun --gres=gpu:1 --mem=1G --partition=gpuq pi-gpu
 ```
 ```output
 srun: job 12066158 queued and waiting for resources
@@ -259,7 +259,7 @@ can help you with running the program on more GPUs on the same node. Try it out
 with `-p 2` and see if you get a 2x speedup.
 
 ```bash
-srun --gres=gpu:2 --mem=1G pi-gpu -p 2
+srun --gres=gpu:2 --mem=1G --partition=gpuq pi-gpu -p 2
 ```
 ```output
 srun: job 12066179 queued and waiting for resources
