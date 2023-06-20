@@ -635,7 +635,7 @@ Our final script should look something like:
 echo "hello world from task ${SLURM_ARRAY_TASK_ID}"
 
 readarray -t rowdata < iter-cpu.txt
-read niterations ncpus <<< ${rowdata[$SLURM_CPUS_PER_TASK]}
+read niterations ncpus <<< ${rowdata[$SLURM_ARRAY_TASK_ID]}
 
 echo "I will run $niterations with $ncpus CPUs!"
 
