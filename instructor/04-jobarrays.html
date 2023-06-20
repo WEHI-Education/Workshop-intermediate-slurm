@@ -1080,7 +1080,7 @@ command!</p>
 <span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"hello world from task </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">"</span></span>
 <span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> rowdata <span class="op">&lt;</span> iter-cpu.txt</span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="va">niterations</span> <span class="va">ncpus</span> <span class="op">&lt;&lt;&lt;</span> <span class="va">${rowdata</span><span class="op">[</span><span class="va">$SLURM_CPUS_PER_TASK</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="va">niterations</span> <span class="va">ncpus</span> <span class="op">&lt;&lt;&lt;</span> <span class="va">${rowdata</span><span class="op">[</span><span class="va">$SLURM_ARRAY_TASK_ID</span><span class="op">]</span><span class="va">}</span></span>
 <span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"I will run </span><span class="va">$niterations</span><span class="st"> with </span><span class="va">$ncpus</span><span class="st"> CPUs!"</span></span>
 <span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a></span>
