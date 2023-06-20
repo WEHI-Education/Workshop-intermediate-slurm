@@ -120,7 +120,7 @@ Each job is referred to as a "task" of a single job, each associated with their
 own index. In the above example, each array task will have a task ID of 1-10.
 
 The `--array` option can also accept lists of integers and ranges, seperated by
-commas. For example, `--array=1-3,7` is accepetable too! This is useful for
+commas. For example, `--array=1-3,7` is acceptable too! This is useful for
 testing or rerunning only specific indices.
 
 Each array task will have its own output file. The default naming is 
@@ -309,7 +309,7 @@ readarray
 # start typing
 this
 is an
-example # pree Ctrl+D to exit
+example # press Ctrl+D to exit
 ```
 Your text gets saved into the `MAPFILE` array variable (each index corresponds to a line):
 ```bash
@@ -368,7 +368,7 @@ readarray niterations < iterations.txt
 echo "I will run ${niterations[$SLURM_ARRAY_TASK_ID]}!"
 ```
 
-Note that we've changed the array task range from 1-3 to 0-3 since the bash array
+Note that we've changed the array task range from 1-3 to 0-2 since the bash array
 is 0-indexed.
 
 Let's submit this script to confirm that we've used `readarray`` correctly.
@@ -409,9 +409,14 @@ We also need to change the array range to pull all the lines of the `iterations.
 Change the array range and add the `pi-cpu` command to your script:
 
 ```bash
-...
+#!/bin/bash
+#SBATCH --job-name=myjob
 #SBATCH --array=0-6
 #SBATCH --cpus-per-task=4
+
+echo "hello world from task ${SLURM_ARRAY_TASK_ID}"
+readarray -t niterations < iterations.txt
+echo "I will run ${niterations[$SLURM_ARRAY_TASK_ID]}!"
 
 srun ./pi-cpu -p ${SLURM_CPUS_PER_TASK} -n ${niterations[$SLURM_ARRAY_TASK_ID]}
 ```
@@ -539,7 +544,7 @@ myvar1: hello, myvar2: world
 
 ### parsing the `iter-cpu.txt` file
 
-We now know how to split lines of a file into an array using `readarray` and, as well as splitting strings with spaces into individual words!
+We now know how to split lines of a file into an array using `readarray`, as well as splitting strings with spaces into individual words!
 
 See if you can apply this to our current case: try and get **the first line** from `iter-cpu.txt` and save the first column into `niterations` and the second column into `ncpus` bash variables
 
@@ -638,6 +643,12 @@ srun pi-cpu -p $ncpus -n $niterations
 ```
 
 ::::::::::::
+
+### Controlling output
+
+When using `--output` and `--error` flags with `sbatch`, you can make use of the
+`%A` variable which refers to the parent job ID, and `%a`, which refers to the
+job task. Using `%j` will use a different job ID for each task.
 
 ### Exception handling
 
