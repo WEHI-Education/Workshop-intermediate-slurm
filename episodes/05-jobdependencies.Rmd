@@ -131,7 +131,7 @@ This program can be placed into a Slurm script like so:
 
 id=$SLURM_ARRAY_TASK_ID
 
-python3 pi-avg.py pi-avg-${id}.out
+python3 pi-avg.py pi-submit-${id}.out
 ```
 
 ### The `pi-avg.sh` script line-by-line
