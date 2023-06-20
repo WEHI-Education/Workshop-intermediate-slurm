@@ -260,7 +260,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Memory and GPU utilization</h1>
-        <p> Last updated on 2023-06-02 | 
+        <p> Last updated on 2023-06-20 | 
         
         <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/03-moremonitoring.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -580,12 +580,13 @@ frequently.</p>
 the program, you will need:</p>
 <ul><li>1GB memory</li>
 <li>1 GPU (of any kind)</li>
-<li>the <code>cuda/11.7.1</code> module loaded</li>
+<li>the <code>cuda/11.7.1</code> and <code>gcc/11.2.0</code> modules
+loaded</li>
 </ul><div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load cuda/11.7.1</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:1 <span class="at">--mem</span><span class="op">=</span>1G pi-gpu</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load cuda/11.7.1 gcc/11.2.0</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:1 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--partition</span><span class="op">=</span>gpuq pi-gpu</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -606,7 +607,7 @@ you get a 2x speedup.</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G pi-gpu <span class="at">-p</span> 2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--partition</span><span class="op">=</span>gpuq pi-gpu <span class="at">-p</span> 2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -934,7 +935,7 @@ any links that you are not going to use.
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/03-moremonitoring.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/03-moremonitoring.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-06-02",
+  "dateModified": "2023-06-20",
   "datePublished": "2023-06-20"
 }
 
