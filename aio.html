@@ -525,7 +525,7 @@ in less time than 1.2s?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -765,7 +765,7 @@ with <code>seff</code>. What is the CPU Efficiency (%) that the
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -830,7 +830,7 @@ parallel with 4 cores on Slurm!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Both the documentation and <code>--help</code> output would’ve shown
 that the <code>-p &lt;N&gt;</code> option is needed to execute the code
@@ -913,7 +913,7 @@ number of CPUs and see what happens with the time it takes to calculate
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1010,7 +1010,7 @@ requesting 4 cores from Slurm, but still using <code>-p 2</code>?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <p>Comparing 1 CPU with 2 CPUs:</p>
 <div class="codewrapper sourceCode" id="cb33">
@@ -1135,7 +1135,7 @@ again and see why that might be!</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
 <div class="accordion-body">
 <p>in the <a href="https://github.com/WEHI-ResearchComputing/Workshop-intermediate-slurm/blob/main/episodes/data/pi-cpu.md#multi-node--multi-threading" class="external-link">multi-node</a>
 section, you will find that to run the program across nodes, you
@@ -1835,7 +1835,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-04-jobarrays"><p>Content from <a href="04-jobarrays.html">Job Arrays</a></p>
 <hr>
-<p> Last updated on 2023-06-15 | 
+<p> Last updated on 2023-06-20 | 
         
         <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/04-jobarrays.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1989,7 +1989,7 @@ with their own index. In the above example, each array task will have a
 task ID of 1-10.</p>
 <p>The <code>--array</code> option can also accept lists of integers and
 ranges, seperated by commas. For example, <code>--array=1-3,7</code> is
-accepetable too! This is useful for testing or rerunning only specific
+acceptable too! This is useful for testing or rerunning only specific
 indices.</p>
 <p>Each array task will have its own output file. The default naming is
 <code>slurm-&lt;jobID&gt;-&lt;taskID&gt;.out</code>. For example, the
@@ -2078,7 +2078,7 @@ Memory: 4096MB</code></pre>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>The Slurm environment variables needed here are
 <code>SLURM_CPUS_PER_TASK</code>, <code>SLURM_JOB_NODELIST</code>, and
@@ -2214,7 +2214,7 @@ press Ctrl+D.</p>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># start typing</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="ex">this</span></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="ex">is</span> an</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="ex">example</span> <span class="co"># pree Ctrl+D to exit</span></span></code></pre>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="ex">example</span> <span class="co"># press Ctrl+D to exit</span></span></code></pre>
 </div>
 <p>Your text gets saved into the <code>MAPFILE</code> array variable
 (each index corresponds to a line):</p>
@@ -2291,7 +2291,7 @@ number of tasks!</p>
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> niterations <span class="op">&lt;</span> iterations.txt</span>
 <span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"I will run </span><span class="va">${niterations</span><span class="op">[</span><span class="va">$SLURM_ARRAY_TASK_ID</span><span class="op">]</span><span class="va">}</span><span class="st">!"</span></span></code></pre>
 </div>
-<p>Note that we’ve changed the array task range from 1-3 to 0-3 since
+<p>Note that we’ve changed the array task range from 1-3 to 0-2 since
 the bash array is 0-indexed.</p>
 <p>Let’s submit this script to confirm that we’ve used `readarray``
 correctly.</p>
@@ -2346,11 +2346,16 @@ your script:</p>
 <div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=0-6</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=4</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> ./pi-cpu <span class="at">-p</span> <span class="va">${SLURM_CPUS_PER_TASK}</span> <span class="at">-n</span> <span class="va">${niterations</span><span class="op">[</span><span class="va">$SLURM_ARRAY_TASK_ID</span><span class="op">]</span><span class="va">}</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=myjob</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=0-6</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=4</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"hello world from task </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">"</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> niterations <span class="op">&lt;</span> iterations.txt</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"I will run </span><span class="va">${niterations</span><span class="op">[</span><span class="va">$SLURM_ARRAY_TASK_ID</span><span class="op">]</span><span class="va">}</span><span class="st">!"</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> ./pi-cpu <span class="at">-p</span> <span class="va">${SLURM_CPUS_PER_TASK}</span> <span class="at">-n</span> <span class="va">${niterations</span><span class="op">[</span><span class="va">$SLURM_ARRAY_TASK_ID</span><span class="op">]</span><span class="va">}</span></span></code></pre>
 </div>
 <p>You will also need to ensure that <code>--cpus-per-task</code> is
 provided here, as without that option, <code>SLURM_CPUS_PER_TASK</code>
@@ -2493,8 +2498,8 @@ file<a class="anchor" aria-label="anchor" href="#parsing-the-iter-cpu.txt-file">
 </h3>
 <div class="callout-content">
 <p>We now know how to split lines of a file into an array using
-<code>readarray</code> and, as well as splitting strings with spaces
-into individual words!</p>
+<code>readarray</code>, as well as splitting strings with spaces into
+individual words!</p>
 <p>See if you can apply this to our current case: try and get
 <strong>the first line</strong> from <code>iter-cpu.txt</code> and save
 the first column into <code>niterations</code> and the second column
@@ -2509,7 +2514,7 @@ into <code>ncpus</code> bash variables</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>As shown already we can save <code>iter-cpu.txt</code> into an array
 using</p>
@@ -2559,7 +2564,7 @@ our new Slurm array script works?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Yes we do! While we have the same number of rows in
 <code>iter-cpu.txt</code>, the first row is headers. If we passed those
@@ -2597,7 +2602,7 @@ should be passed to <code>-n</code> and the second should be passed to
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>We first need to modify the <code>readarray</code> line to read the
 correct file, and to use an appropriately named array variable:</p>
@@ -2651,6 +2656,15 @@ command!</p>
 </div>
 </div>
 </div>
+</div>
+<div class="section level3">
+<h3 id="controlling-output">Controlling output<a class="anchor" aria-label="anchor" href="#controlling-output"></a>
+</h3>
+<p>When using <code>--output</code> and <code>--error</code> flags with
+<code>sbatch</code>, you can make use of the <code>%A</code> variable
+which refers to the parent job ID, and <code>%a</code>, which refers to
+the job task. Using <code>%j</code> will use a different job ID for each
+task.</p>
 </div>
 <div class="section level3">
 <h3 id="exception-handling">Exception handling<a class="anchor" aria-label="anchor" href="#exception-handling"></a>
@@ -2717,7 +2731,7 @@ What should you set <code>IFS</code> to to get the following output from
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
