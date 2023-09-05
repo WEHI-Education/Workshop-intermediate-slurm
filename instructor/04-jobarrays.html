@@ -496,7 +496,7 @@ Memory: 4096MB</code></pre>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>The Slurm environment variables needed here are
 <code>SLURM_CPUS_PER_TASK</code>, <code>SLURM_JOB_NODELIST</code>, and
@@ -545,7 +545,7 @@ would be empty!</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p><a href="https://monashdatafluency.github.io/shell-novice/" class="external-link">Intro to
 Linux Command Line</a> is specified as a prerequisite, so learners
@@ -948,7 +948,7 @@ into <code>ncpus</code> bash variables</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>As shown already we can save <code>iter-cpu.txt</code> into an array
 using</p>
@@ -998,7 +998,7 @@ our new Slurm array script works?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Yes we do! While we have the same number of rows in
 <code>iter-cpu.txt</code>, the first row is headers. If we passed those
@@ -1036,7 +1036,7 @@ should be passed to <code>-n</code> and the second should be passed to
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>We first need to modify the <code>readarray</code> line to read the
 correct file, and to use an appropriately named array variable:</p>
@@ -1128,7 +1128,7 @@ default instead e.g., <code>export SLURM_ARRAY_TASK_ID=1</code>.</p>
   Instructor Note
   </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
 <div class="accordion-body">
 <p>You may wish to highlight that you cannot change the resource request
 between job array tasks. Everything controlled by an <code>sbatch</code>
@@ -1177,7 +1177,7 @@ What should you set <code>IFS</code> to to get the following output from
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>
 <code>IFS=w</code>:</li>
@@ -1264,8 +1264,8 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="../LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper" class="external-link">sandpaper (0.12.5)</a>,
-        <a href="https://github.com/carpentries/pegboard/tree/0.5.3" class="external-link">pegboard (0.5.3)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.12.4" class="external-link">sandpaper (0.12.4)</a>,
+        <a href="https://github.com/carpentries/pegboard/tree/0.6.0" class="external-link">pegboard (0.6.0)</a>,
       and <a href="https://github.com/carpentries/varnish/tree/0.2.18" class="external-link">varnish (0.2.18)</a>.</p>
 			</div>
 		</footer></div> <!-- / div.container -->
@@ -1288,7 +1288,7 @@ any links that you are not going to use.
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/04-jobarrays.html",
   "dateCreated": "2023-04-13",
   "dateModified": "2023-08-15",
-  "datePublished": "2023-08-29"
+  "datePublished": "2023-09-05"
 }
 
   </script><script>
