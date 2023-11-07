@@ -385,7 +385,7 @@ so how would you go about submitting those jobs at first?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>If you’re new to Linux, you might’ve thought about submitting these
 jobs manually! If you’ve done a bit of scripting, you might’ve thought
@@ -419,7 +419,7 @@ is single-threaded only?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>If the second step is short, you might put the two steps into a
 single Slurm job. But what if the second step takes a large amount of
@@ -2081,7 +2081,7 @@ Memory: 4096MB</code></pre>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>The Slurm environment variables needed here are
 <code>SLURM_CPUS_PER_TASK</code>, <code>SLURM_JOB_NODELIST</code>, and
@@ -2517,7 +2517,7 @@ into <code>ncpus</code> bash variables</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>As shown already we can save <code>iter-cpu.txt</code> into an array
 using</p>
@@ -2567,7 +2567,7 @@ our new Slurm array script works?</p>
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Yes we do! While we have the same number of rows in
 <code>iter-cpu.txt</code>, the first row is headers. If we passed those
@@ -2605,7 +2605,7 @@ should be passed to <code>-n</code> and the second should be passed to
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>We first need to modify the <code>readarray</code> line to read the
 correct file, and to use an appropriately named array variable:</p>
@@ -2734,7 +2734,7 @@ What should you set <code>IFS</code> to to get the following output from
   Show me the solution
   </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -3816,8 +3816,8 @@ any links that you are not going to use.
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/aio.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/aio.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2023-10-31",
-  "datePublished": "2023-10-31"
+  "dateModified": "2023-11-07",
+  "datePublished": "2023-11-07"
 }
 
   </script><script>
