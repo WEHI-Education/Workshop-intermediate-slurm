@@ -386,7 +386,7 @@ so how would you go about submitting those jobs at first?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>If you’re new to Linux, you might’ve thought about submitting these
 jobs manually! If you’ve done a bit of scripting, you might’ve thought
@@ -418,7 +418,7 @@ is single-threaded only?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>If the second step is short, you might put the two steps into a
 single Slurm job. But what if the second step takes a large amount of
@@ -438,7 +438,7 @@ to help with pipelines. We’ll cover this in a future episode!</p>
   <h3 class="accordion-header" id="headingInstructor1">
 <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>Instructor Note</h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>The challenges can be done together with the researchers input.</p>
 </div>
@@ -543,7 +543,7 @@ in less time than 1.2s?</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-cpu</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">srun</span> pi-cpu</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -585,19 +585,28 @@ command line!</p>
 </h3>
 <p>Try running <code>htop</code> on the login node. You should get
 something similar to below:</p>
-<figure><img src="../fig/htop-screenshot.png" alt="" class="figure mx-auto d-block"><figcaption>Screenshot of <code>htop</code> output</figcaption></figure><p><code>htop</code> gives a lot of information, so here is a quick
+<figure><img src="../fig/htop-screenshot.png" alt="Screenshot of htop output" class="figure mx-auto d-block"><div class="figcaption">Screenshot of <code>htop</code> output</div>
+</figure><p><code>htop</code> gives a lot of information, so here is a quick
 explainer on what is being shown.</p>
 <p>At the top of the <code>htop</code> output, you’ll see multiple bars
 and each bar tells you the activity level of a single CPU core. If a bar
 is at 100%, then that means that that CPU core is completely busy.</p>
-<figure><img src="../fig/htop-screenshot-cpubars.png" alt="" class="figure mx-auto d-block"><figcaption>CPU utilization bars from <code>htop</code></figcaption></figure><p>Below the bar, on the left side, is another bar which tells you how
+<figure><img src="../fig/htop-screenshot-cpubars.png" alt="CPU utilization bars from htop" class="figure mx-auto d-block"><div class="figcaption">CPU utilization bars from
+<code>htop</code>
+</div>
+</figure><p>Below the bar, on the left side, is another bar which tells you how
 much of the node’s memory is occupied. Next to the bar is information
 about how much load the node is under.</p>
-<figure><img src="../fig/htop-screenshot-memload.png" alt="" class="figure mx-auto d-block"><figcaption>Memory utilization bars and load from
-<code>htop</code></figcaption></figure><p>Everything below that is most important to monitoring your jobs. That
+<figure><img src="../fig/htop-screenshot-memload.png" alt="Memory utilization bars and load from htop" class="figure mx-auto d-block"><div class="figcaption">Memory utilization bars and load from
+<code>htop</code>
+</div>
+</figure><p>Everything below that is most important to monitoring your jobs. That
 table is a dynamic list of “processes” running on the node. And each
 column tells you a bit of different information about the process.</p>
-<figure><img src="../fig/htop-screenshot-procs.png" alt="" class="figure mx-auto d-block"><figcaption>Process list and fields from <code>htop</code></figcaption></figure><ol style="list-style-type: decimal">
+<figure><img src="../fig/htop-screenshot-procs.png" alt="Process list and fields from htop" class="figure mx-auto d-block"><div class="figcaption">Process list and fields from
+<code>htop</code>
+</div>
+</figure><ol style="list-style-type: decimal">
 <li>
 <code>RES</code> tells you the “resident” memory of the process,
 i.e., the memory (in bytes) being used by the process.</li>
@@ -615,7 +624,7 @@ processes, which is not relevant to us. To get only your processes, quit
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
 <p>You should see a list of processes that belong to you only!</p>
 </div>
@@ -630,7 +639,7 @@ indefinitely. We can do so by</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -r -1"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -r -1"</span></span></code></pre>
 </div>
 <div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
 <div class="accordion-item">
@@ -676,7 +685,7 @@ and run <code>htop -u $USER</code>.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -r -1"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -r -1"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -686,7 +695,7 @@ and run <code>htop -u $USER</code>.</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -697,7 +706,7 @@ and run <code>htop -u $USER</code>.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> sml-n15</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">ssh</span> sml-n15</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -708,9 +717,12 @@ Last login: Fri Apr 14 14:40:38 2023 from slurm-login.hpc.wehi.edu.au</code></pr
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
-<figure><img src="../fig/htop-picpu-1.png" alt="" class="figure mx-auto d-block"><figcaption>processes associated with <code>pi-cpu</code></figcaption></figure><p>From the <code>Command</code> column, you can find the relevant data
+<figure><img src="../fig/htop-picpu-1.png" alt="processes associated with pi-cpu" class="figure mx-auto d-block"><div class="figcaption">processes associated with
+<code>pi-cpu</code>
+</div>
+</figure><p>From the <code>Command</code> column, you can find the relevant data
 for your job.</p>
 <p>Hint: You can click on <code>CPU%</code> to sort processes by their
 CPU usage.</p>
@@ -742,13 +754,13 @@ any specific number of CPUs in our command after all. Let’s try request
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> 11088927</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">scancel</span> 11088927</span></code></pre>
 </div>
 <p>And then we can try again, but with more CPUs:</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -r -1"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -r -1"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -758,7 +770,7 @@ any specific number of CPUs in our command after all. Let’s try request
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -769,7 +781,7 @@ any specific number of CPUs in our command after all. Let’s try request
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> sml-n15</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">ssh</span> sml-n15</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -780,17 +792,18 @@ Last login: Fri Apr 14 14:40:38 2023 from slurm-login.hpc.wehi.edu.au</code></pr
 <div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
-<figure><img src="../fig/htop-picpu-2.png" alt="" class="figure mx-auto d-block"><figcaption>processes associated with <code>pi-cpu</code> after
-requesting more CPUs from Slurm</figcaption></figure><p>Unfortunately, the <code>pi-cpu</code> program is still only using
+<figure><img src="../fig/htop-picpu-2.png" alt="processes associated with pi-cpu after requesting more CPUs from Slurm" class="figure mx-auto d-block"><div class="figcaption">processes associated with <code>pi-cpu</code>
+after requesting more CPUs from Slurm</div>
+</figure><p>Unfortunately, the <code>pi-cpu</code> program is still only using
 100% - requesting more CPUs from Slurm didn’t help your job work in
 parallel.</p>
 <p>Now, this job runs forever, so we should cancel it and move on.</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> 11089020</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="ex">scancel</span> 11089020</span></code></pre>
 </div>
 <div id="job-summary-with-seff" class="callout discussion">
 <div class="callout-square">
@@ -816,7 +829,7 @@ with <code>seff</code>. What is the CPU Efficiency (%) that the
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">seff</span> 11089020</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="ex">seff</span> 11089020</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -884,7 +897,7 @@ issue the command</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 pi-cpu <span class="at">-p</span> 4 </span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 pi-cpu <span class="at">-p</span> 4 </span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -903,7 +916,7 @@ halved! We can confirm the utilization of the 4 CPUs we requested with
 <div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">seff</span> 11250525</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="ex">seff</span> 11250525</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -976,7 +989,7 @@ number of CPUs and see what happens with the time it takes to calculate
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 4</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 4</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -991,7 +1004,7 @@ Result: 3.1415671113883 Error: -0.0000256296243 Time: 1.1880s
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>8 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 8</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>8 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 8</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1006,7 +1019,7 @@ Result: 3.1417783593902 Error:  0.0001856183776 Time: 0.5978s
 <div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>16 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 16</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>16 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 16</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1072,7 +1085,7 @@ requesting 4 cores from Slurm, but still using <code>-p 2</code>?</p>
 <div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 1</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 1</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1087,7 +1100,7 @@ Result: 3.1416112401887 Error:  0.0000184991761 Time: 3.6349s
 <div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>2 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>2 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1106,7 +1119,7 @@ vary). Unfortunately not as close to 100% as one might hope!</p>
 <div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1161,7 +1174,7 @@ constraint so we can compare the times to the previous tests!</p>
 <div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>2 <span class="at">--cpus-per-task</span><span class="op">=</span>2 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 4 </span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>2 <span class="at">--cpus-per-task</span><span class="op">=</span>2 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 4 </span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1207,7 +1220,7 @@ the program. We also need to change the number after
 <div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>2 <span class="at">--cpus-per-task</span><span class="op">=</span>2 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu-mpi <span class="at">-p</span> 2 </span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>2 <span class="at">--cpus-per-task</span><span class="op">=</span>2 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu-mpi <span class="at">-p</span> 2 </span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1344,7 +1357,7 @@ option to ensure your times are consistent!</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1363,7 +1376,7 @@ of your job, which caused Slurm to cancel it. If we use
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">seff</span> 12064697</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">seff</span> 12064697</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1388,7 +1401,7 @@ found. Similarly, if we execute <code>sacct</code>, we should see
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">sacct</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1441,7 +1454,7 @@ interested in the <code>RES</code> column!</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>On one of the login nodes, execute the <code>pi-cpu2</code> program.
 You will want to ensure it runs indefinitely, so you have time to run
@@ -1449,7 +1462,7 @@ You will want to ensure it runs indefinitely, so you have time to run
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./pi-cpu2</span> <span class="at">-r</span> <span class="at">-1</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">./pi-cpu2</span> <span class="at">-r</span> <span class="at">-1</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1464,11 +1477,13 @@ Result: 3.1414653105873 Error: -0.0001274304252 Time: 4.1556s
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> slurm-login01</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">ssh</span> slurm-login01</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
-<figure><img src="../fig/htop-screenshot-pi2.png" alt="" class="figure mx-auto d-block"><figcaption><code>htop</code> screenshot with
-<code>pi-cpu2</code> running</figcaption></figure><p>The RES column should show a <em>peak</em> usage of roughly 1900MB,
+<figure><img src="../fig/htop-screenshot-pi2.png" alt="htop screenshot with pi-cpu2 running" class="figure mx-auto d-block"><div class="figcaption">
+<code>htop</code> screenshot with
+<code>pi-cpu2</code> running</div>
+</figure><p>The RES column should show a <em>peak</em> usage of roughly 1900MB,
 but that number will fluctuate while the program runs.</p>
 </div>
 </div>
@@ -1481,7 +1496,7 @@ appropriate amount of memory:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>2G <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>2G <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1534,7 +1549,7 @@ program in Slurm, but requesting only 1800MB.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>1800M <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>1800M <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1553,7 +1568,7 @@ Slurm.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>2G <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2 <span class="at">-r</span> 15</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>2G <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2 <span class="at">-r</span> 15</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1568,7 +1583,7 @@ Result: 3.1415999649886 Error:  0.0000072239760 Time: 2.9642s
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">seff</span> 12066094</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="ex">seff</span> 12066094</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1612,8 +1627,8 @@ loaded</li>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load cuda/11.7.1 gcc/11.2.0</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:1 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--partition</span><span class="op">=</span>gpuq pi-gpu</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="ex">module</span> load cuda/11.7.1 gcc/11.2.0</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:1 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--partition</span><span class="op">=</span>gpuq pi-gpu</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1634,7 +1649,7 @@ you get a 2x speedup.</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--partition</span><span class="op">=</span>gpuq pi-gpu <span class="at">-p</span> 2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--partition</span><span class="op">=</span>gpuq pi-gpu <span class="at">-p</span> 2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1657,7 +1672,7 @@ like we have so far:</p>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">salloc</span> <span class="at">--partition</span><span class="op">=</span>gpuq <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="ex">salloc</span> <span class="at">--partition</span><span class="op">=</span>gpuq <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1674,8 +1689,8 @@ execute the <code>nvtop</code> command:</p>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> gpu-p100-n02</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">nvtop</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">ssh</span> gpu-p100-n02</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="ex">nvtop</span></span></code></pre>
 </div>
 <p>A terminal user interface should open that looks similar to:</p>
 <p><img src="../fig/nvtop-screenshot-empty.png" alt="screenshot of nvtop output" class="figure"> Your output may differ if other
@@ -1727,7 +1742,7 @@ added to ensure it continues running. Once it’s running, return to your
 <div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1737,8 +1752,10 @@ Result: 3.1417724625901 Error:  0.0001798090003 Time: 0.1996s
 Result: 3.1413390477862 Error: -0.0002536058036 Time: 0.1987s
 ...</code></pre>
 </div>
-<figure><img src="../fig/nvtop-screenshot-m1.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> interface with
-<code>pi-gpu -p 2 -r -1</code> running</figcaption></figure><p>Two new processes would’ve popped up in the process list with your
+<figure><img src="../fig/nvtop-screenshot-m1.png" alt="nvtop interface with pi-gpu -p 2 -r -1 running" class="figure mx-auto d-block"><div class="figcaption">
+<code>nvtop</code> interface with
+<code>pi-gpu -p 2 -r -1</code> running</div>
+</figure><p>Two new processes would’ve popped up in the process list with your
 <code>pi-gpu</code> command. You will also see that utilization charts
 will start to move.</p>
 <p>In the process list, you will see two entries corresponding to the
@@ -1755,11 +1772,14 @@ above, the command would be:</p>
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nvtop</span> <span class="at">--gpu-select</span> 0:1</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="ex">nvtop</span> <span class="at">--gpu-select</span> 0:1</span></code></pre>
 </div>
 <p>Change the ID’s based on the GPUs you see <code>pi-gpu</code> running
 on. You should now see information only for the GPUs you specified:</p>
-<figure><img src="../fig/nvtop-screenshot-myjob.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> with only our job’s GPUs</figcaption></figure>
+<figure><img src="../fig/nvtop-screenshot-myjob.png" alt="nvtop with only our job’s GPUs" class="figure mx-auto d-block"><div class="figcaption">
+<code>nvtop</code> with only our job’s
+GPUs</div>
+</figure>
 </div>
 <div class="section level3">
 <h3 id="interpreting-nvtop-output">Interpreting <code>nvtop</code> output<a class="anchor" aria-label="anchor" href="#interpreting-nvtop-output"></a>
@@ -1791,7 +1811,7 @@ e.g.</p>
 <div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> <span class="op">&lt;</span>numtrials<span class="op">&gt;</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> <span class="op">&lt;</span>numtrials<span class="op">&gt;</span></span></code></pre>
 </div>
 <p>Note that the default is 123,456,789</p>
 </div>
@@ -1802,32 +1822,39 @@ e.g.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>Trying 12,345,678 (about 10x fewer trials than default):</p>
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 12345678</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 12345678</span></code></pre>
 </div>
-<figure><img src="../fig/nvtop-screenshot-1e7.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> shows <code>pi-gpu</code> GPU
+<figure><img src="../fig/nvtop-screenshot-1e7.png" alt="nvtop shows pi-gpu GPU utilization at around 57% when number of trials is 10x less than default" class="figure mx-auto d-block"><div class="figcaption">
+<code>nvtop</code> shows <code>pi-gpu</code> GPU
 utilization at around 57% when number of trials is 10x less than
-default</figcaption></figure><p>Trying 1,234,567 (about 100x fewer trials than default):</p>
+default</div>
+</figure><p>Trying 1,234,567 (about 100x fewer trials than default):</p>
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 1234567</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 1234567</span></code></pre>
 </div>
-<figure><img src="../fig/nvtop-screenshot-1e6.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> shows <code>pi-gpu</code> GPU
+<figure><img src="../fig/nvtop-screenshot-1e6.png" alt="nvtop shows pi-gpu GPU utilization at around 40% when number of trials is 100x less than default" class="figure mx-auto d-block"><div class="figcaption">
+<code>nvtop</code> shows <code>pi-gpu</code> GPU
 utilization at around 40% when number of trials is 100x less than
-default</figcaption></figure><p>Trying 500,000,000 (about 4x as many trials than default):</p>
+default</div>
+</figure><p>Trying 500,000,000 (about 4x as many trials than default):</p>
 <div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 500000000</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 500000000</span></code></pre>
 </div>
-<figure><img src="../fig/nvtop-screenshot-5e8.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> shows <code>pi-gpu</code> “spiky”
-GPU utilization when number of trials is 4x more than default</figcaption></figure><p>Importantly, you should’ve seen that the utilization of the GPU grows
+<figure><img src="../fig/nvtop-screenshot-5e8.png" alt="nvtop shows pi-gpu “spiky” GPU utilization when number of trials is 4x more than default" class="figure mx-auto d-block"><div class="figcaption">
+<code>nvtop</code> shows <code>pi-gpu</code>
+“spiky” GPU utilization when number of trials is 4x more than
+default</div>
+</figure><p>Importantly, you should’ve seen that the utilization of the GPU grows
 as you increase the number of trials for <code>pi-gpu</code> to use to
 estimate <span class="math inline">\(\pi\)</span>! And the opposite
 should also be observed when you lower the number of trials.</p>
@@ -1848,7 +1875,7 @@ GPU, utilization is not the only consideration!</p>
   <h3 class="accordion-header" id="headingInstructor1">
 <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>Instructor Note</h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p><code>pi-gpu</code>’s numtrials parameter is not a direct analogy to
 chunk-size parameters in data processing programs, so you may need to
@@ -1868,7 +1895,7 @@ mode” with the default number of trials:</p>
 <div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> <span class="at">-2</span> <span class="at">-r</span> <span class="at">-1</span> <span class="at">-m</span> 2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> <span class="at">-2</span> <span class="at">-r</span> <span class="at">-1</span> <span class="at">-m</span> 2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1881,8 +1908,10 @@ Result: 3.1418233305906 Error:  0.0002306770008 Time: 0.0567s
 <p>You should be able to see that the time to calculate <span class="math inline">\(\pi\)</span> is almost 4 times faster than the
 default algorithm. If you look at the output of <code>nvtop</code>, you
 should be able to see the difference in utilization:</p>
-<figure><img src="../fig/nvtop-screenshot-m2.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> with the experimental algorithm
-enabled showing higher utilization</figcaption></figure><p>In this case, the utilization has shot up to about 98%! GPU memory
+<figure><img src="../fig/nvtop-screenshot-m2.png" alt="nvtop with the experimental algorithm enabled showing higher utilization" class="figure mx-auto d-block"><div class="figcaption">
+<code>nvtop</code> with the experimental
+algorithm enabled showing higher utilization</div>
+</figure><p>In this case, the utilization has shot up to about 98%! GPU memory
 utilization has also increased, which is a reflection of the algorithm
 used in this new mode.</p>
 <div id="keypoints1" class="callout keypoints">
@@ -1975,17 +2004,18 @@ these “parameter scans”, so you decide to give them a go.</p>
 <p>The job array functionality is a lightweight mechanism that Slurm
 provides to allow users to submit many similar Slurm scripts with a
 single <code>sbatch</code> command.</p>
-<figure><img src="../fig/job-array-diagram.png" alt="" class="figure mx-auto d-block"><figcaption>Job arrays submit multiple copies of the same script,
-each with the same job ID, but unique “task IDs”, which can be used to
-control each task’s behaviour.</figcaption></figure><p>Something similar could be achieved with a <code>for</code> loop
+<figure><img src="../fig/job-array-diagram.png" alt="Job arrays submit multiple copies of the same script, each with the same job ID, but unique “task IDs”, which can be used to control each task’s behaviour." class="figure mx-auto d-block"><div class="figcaption">Job arrays submit multiple copies of the same
+script, each with the same job ID, but unique “task IDs”, which can be
+used to control each task’s behaviour.</div>
+</figure><p>Something similar could be achieved with a <code>for</code> loop
 like:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="dt">{</span><span class="dv">1</span><span class="dt">..</span><span class="dv">6</span><span class="dt">}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">sbatch</span> my-script.sh <span class="va">$ID</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="dt">{</span><span class="dv">1</span><span class="dt">..</span><span class="dv">6</span><span class="dt">}</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="ex">sbatch</span> my-script.sh <span class="va">$ID</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="cf">done</span></span></code></pre>
 </div>
 <p>which submits <code>my-script.sh</code> 6 times, and passing the
 numbers 1 to 6 to each submission. However, job arrays have some
@@ -2019,13 +2049,13 @@ are the minimum and maximum values of the range.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=myjob</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-3</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"hello world"</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 3600</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#SBATCH --job-name=myjob</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#SBATCH --array=1-3</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"hello world"</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="fu">sleep</span> 3600</span></code></pre>
 </div>
 <p>This script will execute 10 jobs which request the default CPUs and
 memory. The job will print “hello world” to the job’s output file, and
@@ -2034,7 +2064,7 @@ the queue, this array job will look similar to:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> myjob.sh</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">sbatch</span> myjob.sh</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2044,7 +2074,7 @@ the queue, this array job will look similar to:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2058,7 +2088,7 @@ the queue, this array job will look similar to:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2081,7 +2111,7 @@ above job submission produced:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> slurm-11784178<span class="pp">*</span>.out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">ls</span> slurm-11784178<span class="pp">*</span>.out</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2101,14 +2131,14 @@ range, or a list similar to specifying the jobs to run. For example,</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> 1174178_[1-3,7]</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">scancel</span> 1174178_<span class="pp">[</span><span class="ss">1</span><span class="pp">-</span><span class="ss">3,7</span><span class="pp">]</span></span></code></pre>
 </div>
 <p>will cancel only array tasks 1, 2, and 3. If you want to cancel all
 the job tasks at once, you can pass only the job ID.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> 1174178</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">scancel</span> 1174178</span></code></pre>
 </div>
 <p>This will cancel any unfinished or pending array tasks in the
 queue.</p>
@@ -2160,7 +2190,7 @@ Memory: 4096MB</code></pre>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>The Slurm environment variables needed here are
 <code>SLURM_CPUS_PER_TASK</code>, <code>SLURM_JOB_NODELIST</code>, and
@@ -2170,14 +2200,14 @@ similar to:</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=4</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=4G</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Hello. I am running on </span><span class="va">${SLURM_JOB_NODELIST}</span><span class="st">"</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"These are the resources I requested:"</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"CPUs: </span><span class="va">${SLURM_CPUS_PER_TASK}</span><span class="st">"</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Memory: </span><span class="va">${SLURM_MEM_PER_NODE}</span><span class="st">MB"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=4</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co">#SBATCH --mem=4G</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Hello. I am running on </span><span class="va">${SLURM_JOB_NODELIST}</span><span class="st">"</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"These are the resources I requested:"</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"CPUs: </span><span class="va">${SLURM_CPUS_PER_TASK}</span><span class="st">"</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Memory: </span><span class="va">${SLURM_MEM_PER_NODE}</span><span class="st">MB"</span></span></code></pre>
 </div>
 <p>These parameters can be useful when you would like to automatically
 pass the Slurm resource request to a command in your script. For
@@ -2187,9 +2217,9 @@ variable inside a job script:</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=4</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-cpu <span class="at">-p</span> <span class="va">${SLURM_CPUS_PER_TASK}</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=4</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="ex">srun</span> pi-cpu <span class="at">-p</span> <span class="va">${SLURM_CPUS_PER_TASK}</span></span></code></pre>
 </div>
 <p>But be careful: some Slurm environment variables only have a value if
 you’ve set it as a flag. For example, in the above example script,
@@ -2207,7 +2237,7 @@ would be empty!</p>
   <h3 class="accordion-header" id="headingInstructor1">
 <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>Instructor Note</h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p><a href="https://monashdatafluency.github.io/shell-novice/" class="external-link">Intro to
 Linux Command Line</a> is specified as a prerequisite, so learners
@@ -2233,12 +2263,12 @@ and modify it a little:</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=myjob</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-3</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"hello world from task </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="co">#SBATCH --job-name=myjob</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co">#SBATCH --array=1-3</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"hello world from task </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">"</span></span></code></pre>
 </div>
 <p>This script should now print
 <code>hello world from task &lt;N&gt;</code> where <code>N</code> is
@@ -2246,7 +2276,7 @@ and modify it a little:</p>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> myjob-array.sh</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="ex">sbatch</span> myjob-array.sh</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2258,7 +2288,7 @@ the output of each task:</p>
 <div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> slurm-11784442-<span class="pp">*</span>.out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">cat</span> slurm-11784442-<span class="pp">*</span>.out</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2276,7 +2306,7 @@ these task IDs. Remember: our goal is to execute
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=100,1000,10000,100000,1000000,10000000,1000000000</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co">#SBATCH --array=100,1000,10000,100000,1000000,10000000,1000000000</span></span></code></pre>
 </div>
 <p>But if we add this to our example array script and try to submit it,
 we get the error:</p>
@@ -2308,18 +2338,18 @@ press Ctrl+D.</p>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># start typing</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="ex">this</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="ex">is</span> an</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="ex">example</span> <span class="co"># press Ctrl+D to exit</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="ex">readarray</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="co"># start typing</span></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="ex">this</span></span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a><span class="ex">is</span> an</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a><span class="ex">example</span> <span class="co"># press Ctrl+D to exit</span></span></code></pre>
 </div>
 <p>Your text gets saved into the <code>MAPFILE</code> array variable
 (each index corresponds to a line):</p>
 <div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"line1: </span><span class="va">${MAPFILE</span><span class="op">[</span><span class="dv">0</span><span class="op">]</span><span class="va">}</span><span class="st">, line2: </span><span class="va">${MAPFILE</span><span class="op">[</span><span class="dv">1</span><span class="op">]</span><span class="va">}</span><span class="st">, line3: </span><span class="va">${MAPFILE</span><span class="op">[</span><span class="dv">2</span><span class="op">]</span><span class="va">}</span><span class="st">"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"line1: </span><span class="va">${MAPFILE</span><span class="op">[</span><span class="dv">0</span><span class="op">]</span><span class="va">}</span><span class="st">, line2: </span><span class="va">${MAPFILE</span><span class="op">[</span><span class="dv">1</span><span class="op">]</span><span class="va">}</span><span class="st">, line3: </span><span class="va">${MAPFILE</span><span class="op">[</span><span class="dv">2</span><span class="op">]</span><span class="va">}</span><span class="st">"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2334,8 +2364,8 @@ redirection:</p>
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> <span class="op">&lt;</span> iterations.txt</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">${MAPFILE</span><span class="op">[@]</span><span class="va">}</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="ex">readarray</span> <span class="op">&lt;</span> iterations.txt</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="bu">echo</span> <span class="va">${MAPFILE</span><span class="op">[@]</span><span class="va">}</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2349,8 +2379,8 @@ that variable instead e.g.:</p>
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> niterations <span class="op">&lt;</span> iterations.txt</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">${niterations</span><span class="op">[@]</span><span class="va">}</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="ex">readarray</span> niterations <span class="op">&lt;</span> iterations.txt</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="bu">echo</span> <span class="va">${niterations</span><span class="op">[@]</span><span class="va">}</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2360,12 +2390,12 @@ that variable instead e.g.:</p>
 <p>Can you start to see how we might combine the Slurm array index and
 our bash array to pass different iteration values to
 <code>pi-cpu</code>?</p>
-<div id="tests" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="tests" class="callout-inner">
-<h3 class="callout-title">Tests<a class="anchor" aria-label="anchor" href="#tests"></a>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="tests">Tests<a class="anchor" aria-label="anchor" href="#tests"></a>
 </h3>
 <div class="callout-content">
 <p>It’s generally good practice to <em>test</em> your array job before
@@ -2380,14 +2410,14 @@ number of tasks!</p>
 <div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=myjob</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=0-2</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"hello world from task </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">"</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> niterations <span class="op">&lt;</span> iterations.txt</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"I will run </span><span class="va">${niterations</span><span class="op">[</span><span class="va">$SLURM_ARRAY_TASK_ID</span><span class="op">]</span><span class="va">}</span><span class="st">!"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a><span class="co">#SBATCH --job-name=myjob</span></span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a><span class="co">#SBATCH --array=0-2</span></span>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"hello world from task </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">"</span></span>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a><span class="ex">readarray</span> niterations <span class="op">&lt;</span> iterations.txt</span>
+<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"I will run </span><span class="va">${niterations</span><span class="op">[</span><span class="va">$SLURM_ARRAY_TASK_ID</span><span class="op">]</span><span class="va">}</span><span class="st">!"</span></span></code></pre>
 </div>
 <p>Note that we’ve changed the array task range from 1-3 to 0-2 since
 the bash array is 0-indexed.</p>
@@ -2396,7 +2426,7 @@ correctly.</p>
 <div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> myjob-array.sh</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="ex">sbatch</span> myjob-array.sh</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2409,7 +2439,7 @@ the first 3 rows in <code>iterations.txt</code>:</p>
 <div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> slurm-11784737_<span class="pp">*</span>.out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">cat</span> slurm-11784737_<span class="pp">*</span>.out</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2434,7 +2464,7 @@ becomes:</p>
 <div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> niterations <span class="op">&lt;</span> iteration.txt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> niterations <span class="op">&lt;</span> iteration.txt</span></code></pre>
 </div>
 <p>We can now make use of these values by passing the number of
 iterations to the <code>pi-cpu</code> command. We also need to change
@@ -2444,16 +2474,16 @@ your script:</p>
 <div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=myjob</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=0-6</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=4</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"hello world from task </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">"</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> niterations <span class="op">&lt;</span> iterations.txt</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"I will run </span><span class="va">${niterations</span><span class="op">[</span><span class="va">$SLURM_ARRAY_TASK_ID</span><span class="op">]</span><span class="va">}</span><span class="st">!"</span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> ./pi-cpu <span class="at">-p</span> <span class="va">${SLURM_CPUS_PER_TASK}</span> <span class="at">-n</span> <span class="va">${niterations</span><span class="op">[</span><span class="va">$SLURM_ARRAY_TASK_ID</span><span class="op">]</span><span class="va">}</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a><span class="co">#SBATCH --job-name=myjob</span></span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a><span class="co">#SBATCH --array=0-6</span></span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=4</span></span>
+<span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"hello world from task </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">"</span></span>
+<span id="cb37-7"><a href="#cb37-7" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> niterations <span class="op">&lt;</span> iterations.txt</span>
+<span id="cb37-8"><a href="#cb37-8" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"I will run </span><span class="va">${niterations</span><span class="op">[</span><span class="va">$SLURM_ARRAY_TASK_ID</span><span class="op">]</span><span class="va">}</span><span class="st">!"</span></span>
+<span id="cb37-9"><a href="#cb37-9" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="#cb37-10" tabindex="-1"></a><span class="ex">srun</span> ./pi-cpu <span class="at">-p</span> <span class="va">${SLURM_CPUS_PER_TASK}</span> <span class="at">-n</span> <span class="va">${niterations</span><span class="op">[</span><span class="va">$SLURM_ARRAY_TASK_ID</span><span class="op">]</span><span class="va">}</span></span></code></pre>
 </div>
 <p>You will also need to ensure that <code>--cpus-per-task</code> is
 provided here, as without that option, <code>SLURM_CPUS_PER_TASK</code>
@@ -2462,9 +2492,9 @@ doesn’t get set either.</p>
 <div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> myjob-array.sh</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># wait for the job tasks to finish...</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> slurm-<span class="pp">*</span>.out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="ex">sbatch</span> myjob-array.sh</span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a><span class="co"># wait for the job tasks to finish...</span></span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a><span class="fu">cat</span> slurm-<span class="pp">*</span>.out</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2531,8 +2561,8 @@ use in our job arrays. Here, we’re going to vary the value passed to
 <div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> filedata <span class="op">&lt;</span> iter-cpu.txt</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">${filedata</span><span class="op">[</span><span class="dv">0</span><span class="op">]</span><span class="va">}</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="ex">readarray</span> filedata <span class="op">&lt;</span> iter-cpu.txt</span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a><span class="bu">echo</span> <span class="va">${filedata</span><span class="op">[</span><span class="dv">0</span><span class="op">]</span><span class="va">}</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2549,8 +2579,8 @@ text to the <code>read</code> command:</p>
 <div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="op">&lt;&lt;&lt;</span> <span class="st">"hello world"</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$REPLY</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="bu">read</span> <span class="op">&lt;&lt;&lt;</span> <span class="st">"hello world"</span></span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$REPLY</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2564,8 +2594,8 @@ our input to by giving <code>read</code> a variable name:</p>
 <div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="va">myvar</span> <span class="op">&lt;&lt;&lt;</span> <span class="st">"hello world"</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$myvar</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="bu">read</span> <span class="va">myvar</span> <span class="op">&lt;&lt;&lt;</span> <span class="st">"hello world"</span></span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$myvar</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2578,8 +2608,8 @@ add another variable name to our previous <code>read</code> command:</p>
 <div class="codewrapper sourceCode" id="cb47">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="va">myvar1</span> <span class="va">myvar2</span> <span class="op">&lt;&lt;&lt;</span> <span class="st">"hello world"</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"myvar1: </span><span class="va">$myvar1</span><span class="st">, myvar2: </span><span class="va">$myvar2</span><span class="st">"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="bu">read</span> <span class="va">myvar1</span> <span class="va">myvar2</span> <span class="op">&lt;&lt;&lt;</span> <span class="st">"hello world"</span></span>
+<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"myvar1: </span><span class="va">$myvar1</span><span class="st">, myvar2: </span><span class="va">$myvar2</span><span class="st">"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2609,14 +2639,14 @@ into <code>ncpus</code> bash variables</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>As shown already we can save <code>iter-cpu.txt</code> into an array
 using</p>
 <div class="codewrapper sourceCode" id="cb49">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> rowdata <span class="op">&lt;</span> iter-cpu.txt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> rowdata <span class="op">&lt;</span> iter-cpu.txt</span></code></pre>
 </div>
 <p>This gives us an array, <code>rowdata</code>, where each element is a
 line of text from <code>iter-cpu.txt</code>. To split the first line of
@@ -2625,7 +2655,7 @@ the file into variables <code>niterations</code> and
 <div class="codewrapper sourceCode" id="cb50">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="va">niterations</span> <span class="va">ncpus</span> <span class="op">&lt;&lt;&lt;</span> <span class="st">"</span><span class="va">${rowdata</span><span class="op">[</span><span class="dv">0</span><span class="op">]</span><span class="va">}</span><span class="st">"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="bu">read</span> <span class="va">niterations</span> <span class="va">ncpus</span> <span class="op">&lt;&lt;&lt;</span> <span class="st">"</span><span class="va">${rowdata</span><span class="op">[</span><span class="dv">0</span><span class="op">]</span><span class="va">}</span><span class="st">"</span></span></code></pre>
 </div>
 <p><code>${rowdata[0]}</code> is referencing the first element of
 <code>rowdata</code>, and therefore the first line of text in
@@ -2657,7 +2687,7 @@ our new Slurm array script works?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>Yes we do! While we have the same number of rows in
 <code>iter-cpu.txt</code>, the first row is headers. If we passed those
@@ -2692,14 +2722,14 @@ should be passed to <code>-n</code> and the second should be passed to
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4">Show me the solution</h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>We first need to modify the <code>readarray</code> line to read the
 correct file, and to use an appropriately named array variable:</p>
 <div class="codewrapper sourceCode" id="cb51">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> rowdata <span class="op">&lt;</span> iter-cpu.txt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> rowdata <span class="op">&lt;</span> iter-cpu.txt</span></code></pre>
 </div>
 <p>We then need to split <code>rowdata</code> further into
 <code>niterations</code> and <code>ncpus</code>. To do this, we will
@@ -2710,7 +2740,7 @@ environment variable:</p>
 <div class="codewrapper sourceCode" id="cb52">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="va">niterations</span> <span class="va">ncpus</span> <span class="op">&lt;&lt;&lt;</span> <span class="va">${rowdata</span><span class="op">[</span><span class="va">$SLURM_CPUS_PER_TASK</span><span class="op">]</span><span class="va">}</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="bu">read</span> <span class="va">niterations</span> <span class="va">ncpus</span> <span class="op">&lt;&lt;&lt;</span> <span class="va">${rowdata</span><span class="op">[</span><span class="va">$SLURM_CPUS_PER_TASK</span><span class="op">]</span><span class="va">}</span></span></code></pre>
 </div>
 <p>And finally, we can add <code>niterations</code> and
 <code>ncpus</code> to our echo and <code>pi-cpu</code> execution
@@ -2718,29 +2748,29 @@ command!</p>
 <div class="codewrapper sourceCode" id="cb53">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"I will run </span><span class="va">$niterations</span><span class="st"> iterations and with </span><span class="va">$ncpus</span><span class="st"> CPUs!"</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-cpu <span class="at">-p</span> <span class="va">$ncpus</span> <span class="at">-n</span> <span class="va">$niterations</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"I will run </span><span class="va">$niterations</span><span class="st"> iterations and with </span><span class="va">$ncpus</span><span class="st"> CPUs!"</span></span>
+<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" tabindex="-1"></a><span class="ex">srun</span> pi-cpu <span class="at">-p</span> <span class="va">$ncpus</span> <span class="at">-n</span> <span class="va">$niterations</span></span></code></pre>
 </div>
 <p>Our final script should look something like:</p>
 <div class="codewrapper sourceCode" id="cb54">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=myjob</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-6</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=4</span></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"hello world from task </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">"</span></span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> rowdata <span class="op">&lt;</span> iter-cpu.txt</span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="va">niterations</span> <span class="va">ncpus</span> <span class="op">&lt;&lt;&lt;</span> <span class="va">${rowdata</span><span class="op">[</span><span class="va">$SLURM_ARRAY_TASK_ID</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"I will run </span><span class="va">$niterations</span><span class="st"> with </span><span class="va">$ncpus</span><span class="st"> CPUs!"</span></span>
-<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-cpu <span class="at">-p</span> <span class="va">$ncpus</span> <span class="at">-n</span> <span class="va">$niterations</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" tabindex="-1"></a><span class="co">#SBATCH --job-name=myjob</span></span>
+<span id="cb54-4"><a href="#cb54-4" tabindex="-1"></a><span class="co">#SBATCH --array=1-6</span></span>
+<span id="cb54-5"><a href="#cb54-5" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=4</span></span>
+<span id="cb54-6"><a href="#cb54-6" tabindex="-1"></a></span>
+<span id="cb54-7"><a href="#cb54-7" tabindex="-1"></a></span>
+<span id="cb54-8"><a href="#cb54-8" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"hello world from task </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">"</span></span>
+<span id="cb54-9"><a href="#cb54-9" tabindex="-1"></a></span>
+<span id="cb54-10"><a href="#cb54-10" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> rowdata <span class="op">&lt;</span> iter-cpu.txt</span>
+<span id="cb54-11"><a href="#cb54-11" tabindex="-1"></a><span class="bu">read</span> <span class="va">niterations</span> <span class="va">ncpus</span> <span class="op">&lt;&lt;&lt;</span> <span class="va">${rowdata</span><span class="op">[</span><span class="va">$SLURM_ARRAY_TASK_ID</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb54-12"><a href="#cb54-12" tabindex="-1"></a></span>
+<span id="cb54-13"><a href="#cb54-13" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"I will run </span><span class="va">$niterations</span><span class="st"> with </span><span class="va">$ncpus</span><span class="st"> CPUs!"</span></span>
+<span id="cb54-14"><a href="#cb54-14" tabindex="-1"></a></span>
+<span id="cb54-15"><a href="#cb54-15" tabindex="-1"></a><span class="ex">srun</span> pi-cpu <span class="at">-p</span> <span class="va">$ncpus</span> <span class="at">-n</span> <span class="va">$niterations</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -2768,11 +2798,11 @@ set a reasonable default.</p>
 <div class="codewrapper sourceCode" id="cb55">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-z</span> <span class="va">$SLURM_ARRAY_TASK_ID</span> <span class="bu">]</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="cf">then</span></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"This script needs to be submitted as a Slurm script!"</span></span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-z</span> <span class="va">$SLURM_ARRAY_TASK_ID</span> <span class="bu">]</span></span>
+<span id="cb55-2"><a href="#cb55-2" tabindex="-1"></a><span class="cf">then</span></span>
+<span id="cb55-3"><a href="#cb55-3" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"This script needs to be submitted as a Slurm script!"</span></span>
+<span id="cb55-4"><a href="#cb55-4" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
+<span id="cb55-5"><a href="#cb55-5" tabindex="-1"></a><span class="cf">fi</span></span></code></pre>
 </div>
 <p><code>[ -z $SLURM_ARRAY_TASK_ID ]</code> returns 0 if
 <code>SLURM_ARRAY_TASK_ID</code> is NOT set. You can replace the
@@ -2784,7 +2814,7 @@ default instead e.g., <code>export SLURM_ARRAY_TASK_ID=1</code>.</p>
   <h3 class="accordion-header" id="headingInstructor2">
 <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>Instructor Note</h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <p>You may wish to highlight that you cannot change the resource request
 between job array tasks. Everything controlled by an <code>sbatch</code>
@@ -2806,15 +2836,15 @@ e.g.</p>
 <div class="codewrapper sourceCode" id="cb56">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="va">string</span><span class="op">=</span><span class="st">"hello world"</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="bu">read</span> <span class="va">word1</span> <span class="va">word1</span> <span class="op">&lt;&lt;&lt;</span> <span class="st">"</span><span class="va">$string</span><span class="st">"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="va">string</span><span class="op">=</span><span class="st">"hello world"</span></span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a><span class="bu">read</span> <span class="va">word1</span> <span class="va">word1</span> <span class="op">&lt;&lt;&lt;</span> <span class="st">"</span><span class="va">$string</span><span class="st">"</span></span></code></pre>
 </div>
 <p>But different delimiters can be used using the following syntax:</p>
 <div class="codewrapper sourceCode" id="cb57">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="va">string</span><span class="op">=</span><span class="st">"hello world"</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="va">IFS</span><span class="op">=&lt;</span>delimiter<span class="op">&gt;</span> read <span class="ex">word1</span> word2 <span class="op">&lt;&lt;&lt;</span> <span class="st">"</span><span class="va">$string</span><span class="st">"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="va">string</span><span class="op">=</span><span class="st">"hello world"</span></span>
+<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a><span class="va">IFS</span><span class="op">=&lt;</span>delimiter<span class="op">&gt;</span> read <span class="ex">word1</span> word2 <span class="op">&lt;&lt;&lt;</span> <span class="st">"</span><span class="va">$string</span><span class="st">"</span></span></code></pre>
 </div>
 <p><code>IFS</code> is a special environment variable used by bash to
 determine how to split strings. By setting it to a different
@@ -2833,7 +2863,7 @@ What should you set <code>IFS</code> to to get the following output from
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5">Show me the solution</h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -2842,9 +2872,9 @@ What should you set <code>IFS</code> to to get the following output from
 <div class="codewrapper sourceCode" id="cb58">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="va">string</span><span class="op">=</span><span class="st">"hello world"</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="va">IFS</span><span class="op">=</span>w <span class="bu">read</span> <span class="va">word1</span> <span class="va">word2</span> <span class="op">&lt;&lt;&lt;</span> <span class="st">"</span><span class="va">$string</span><span class="st">"</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"word1: </span><span class="va">$word1</span><span class="st">, word2: </span><span class="va">$word2</span><span class="st">"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="va">string</span><span class="op">=</span><span class="st">"hello world"</span></span>
+<span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a><span class="va">IFS</span><span class="op">=</span>w <span class="bu">read</span> <span class="va">word1</span> <span class="va">word2</span> <span class="op">&lt;&lt;&lt;</span> <span class="st">"</span><span class="va">$string</span><span class="st">"</span></span>
+<span id="cb58-3"><a href="#cb58-3" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"word1: </span><span class="va">$word1</span><span class="st">, word2: </span><span class="va">$word2</span><span class="st">"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2857,9 +2887,9 @@ What should you set <code>IFS</code> to to get the following output from
 <div class="codewrapper sourceCode" id="cb60">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="va">string</span><span class="op">=</span><span class="st">"hello world"</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="va">IFS</span><span class="op">=</span>h <span class="bu">read</span> <span class="va">word1</span> <span class="va">word2</span> <span class="op">&lt;&lt;&lt;</span> <span class="st">"</span><span class="va">$string</span><span class="st">"</span></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"word1: </span><span class="va">$word1</span><span class="st">, word2: </span><span class="va">$word2</span><span class="st">"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a><span class="va">string</span><span class="op">=</span><span class="st">"hello world"</span></span>
+<span id="cb60-2"><a href="#cb60-2" tabindex="-1"></a><span class="va">IFS</span><span class="op">=</span>h <span class="bu">read</span> <span class="va">word1</span> <span class="va">word2</span> <span class="op">&lt;&lt;&lt;</span> <span class="st">"</span><span class="va">$string</span><span class="st">"</span></span>
+<span id="cb60-3"><a href="#cb60-3" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"word1: </span><span class="va">$word1</span><span class="st">, word2: </span><span class="va">$word2</span><span class="st">"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2985,8 +3015,8 @@ The syntax of the option is:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --dependency=condition:jobid   # or</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH -d condition:jobid</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co">#SBATCH --dependency=condition:jobid   # or</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">#SBATCH -d condition:jobid</span></span></code></pre>
 </div>
 <p>This will ask Slurm to ensure that the job that you’re submitting
 doesn’t start until <code>condition</code> is satisfied for job
@@ -2994,7 +3024,7 @@ doesn’t start until <code>condition</code> is satisfied for job
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --dependency=afterok:1234</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co">#SBATCH --dependency=afterok:1234</span></span></code></pre>
 </div>
 <p>is requesting for the job you’re submitting to start, only if job
 <code>1234</code> completes successfully. This allows you to chain a
@@ -3047,13 +3077,13 @@ file:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./pi-cpu</span> <span class="op">&gt;</span> pis.txt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">./pi-cpu</span> <span class="op">&gt;</span> pis.txt</span></code></pre>
 </div>
 <p>and then run</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> pi-avg.py pis.txt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">python3</span> pi-avg.py pis.txt</span></code></pre>
 </div>
 <p>You should get output similar to:</p>
 <div class="codewrapper">
@@ -3065,17 +3095,17 @@ file:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pi-avg.sh</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=pi-avg</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=0-6</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x-%a.out</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=1</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="va">id</span><span class="op">=</span><span class="va">$SLURM_ARRAY_TASK_ID</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> pi-avg.py pi-submit-<span class="va">${id}</span>.out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co"># pi-avg.sh</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#SBATCH --job-name=pi-avg</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#SBATCH --array=0-6</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#SBATCH --output=%x-%a.out</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=1</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="va">id</span><span class="op">=</span><span class="va">$SLURM_ARRAY_TASK_ID</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="ex">python3</span> pi-avg.py pi-submit-<span class="va">${id}</span>.out</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="the-pi-avg-sh-script-line-by-line">The <code>pi-avg.sh</code> script line-by-line<a class="anchor" aria-label="anchor" href="#the-pi-avg-sh-script-line-by-line"></a>
@@ -3083,34 +3113,34 @@ file:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span></code></pre>
 </div>
 <p>is the hash-bang statement. Required by Slurm, but good practice to
 include in any script.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pi-avg.sh</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># pi-avg.sh</span></span></code></pre>
 </div>
 <p>is a comment with the name of the script.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=pi-avg</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co">#SBATCH --job-name=pi-avg</span></span></code></pre>
 </div>
 <p>is a Slurm option specifying the job name. In this case, it is
 <code>pi-avg</code>.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=0-6</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co">#SBATCH --array=0-6</span></span></code></pre>
 </div>
 <p>is telling Slurm that this job is a job array with task IDs 0 to 6
 (inclusive).</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x-%a.out</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co">#SBATCH --output=%x-%a.out</span></span></code></pre>
 </div>
 <p>is telling Slurm where to write the output of the script to.
 <code>%x</code> is a placeholder for the job name, and <code>%a</code>
@@ -3119,20 +3149,20 @@ ID = 0, will have the output file: <code>pi-avg-0.out</code>.</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=1</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=1</span></span></code></pre>
 </div>
 <p>is specifying the number of CPUs each job array task needs.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="va">id</span><span class="op">=</span><span class="va">$SLURM_ARRAY_TASK_ID</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="va">id</span><span class="op">=</span><span class="va">$SLURM_ARRAY_TASK_ID</span></span></code></pre>
 </div>
 <p>sets the <code>id</code> variable to the value stored in the
 <code>SLURM_ARRAY_TASK_ID</code> environment variable.</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> pi-avg.py pi-submit-<span class="va">${id}</span>.out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="ex">python3</span> pi-avg.py pi-submit-<span class="va">${id}</span>.out</span></code></pre>
 </div>
 <p>is running the <code>pi-avg.py</code> program on the file
 <code>pi-submit-${id}.out</code>, which would be the output from the
@@ -3156,7 +3186,7 @@ by</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> pi-submit.sh</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="ex">sbatch</span> pi-submit.sh</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3168,7 +3198,7 @@ by</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">-d</span> aftercorr:12271504</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">-d</span> aftercorr:12271504</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3199,7 +3229,7 @@ the command <code>sacct -Xj &lt;pi-submit jobid&gt;</code> e.g.:</p>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-Xj</span> 12271504</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-Xj</span> 12271504</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3220,7 +3250,7 @@ short)</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3252,30 +3282,30 @@ following scripts should work:</p>
 <div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># this job is submitted first. It sleeps for ID * 60s</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g., ID 2: sleeps for 120s.</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># it then prints the date.</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=1st</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x-%a.out</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-5</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="bu">let</span> <span class="st">"t = 60 * </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">"</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> <span class="va">$t</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="co"># this job is submitted first. It sleeps for ID * 60s</span></span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="co"># e.g., ID 2: sleeps for 120s.</span></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="co"># it then prints the date.</span></span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a><span class="co">#SBATCH --job-name=1st</span></span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a><span class="co">#SBATCH --output=%x-%a.out</span></span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a><span class="co">#SBATCH --array=1-5</span></span>
+<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a><span class="bu">let</span> <span class="st">"t = 60 * </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">"</span></span>
+<span id="cb25-11"><a href="#cb25-11" tabindex="-1"></a><span class="fu">sleep</span> <span class="va">$t</span></span>
+<span id="cb25-12"><a href="#cb25-12" tabindex="-1"></a><span class="fu">date</span></span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># this job is submitted second and just prints the date.</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=2nd</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x-%a.out</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-5</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="co"># this job is submitted second and just prints the date.</span></span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="co">#SBATCH --job-name=2nd</span></span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a><span class="co">#SBATCH --output=%x-%a.out</span></span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="co">#SBATCH --array=1-5</span></span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="fu">date</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -3326,27 +3356,27 @@ first column.</p>
 <div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pi-combine.sh</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=pi-combine</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%x.out</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># read ntrial data into niterations bash array</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> niterations <span class="op">&lt;</span> pi-process-input.txt</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="dt">{</span><span class="dv">0</span><span class="dt">..</span><span class="dv">6</span><span class="dt">}</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get label from niterations array</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="va">label</span><span class="op">=</span><span class="va">${niterations</span><span class="op">[</span><span class="va">$i</span><span class="op">]</span><span class="va">}</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get average error from pi-avg-${i}.out</span></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="va">data</span><span class="op">=</span><span class="va">$(</span><span class="fu">cat</span> pi-avg-<span class="va">${i}</span>.out<span class="va">)</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print labal with data</span></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"</span><span class="va">$label</span><span class="st"> </span><span class="va">$data</span><span class="st">"</span></span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="co"># pi-combine.sh</span></span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a><span class="co">#SBATCH --job-name=pi-combine</span></span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a><span class="co">#SBATCH --output=%x.out</span></span>
+<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a><span class="co"># read ntrial data into niterations bash array</span></span>
+<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a><span class="ex">readarray</span> <span class="at">-t</span> niterations <span class="op">&lt;</span> pi-process-input.txt</span>
+<span id="cb28-9"><a href="#cb28-9" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="dt">{</span><span class="dv">0</span><span class="dt">..</span><span class="dv">6</span><span class="dt">}</span></span>
+<span id="cb28-11"><a href="#cb28-11" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb28-12"><a href="#cb28-12" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" tabindex="-1"></a>    <span class="co"># get label from niterations array</span></span>
+<span id="cb28-14"><a href="#cb28-14" tabindex="-1"></a>    <span class="va">label</span><span class="op">=</span><span class="va">${niterations</span><span class="op">[</span><span class="va">$i</span><span class="op">]</span><span class="va">}</span></span>
+<span id="cb28-15"><a href="#cb28-15" tabindex="-1"></a>    </span>
+<span id="cb28-16"><a href="#cb28-16" tabindex="-1"></a>    <span class="co"># get average error from pi-avg-${i}.out</span></span>
+<span id="cb28-17"><a href="#cb28-17" tabindex="-1"></a>    <span class="va">data</span><span class="op">=</span><span class="va">$(</span><span class="fu">cat</span> pi-avg-<span class="va">${i}</span>.out<span class="va">)</span></span>
+<span id="cb28-18"><a href="#cb28-18" tabindex="-1"></a>    </span>
+<span id="cb28-19"><a href="#cb28-19" tabindex="-1"></a>    <span class="co"># print labal with data</span></span>
+<span id="cb28-20"><a href="#cb28-20" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"</span><span class="va">$label</span><span class="st"> </span><span class="va">$data</span><span class="st">"</span></span>
+<span id="cb28-21"><a href="#cb28-21" tabindex="-1"></a><span class="cf">done</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -3362,24 +3392,24 @@ set the dependencies.</p>
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pi-driver.sh</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># submit the first pi-submit job</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># saves the job ID into the jobid1 variable</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="va">jobid1</span><span class="op">=</span><span class="va">$(</span><span class="ex">sbatch</span> <span class="at">--parsable</span> pi-submit.sh<span class="va">)</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># submit the second pi-avg job.</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co"># due to aftercorr condition, each task </span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># depends on the same task from pi-submit.sh.</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co"># saves the job ID into the jobid2 variable</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="va">jobid2</span><span class="op">=</span><span class="va">$(</span><span class="ex">sbatch</span> <span class="at">--parsable</span> <span class="at">--dependency</span><span class="op">=</span>aftercorr:<span class="va">$jobid1</span> pi-avg.sh<span class="va">)</span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co"># submit the last pi-combine job</span></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co"># this job waits for all tasks from jobid2</span></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co"># to complete successfully (afterok).</span></span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co"># job ID is not saved as it is not needed.</span></span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--dependency</span><span class="op">=</span>afterok:<span class="va">$jobid2</span> pi-combine.sh</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="co"># pi-driver.sh</span></span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a><span class="co"># submit the first pi-submit job</span></span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a><span class="co"># saves the job ID into the jobid1 variable</span></span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="va">jobid1</span><span class="op">=</span><span class="va">$(</span><span class="ex">sbatch</span> <span class="at">--parsable</span> pi-submit.sh<span class="va">)</span></span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" tabindex="-1"></a><span class="co"># submit the second pi-avg job.</span></span>
+<span id="cb29-9"><a href="#cb29-9" tabindex="-1"></a><span class="co"># due to aftercorr condition, each task </span></span>
+<span id="cb29-10"><a href="#cb29-10" tabindex="-1"></a><span class="co"># depends on the same task from pi-submit.sh.</span></span>
+<span id="cb29-11"><a href="#cb29-11" tabindex="-1"></a><span class="co"># saves the job ID into the jobid2 variable</span></span>
+<span id="cb29-12"><a href="#cb29-12" tabindex="-1"></a><span class="va">jobid2</span><span class="op">=</span><span class="va">$(</span><span class="ex">sbatch</span> <span class="at">--parsable</span> <span class="at">--dependency</span><span class="op">=</span>aftercorr:<span class="va">$jobid1</span> pi-avg.sh<span class="va">)</span></span>
+<span id="cb29-13"><a href="#cb29-13" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" tabindex="-1"></a><span class="co"># submit the last pi-combine job</span></span>
+<span id="cb29-15"><a href="#cb29-15" tabindex="-1"></a><span class="co"># this job waits for all tasks from jobid2</span></span>
+<span id="cb29-16"><a href="#cb29-16" tabindex="-1"></a><span class="co"># to complete successfully (afterok).</span></span>
+<span id="cb29-17"><a href="#cb29-17" tabindex="-1"></a><span class="co"># job ID is not saved as it is not needed.</span></span>
+<span id="cb29-18"><a href="#cb29-18" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--dependency</span><span class="op">=</span>afterok:<span class="va">$jobid2</span> pi-combine.sh</span></code></pre>
 </div>
 <p>The driver script makes use of the <code>--parsable</code> option
 that can be used with <code>sbatch</code>. This makes
@@ -3392,8 +3422,8 @@ normal script:</p>
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x pi-driver.sh</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./pi-driver.sh</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">chmod</span> +x pi-driver.sh</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="ex">./pi-driver.sh</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3457,7 +3487,7 @@ similar) file with your outputs!</p>
 <div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> pi-combine.out</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">cat</span> pi-combine.out</span></code></pre>
 </div>
 <pre><code>100 Average Absolute Error: 0.156
 1000 Average Absolute Error: 0.05336290359496
@@ -3544,11 +3574,11 @@ submission script that looks like:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=2</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=4G</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> myRscript.R <span class="op">&lt;</span>arguments<span class="op">&gt;</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=2</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#SBATCH --mem=4G</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="ex">Rscript</span> myRscript.R <span class="op">&lt;</span>arguments<span class="op">&gt;</span></span></code></pre>
 </div>
 <p>And that’s all it really does. But did you know you can bypass this
 wrapper script by submitting the R/python script directly?</p>
@@ -3560,42 +3590,42 @@ wrapper script by submitting the R/python script directly?</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pi.py</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys, random</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># function to calculate pi</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calc_pi(numtrials):</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(numtrials):</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        r1 <span class="op">=</span> random.random()</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        r2 <span class="op">=</span> random.random()</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (r1<span class="op">*</span>r1 <span class="op">+</span> r2<span class="op">*</span>r2 <span class="op">&lt;</span> <span class="fl">1.</span>):</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>            n <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">4.</span><span class="op">*</span>n<span class="op">/</span>numtrials</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get number of trials from first command line argument</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># produce error if it doesn't work.</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        numtrials <span class="op">=</span> <span class="bu">int</span>(sys.argv[<span class="dv">1</span>])</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span>:</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        sys.exit(<span class="st">"There was a problem parsing the command-line arguments</span><span class="ch">\n</span><span class="st">Did you remember to pass an integer?"</span>)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate pi and error</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    pi <span class="op">=</span> calc_pi(numtrials)</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    err <span class="op">=</span> <span class="fl">3.141592653589793</span> <span class="op">-</span> pi</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print to terminal</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Result: </span><span class="sc">{</span>pi<span class="sc">}</span><span class="ss">, Error: </span><span class="sc">{</span>err<span class="sc">}</span><span class="ss">"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># pi.py</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="im">import</span> sys, random</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># function to calculate pi</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="kw">def</span> calc_pi(numtrials):</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(numtrials):</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>        r1 <span class="op">=</span> random.random()</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>        r2 <span class="op">=</span> random.random()</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>        <span class="cf">if</span> (r1<span class="op">*</span>r1 <span class="op">+</span> r2<span class="op">*</span>r2 <span class="op">&lt;</span> <span class="fl">1.</span>):</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>            n <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>        </span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">4.</span><span class="op">*</span>n<span class="op">/</span>numtrials</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    <span class="co"># get number of trials from first command line argument</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    <span class="co"># produce error if it doesn't work.</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>        numtrials <span class="op">=</span> <span class="bu">int</span>(sys.argv[<span class="dv">1</span>])</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>    <span class="cf">except</span>:</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>        sys.exit(<span class="st">"There was a problem parsing the command-line arguments</span><span class="ch">\n</span><span class="st">Did you remember to pass an integer?"</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>    <span class="co"># calculate pi and error</span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>    pi <span class="op">=</span> calc_pi(numtrials)</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>    err <span class="op">=</span> <span class="fl">3.141592653589793</span> <span class="op">-</span> pi</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>    <span class="co"># print to terminal</span></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Result: </span><span class="sc">{</span>pi<span class="sc">}</span><span class="ss">, Error: </span><span class="sc">{</span>err<span class="sc">}</span><span class="ss">"</span>)</span></code></pre>
 </div>
 <p>Which you can run by</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> pi.py 123456789</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">python3</span> pi.py 123456789</span></code></pre>
 </div>
 <p>which calculates <span class="math inline">\(\pi\)</span> with
 123,456,789 trials. The output should look similar to</p>
@@ -3630,7 +3660,7 @@ script.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>When submitting this script as-is with <code>sbatch pi.py</code>,
 you’ll get the error:</p>
@@ -3651,7 +3681,7 @@ installed on Milton. Once we do that, our script should work!</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> pi.py 123456789</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">sbatch</span> pi.py 123456789</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3695,7 +3725,7 @@ which you can use in the hash-bang statement. Similarly, with
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> show R/<span class="op">&lt;</span>preferred version<span class="op">&gt;</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">module</span> show R/<span class="op">&lt;</span>preferred version<span class="op">&gt;</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3730,14 +3760,14 @@ variables. For example, in Bash, saving the
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">cpus</span><span class="op">=</span><span class="va">${SLURM_CPUS_PER_TASK}</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="va">cpus</span><span class="op">=</span><span class="va">${SLURM_CPUS_PER_TASK}</span></span></code></pre>
 </div>
 <p>Whereas, for Python and R, respectively:</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cpus <span class="op">=</span> os.getenv(<span class="st">"SLURM_CPUS_PER_TASK"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>cpus <span class="op">=</span> os.getenv(<span class="st">"SLURM_CPUS_PER_TASK"</span>)</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3763,9 +3793,9 @@ created back in episode 4 (job arrays):</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'iter-cpu.txt'</span>, delimiter<span class="op">=</span><span class="st">' '</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'iter-cpu.txt'</span>, delimiter<span class="op">=</span><span class="st">' '</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="bu">print</span>(data)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3827,24 +3857,24 @@ convenience.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env python3</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=0-5</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=1G</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os, pandas <span class="im">as</span> pd</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'iter-cpu.txt'</span>, delimiter<span class="op">=</span><span class="st">' '</span>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>taskid <span class="op">=</span> <span class="bu">int</span>(os.getenv(<span class="st">"SLURM_ARRAY_TASK_ID"</span>))</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>niter <span class="op">=</span> data[<span class="st">'iters'</span>].iloc[taskid]</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>ncpus <span class="op">=</span> data[<span class="st">'cpus'</span>].iloc[taskid]</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'CPUs: </span><span class="sc">{</span>ncpus<span class="sc">}</span><span class="ss">, Iterations: </span><span class="sc">{</span>niter<span class="sc">}</span><span class="ss">'</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co">#!/usr/bin/env python3</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="co">#SBATCH --array=0-5</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="co">#SBATCH --mem=1G</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a><span class="im">import</span> os, pandas <span class="im">as</span> pd</span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'iter-cpu.txt'</span>, delimiter<span class="op">=</span><span class="st">' '</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>taskid <span class="op">=</span> <span class="bu">int</span>(os.getenv(<span class="st">"SLURM_ARRAY_TASK_ID"</span>))</span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a>niter <span class="op">=</span> data[<span class="st">'iters'</span>].iloc[taskid]</span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a>ncpus <span class="op">=</span> data[<span class="st">'cpus'</span>].iloc[taskid]</span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'CPUs: </span><span class="sc">{</span>ncpus<span class="sc">}</span><span class="ss">, Iterations: </span><span class="sc">{</span>niter<span class="sc">}</span><span class="ss">'</span>)</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3955,8 +3985,8 @@ any links that you are not going to use.
   "url": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/aio.html",
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/aio.html",
   "dateCreated": "2023-04-13",
-  "dateModified": "2024-02-27",
-  "datePublished": "2024-02-27"
+  "dateModified": "2024-03-05",
+  "datePublished": "2024-03-05"
 }
 
   </script><script>

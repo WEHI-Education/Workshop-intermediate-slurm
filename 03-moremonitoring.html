@@ -327,7 +327,7 @@ option to ensure your times are consistent!</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -346,7 +346,7 @@ of your job, which caused Slurm to cancel it. If we use
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">seff</span> 12064697</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">seff</span> 12064697</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -371,7 +371,7 @@ found. Similarly, if we execute <code>sacct</code>, we should see
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">sacct</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -424,7 +424,7 @@ interested in the <code>RES</code> column!</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>On one of the login nodes, execute the <code>pi-cpu2</code> program.
 You will want to ensure it runs indefinitely, so you have time to run
@@ -432,7 +432,7 @@ You will want to ensure it runs indefinitely, so you have time to run
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./pi-cpu2</span> <span class="at">-r</span> <span class="at">-1</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">./pi-cpu2</span> <span class="at">-r</span> <span class="at">-1</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -447,11 +447,13 @@ Result: 3.1414653105873 Error: -0.0001274304252 Time: 4.1556s
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> slurm-login01</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">ssh</span> slurm-login01</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
-<figure><img src="fig/htop-screenshot-pi2.png" alt="" class="figure mx-auto d-block"><figcaption><code>htop</code> screenshot with
-<code>pi-cpu2</code> running</figcaption></figure><p>The RES column should show a <em>peak</em> usage of roughly 1900MB,
+<figure><img src="fig/htop-screenshot-pi2.png" alt="htop screenshot with pi-cpu2 running" class="figure mx-auto d-block"><div class="figcaption">
+<code>htop</code> screenshot with
+<code>pi-cpu2</code> running</div>
+</figure><p>The RES column should show a <em>peak</em> usage of roughly 1900MB,
 but that number will fluctuate while the program runs.</p>
 </div>
 </div>
@@ -464,7 +466,7 @@ appropriate amount of memory:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>2G <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>2G <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -516,7 +518,7 @@ program in Slurm, but requesting only 1800MB.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>1800M <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>1800M <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -535,7 +537,7 @@ Slurm.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>2G <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2 <span class="at">-r</span> 15</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>2G <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2 <span class="at">-r</span> 15</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -550,7 +552,7 @@ Result: 3.1415999649886 Error:  0.0000072239760 Time: 2.9642s
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">seff</span> 12066094</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="ex">seff</span> 12066094</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -591,8 +593,8 @@ loaded</li>
 </ul><div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load cuda/11.7.1 gcc/11.2.0</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:1 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--partition</span><span class="op">=</span>gpuq pi-gpu</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="ex">module</span> load cuda/11.7.1 gcc/11.2.0</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:1 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--partition</span><span class="op">=</span>gpuq pi-gpu</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -613,7 +615,7 @@ you get a 2x speedup.</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--partition</span><span class="op">=</span>gpuq pi-gpu <span class="at">-p</span> 2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--partition</span><span class="op">=</span>gpuq pi-gpu <span class="at">-p</span> 2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -635,7 +637,7 @@ like we have so far:</p>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">salloc</span> <span class="at">--partition</span><span class="op">=</span>gpuq <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="ex">salloc</span> <span class="at">--partition</span><span class="op">=</span>gpuq <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -652,8 +654,8 @@ execute the <code>nvtop</code> command:</p>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> gpu-p100-n02</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">nvtop</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">ssh</span> gpu-p100-n02</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="ex">nvtop</span></span></code></pre>
 </div>
 <p>A terminal user interface should open that looks similar to:</p>
 <p><img src="fig/nvtop-screenshot-empty.png" alt="screenshot of nvtop output" class="figure"> Your output may differ if other
@@ -699,7 +701,7 @@ added to ensure it continues running. Once it’s running, return to your
 <div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -709,8 +711,10 @@ Result: 3.1417724625901 Error:  0.0001798090003 Time: 0.1996s
 Result: 3.1413390477862 Error: -0.0002536058036 Time: 0.1987s
 ...</code></pre>
 </div>
-<figure><img src="fig/nvtop-screenshot-m1.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> interface with
-<code>pi-gpu -p 2 -r -1</code> running</figcaption></figure><p>Two new processes would’ve popped up in the process list with your
+<figure><img src="fig/nvtop-screenshot-m1.png" alt="nvtop interface with pi-gpu -p 2 -r -1 running" class="figure mx-auto d-block"><div class="figcaption">
+<code>nvtop</code> interface with
+<code>pi-gpu -p 2 -r -1</code> running</div>
+</figure><p>Two new processes would’ve popped up in the process list with your
 <code>pi-gpu</code> command. You will also see that utilization charts
 will start to move.</p>
 <p>In the process list, you will see two entries corresponding to the
@@ -727,11 +731,14 @@ above, the command would be:</p>
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nvtop</span> <span class="at">--gpu-select</span> 0:1</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="ex">nvtop</span> <span class="at">--gpu-select</span> 0:1</span></code></pre>
 </div>
 <p>Change the ID’s based on the GPUs you see <code>pi-gpu</code> running
 on. You should now see information only for the GPUs you specified:</p>
-<figure><img src="fig/nvtop-screenshot-myjob.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> with only our job’s GPUs</figcaption></figure></div>
+<figure><img src="fig/nvtop-screenshot-myjob.png" alt="nvtop with only our job’s GPUs" class="figure mx-auto d-block"><div class="figcaption">
+<code>nvtop</code> with only our job’s
+GPUs</div>
+</figure></div>
 <div class="section level3">
 <h3 id="interpreting-nvtop-output">Interpreting <code>nvtop</code> output<a class="anchor" aria-label="anchor" href="#interpreting-nvtop-output"></a></h3>
 <p>A good place to start when determining if your program is using the
@@ -761,7 +768,7 @@ e.g.</p>
 <div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> <span class="op">&lt;</span>numtrials<span class="op">&gt;</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> <span class="op">&lt;</span>numtrials<span class="op">&gt;</span></span></code></pre>
 </div>
 <p>Note that the default is 123,456,789</p>
 </div>
@@ -772,32 +779,39 @@ e.g.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>Trying 12,345,678 (about 10x fewer trials than default):</p>
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 12345678</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 12345678</span></code></pre>
 </div>
-<figure><img src="fig/nvtop-screenshot-1e7.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> shows <code>pi-gpu</code> GPU
+<figure><img src="fig/nvtop-screenshot-1e7.png" alt="nvtop shows pi-gpu GPU utilization at around 57% when number of trials is 10x less than default" class="figure mx-auto d-block"><div class="figcaption">
+<code>nvtop</code> shows <code>pi-gpu</code> GPU
 utilization at around 57% when number of trials is 10x less than
-default</figcaption></figure><p>Trying 1,234,567 (about 100x fewer trials than default):</p>
+default</div>
+</figure><p>Trying 1,234,567 (about 100x fewer trials than default):</p>
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 1234567</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 1234567</span></code></pre>
 </div>
-<figure><img src="fig/nvtop-screenshot-1e6.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> shows <code>pi-gpu</code> GPU
+<figure><img src="fig/nvtop-screenshot-1e6.png" alt="nvtop shows pi-gpu GPU utilization at around 40% when number of trials is 100x less than default" class="figure mx-auto d-block"><div class="figcaption">
+<code>nvtop</code> shows <code>pi-gpu</code> GPU
 utilization at around 40% when number of trials is 100x less than
-default</figcaption></figure><p>Trying 500,000,000 (about 4x as many trials than default):</p>
+default</div>
+</figure><p>Trying 500,000,000 (about 4x as many trials than default):</p>
 <div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 500000000</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 500000000</span></code></pre>
 </div>
-<figure><img src="fig/nvtop-screenshot-5e8.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> shows <code>pi-gpu</code> “spiky”
-GPU utilization when number of trials is 4x more than default</figcaption></figure><p>Importantly, you should’ve seen that the utilization of the GPU grows
+<figure><img src="fig/nvtop-screenshot-5e8.png" alt="nvtop shows pi-gpu “spiky” GPU utilization when number of trials is 4x more than default" class="figure mx-auto d-block"><div class="figcaption">
+<code>nvtop</code> shows <code>pi-gpu</code>
+“spiky” GPU utilization when number of trials is 4x more than
+default</div>
+</figure><p>Importantly, you should’ve seen that the utilization of the GPU grows
 as you increase the number of trials for <code>pi-gpu</code> to use to
 estimate <span class="math inline">\(\pi\)</span>! And the opposite
 should also be observed when you lower the number of trials.</p>
@@ -824,7 +838,7 @@ mode” with the default number of trials:</p>
 <div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> <span class="at">-2</span> <span class="at">-r</span> <span class="at">-1</span> <span class="at">-m</span> 2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> <span class="at">-2</span> <span class="at">-r</span> <span class="at">-1</span> <span class="at">-m</span> 2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -837,8 +851,10 @@ Result: 3.1418233305906 Error:  0.0002306770008 Time: 0.0567s
 <p>You should be able to see that the time to calculate <span class="math inline">\(\pi\)</span> is almost 4 times faster than the
 default algorithm. If you look at the output of <code>nvtop</code>, you
 should be able to see the difference in utilization:</p>
-<figure><img src="fig/nvtop-screenshot-m2.png" alt="" class="figure mx-auto d-block"><figcaption><code>nvtop</code> with the experimental algorithm
-enabled showing higher utilization</figcaption></figure><p>In this case, the utilization has shot up to about 98%! GPU memory
+<figure><img src="fig/nvtop-screenshot-m2.png" alt="nvtop with the experimental algorithm enabled showing higher utilization" class="figure mx-auto d-block"><div class="figcaption">
+<code>nvtop</code> with the experimental
+algorithm enabled showing higher utilization</div>
+</figure><p>In this case, the utilization has shot up to about 98%! GPU memory
 utilization has also increased, which is a reflection of the algorithm
 used in this new mode.</p>
 <div id="keypoints1" class="callout keypoints">
@@ -929,7 +945,7 @@ any links that you are not going to use.
   "identifier": "https://WEHI-ResearchComputing.github.io/intermediate-slurm/03-moremonitoring.html",
   "dateCreated": "2023-04-13",
   "dateModified": "2023-11-21",
-  "datePublished": "2024-02-27"
+  "datePublished": "2024-03-05"
 }
 
   </script><script>
