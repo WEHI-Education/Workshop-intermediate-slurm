@@ -27,6 +27,12 @@ and is consequently quite fast! You try running the program on your laptop, and
 it takes about 1.2 seconds for each calculation of $\pi$. This is a little slow, so
 you try running it on Milton
 
+::: callout
+
+Before starting these programs, make sure to load the `gcc` module (`module load gcc`).
+
+:::
+
 ::: challenge
 
 ### Running the Program
@@ -391,7 +397,67 @@ To summarize, the Slurm utilities you can use to monitor your jobs are:
     * `seff` serves a similar purpose to `sacct`, but with the output presented in a more easily understood manner.
 * `sstat` can be used to query resource utilisation of a *running* job. But also requires some output formatting.
 
-## Getting a more detailed using system tools
+## Investigating memory usage of `pi-cpu2`
+
+In the example programs, there should be the `pi-cpu2` executable. Lets see what happens when we run
+it:
+
+```bash
+srun pi-cpu2
+```
+```error
+srun: job 12064697 queued and waiting for resources
+srun: job 12064697 has been allocated resources
+slurmstepd: error: Detected 1 oom_kill event in StepId=12064697.0. Some of the step tasks have been OOM Killed.
+srun: error: il-n01: task 0: Out Of Memory
+```
+
+Ok, that wasn't what we expected! The error message says that our job was `OOM Killed`
+and that `task 0: Out Of Memory`. Here, `OOM` is an abbreviation for Out Of Memory.
+The overall error message is indicating that your job exceeded the memory allocation
+of your job, which caused Slurm to cancel it. If we use `seff` on that job:
+
+```bash
+seff 12064697
+```
+```output
+Job ID: 12064697
+Cluster: milton
+User/Group: yang.e/allstaff
+State: OUT_OF_MEMORY (exit code 0)
+Nodes: 1
+Cores per node: 2
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 00:00:00 core-walltime
+Job Wall-clock time: 00:00:00
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 20.00 MB (10.00 MB/core)
+```
+
+You will find that it produces only the requested resources and the `OUT_OF_MEMORY`
+state and no utilization information is found. Similarly, if we execute `sacct`, 
+we should see `OUT_OF_ME+` and `0:125` under the `STATE` and `ExitCode` columns,
+respectively:
+
+```bash
+sacct
+```
+```output
+JobID           JobName  Partition    Account  AllocCPUS      State ExitCode 
+------------ ---------- ---------- ---------- ---------- ---------- --------
+... skipped output...
+12064697        pi-cpu2    regular       wehi          2 OUT_OF_ME+    0:125 
+12064697.ex+     extern                  wehi          2 OUT_OF_ME+    0:125 
+12064697.0      pi-cpu2                  wehi          2 OUT_OF_ME+    0:125
+```
+
+::: discussion
+
+This job failed because it started and then ran out of memory almost immediately.
+Some jobs may only request large amounts of memory after the program has been
+running awhile. In those cases, `seff` and `sacct` may still produce meaningful output.
+
+::::::::::::::
 
 The Slurm utilities can already tell you a lot of information that you'll find useful when evaluating your Slurm jobs. However,
 there are some important limitations preventing these tools from being "all-purpose".
@@ -407,7 +473,7 @@ fail for any reason.
 
 Because of this, in some cases, it's recommended to use system tools that don't rely on Slurm's infrastructure.
 
-## Introducing `htop`
+### Introducing `htop`
 
 `htop` is an interactive "process" viewer that lets you monitor processes across
 the entire node. It's very similar to Task Manager on Windows or Activity Monitor
@@ -594,6 +660,117 @@ Now, this job runs forever, so we should cancel it and move on.
 scancel 11089020
 ```
 
+## Monitoring GPU activity
+
+You're consumed by the need-for-speed, and you're ready to try the `pi-gpu` program
+published by the same authors! When running the program, you will need:
+
+* 1GB memory
+* 1 GPU (of any kind)
+* the `cuda/11.7.1` and `gcc/11.2.0` modules loaded
+
+```bash
+module load cuda/11.7.1 gcc/11.2.0
+srun --gres=gpu:1 --mem=1G --partition=gpuq pi-gpu
+```
+```output
+srun: job 12066158 queued and waiting for resources
+srun: job 12066158 has been allocated resources
+Result: 3.1415535681881 Error: -0.0000390854017 Time: 0.2894s
+Result: 3.1416463617890 Error:  0.0000537081992 Time: 0.2065s
+Result: 3.1415584281882 Error: -0.0000342254016 Time: 0.2060s
+...
+```
+
+The job ran and it it's about `3.0/0.2 = 15` times faster than `pi-cpu2`!
+You find out from the `--help` option, that `pi-gpu` also has a `-p` option which
+can help you with running the program on more GPUs on the same node. Try it out
+with `-p 2` and see if you get a 2x speedup.
+
+```bash
+srun --gres=gpu:2 --mem=1G --partition=gpuq pi-gpu -p 2
+```
+```output
+srun: job 12066179 queued and waiting for resources
+srun: job 12066179 has been allocated resources
+Result: 3.1415107353877 Error: -0.0000819182020 Time: 0.4006s
+Result: 3.1417724625901 Error:  0.0001798090003 Time: 0.1990s
+Result: 3.1413390477862 Error: -0.0002536058036 Time: 0.1988s
+...
+```
+
+The speedup seems to be minimal!
+
+### Introducing `nvtop`
+
+Let's investigate the program's behavior on the GPUs. We'll do this with `sbatch --wrap`:
+
+```bash
+sbatch --partition=gpuq --gres=gpu:2 --mem=1G --wrap "./pi-gpu -p 2 -r -1"
+```
+```output
+Submitted batch job 12066180
+```
+
+Now, ssh to the node you've been allocated and execute the `nvtop` command:
+
+```bash
+ssh gpu-p100-n02
+nvtop
+```
+
+A terminal user interface should open that looks similar to:
+
+![screenshot of `nvtop` output](fig/nvtop-screenshot-empty.png)
+Your output may differ if other people's jobs are running on the same node. 
+The interface will be reminiscent of `htop` but with differences:
+
+* The top section doesn't show the CPU utilization bars. Instead, they show information about the device (we won't be covering this section).
+* The middle section shows a time-series chart of each GPU's compute (cyan) and memory (olive) utilization percentage over time.
+* The bottom section shows process information in a format similar to `htop`:
+  * `PID`: process ID, which will correspond to a process on `htop`
+  * `USER`: The user the process is owned by
+  * `DEV`: the GPU ID the process is running on
+  * `GPU`: the "compute" utilization of the GPU (in percentage)
+  * `GPU MEM`: the memory utilization of the GPU (in MB)
+  * `CPU`: the CPU utilization of the process
+  * `HOST MEM`: the CPU memory utilization of the process
+  * `Command`: the command that the GPU is running
+
+`nvtop` is a useful tool in evaluating utilization of the GPU while your job is
+running. This tool can be used as a way to check that
+
+a) the GPUs you requested are actually being used, and
+b) that they are being fully utilized
+
+![`nvtop` interface with `pi-gpu -p 2 -r -1` running](fig/nvtop-screenshot-m1.png)
+
+Two processes should show up in the process list with your `pi-gpu` command.
+You will also see that utilization charts move.
+
+In the process list, you will see two entries corresponding to the two GPUs that
+`pi-gpu` is using. Under `DEV` you will see the device IDs which `pi-gpu` is using.
+In the example screenshot above, they are GPU 0 and GPU 1. But, `nvtop` shows
+the information for all the GPUs on the node by default.
+
+### Interpreting `nvtop` output
+
+A good place to start when determining if your program is using the GPU well is
+looking at the utilization. Many programs have parameters which can affect this
+utilization - especially programs that process data.
+
+Many programs process data on the GPU in chunks as the GPU memory is typically
+too small to handle the entire data set at once. These are often controlled
+through chunk size or number of chunks parameters (you might also see the word
+"block" being used instead). Typically, you want to tune the parameters such that
+utilization is high.
+
+::: callout
+
+Remember to cancel your jobs before moving on! `scancel --me` will cancel all jobs created during this lesson.
+
+:::
+
 ::: keypoints
 
 -   Requesting more resources from Slurm doesn't mean your job knows how to use them!
@@ -605,5 +782,6 @@ scancel 11089020
     - `sstat` is for running jobs and provides a snapshot of resource utilisation
 -   The `htop` system tool is a great way to get live information about how effective your job is
     - is more robust and provides more details than Slurm monitoring tools
+-   `nvtop` offers something similar to `htop`, but for GPU processes.
 
 :::
