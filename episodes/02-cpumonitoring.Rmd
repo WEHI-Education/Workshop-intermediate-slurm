@@ -27,6 +27,12 @@ and is consequently quite fast! You try running the program on your laptop, and
 it takes about 1.2 seconds for each calculation of $\pi$. This is a little slow, so
 you try running it on Milton
 
+::: callout
+
+Before starting these programs, make sure to load the `gcc` module (`module load gcc`).
+
+:::
+
 ::: challenge
 
 ### Running the Program
@@ -60,10 +66,414 @@ the presenter at the conference demonstrated times way less than 3 seconds!
 
 Your job now is to figure out why `pi-cpu` isn't performing fast for you.
 
-## Check 1: Is it really working in parallel?
+## Is it really working in parallel?
 
 So far, we've only *heard* that the software works by performing computations in
 parallel with multiple CPUs. One way we can verify this is with the `htop` tool.
+
+::: challenge
+
+### Revisiting `seff`
+
+`seff` is a lightweight utility to check the efficiency of Slurm jobs. Try and check the efficiency
+of your job with `seff`. Is it working in parallel?
+
+:::::::::::::
+
+::: solution
+
+Run `seff` with your Job ID. For example, with a job ID of `11087600`:
+
+```bash
+seff 11087600
+```
+
+```output
+Job ID: 11087600
+Cluster: milton
+User/Group: yang.e/allstaff
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 2
+CPU Utilized: 00:00:14
+CPU Efficiency: 50.00% of 00:00:28 core-walltime
+Job Wall-clock time: 00:00:14
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 20.00 MB (10.00 MB/core)
+```
+
+You should see that the job has requested 2 CPUs by default, and has an efficiency of roughly 50%.
+Definitely not parallel!
+
+You might've also noticed that there's no memory utilization information. We'll discuss this later.
+
+::::::::::::
+
+From `seff`, it looks like `pi-cpu` isn't working in parallel. But perhaps you haven't requested
+enough resources from Slurm? Let's try double the number of CPUs requested to 4:
+
+```bash
+srun -c 4 pi-cpu
+```
+```output
+srun: job 16555628 queued and waiting for resources
+srun: job 16555628 has been allocated resources
+Result: 3.1413745257865 Error: -0.0002182152261 Time: 3.1130s
+Result: 3.1416269865888 Error:  0.0000342455762 Time: 3.1173s
+Result: 3.1413426117862 Error: -0.0002501292264 Time: 3.1159s
+Result: 3.1416289953888 Error:  0.0000362543763 Time: 3.1151s
+Result: 3.1414934337876 Error: -0.0000993072250 Time: 3.1139s
+```
+
+Not much change in time to calculate pi. Using `seff` to check the CPU utilisation:
+
+```bash
+seff 16555633
+```
+```output
+Job ID: 16555633
+Cluster: milton
+User/Group: yang.e/allstaff
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 4
+CPU Utilized: 00:00:16
+CPU Efficiency: 25.00% of 00:01:04 core-walltime
+Job Wall-clock time: 00:00:16
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 40.00 MB (10.00 MB/core)
+```
+
+and our efficiency has decreased proportionally with the number of CPUs we've requested. 
+
+::: challenge
+
+### Getting help
+
+Most commands that *can* run in parallel, don't do so by default. See if you can figure out how to
+get the command to utilize multiple CPU cores from the `pi-cpu` help.
+
+Hint: use `./pi-cpu -h`
+
+:::::::::::::
+
+::: solution
+
+```bash
+./pi-cpu -h
+```
+```output
+Usage:
+    pi-cpu [options]
+
+Options:
+    --parallel <N>, -p <N>    Number of threads to use (default: 1)
+    --trials <N>, -n <N>      Number of trials to calculate pi (default: 123,456,789)
+    --reps <N>, -r <N>        Number of times to calculate pi (default: 5)
+where <N> is an integer.
+```
+
+It looks like we need to use the `--parallel` or `-p` option! Let's try this with our previous
+command:
+
+```bash
+srun -c 4 pi-cpu -p 4
+```
+```output
+srun: job 16555642 queued and waiting for resources
+srun: job 16555642 has been allocated resources
+Result: 3.1417442421899 Error:  0.0001515011773 Time: 1.0078s
+Result: 3.1415662365883 Error: -0.0000265044243 Time: 1.0076s
+Result: 3.1415902773885 Error: -0.0000024636241 Time: 1.0070s
+Result: 3.1415876205884 Error: -0.0000051204241 Time: 1.0122s
+Result: 3.1414994277876 Error: -0.0000933132249 Time: 1.2378s
+```
+
+The run times have decreased significantly! And checking the efficiency with `seff`:
+
+```bash
+seff 16555642
+```
+```output
+Job ID: 16555642
+Cluster: milton
+User/Group: yang.e/allstaff
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 4
+CPU Utilized: 00:00:20
+CPU Efficiency: 83.33% of 00:00:24 core-walltime
+Job Wall-clock time: 00:00:06
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 40.00 MB (10.00 MB/core)
+```
+
+Shows that CPU efficiency is now >80%! Turns out we needed to read the instructions carefully first!
+
+Many programs behave like this: they will have parallel capability built in,
+but will need to be switched on perhaps with a flag/option like with `pi-cpu`.
+Sometimes it can also be switched on via an environment variable.
+
+Parallel programs are generally designed to run in this way so that the parallel
+program doesn't unintentionally use up all the resources on the machine you're
+running on.
+
+::::::::::::
+
+::: challenge
+
+### Seeing the effects of Hyperthreading
+
+Before, we tried requesting more CPUs from Slurm, but that didn't change much
+about how the program itself ran. But now that we're using 4 CPUs with `pi-cpu`
+and also requesting 4 CPUs from Slurm. But what happens if we double this
+request from Slurm again (without increasing the number passed to `-p`)?
+
+Try doing that by requesting 8 CPUs from Slurm. After, try doubling it again
+and requesting 16 CPUs.
+
+:::::::::::::
+
+::: solution
+
+```bash
+srun -c 8 pi-cpu -p 4
+```
+```output
+srun: job 16555656 queued and waiting for resources
+srun: job 16555656 has been allocated resources
+Result: 3.1417761237902 Error:  0.0001833827776 Time: 0.6896s
+Result: 3.1416477873890 Error:  0.0000550463764 Time: 0.6908s
+Result: 3.1416972621894 Error:  0.0001045211769 Time: 0.6859s
+Result: 3.1413705729865 Error: -0.0002221680261 Time: 0.6859s
+Result: 3.1418576745909 Error:  0.0002649335783 Time: 0.6858s
+```
+
+Oh, the time almost halved! If you check the efficiency of `seff`, you should
+see that the efficiency if roughly 50%. If we try double the CPUs requested to 
+16:
+
+```bash
+srun -c 16 pi-cpu -p 4
+```
+```output
+srun: job 16555928 queued and waiting for resources
+srun: job 16555928 has been allocated resources
+Result: 3.1414441209871 Error: -0.0001486200254 Time: 0.6897s
+Result: 3.1415679861883 Error: -0.0000247548243 Time: 0.6862s
+Result: 3.1418510649908 Error:  0.0002583239783 Time: 0.6854s
+Result: 3.1416825849893 Error:  0.0000898439767 Time: 0.6852s
+Result: 3.1415102493877 Error: -0.0000824916248 Time: 0.6853s
+```
+
+But this time, the time has stayed the same. So why does `pi-cpu -p 4` benefit
+from requesting 8 CPUs from Slurm?
+
+This is because Milton's Slurm is configured such that when you request 1
+CPU, you're actually getting a hyperthread. For every two hyperthreads, you get 
+one physical CPU core.
+
+So, when you execute `srun -c 4 pi-cpu -p 4`, `pi-cpu -p 4` is 
+actually executed on a two physical cores. But thanks to hyperthreading, you
+manage to get some speedup almost for free! When you execute 
+`srun -c 8 pi-cpu 4`, `pi-cpu` is now running on two separate physical cores, 
+hence we see a speedup!
+
+This is important to remember because if you forget about how Slurm CPUs are
+equivalent to hyperthreads, rather than physical CPU cores, programs that run
+in parallel might appear less efficient (like in the case of `pi-cpu`!).
+
+NOTE: this configuration is unique to Milton. Most other HPC facilities equate
+Slurm CPUs to physical CPU cores, not hyperthreads.
+
+::::::::::::
+
+::: discussion
+
+What might happen as we add more CPUs? Most parallel programs eventually reach
+a point where trying to use more CPUs doesn't actually decrease the run time
+of the program in a linear manner. It may be useful to experiment on your
+program and/or input data to see when it stops being worth it to add CPUs (AKA
+performing a "scaling study")
+
+::::::::::::::
+
+## Getting more information from a running job
+
+We've used `seff` so far to get resource utilisation of a job. However, this
+only works for a complete job, not for a running job. Instead, Slurm offers the
+`sstat` tool to obtain information about a running job. This way, we can check
+on the utilisation while the job is running.
+
+let's start a long-running job with our `pi-cpu` program:
+
+```bash
+sbatch --wrap ./pi-cpu -r -1
+```
+```output
+Submitted batch job 16559207
+```
+Check that the job is running with `squeue`:
+
+```bash
+squeue --me
+```
+```output
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+          16559207   regular     wrap   yang.e  R       0:01      1 il-n11
+```
+
+::: discussion
+
+### `sbatch --wrap`
+
+the `--wrap` option lets us pass a singular command to `sbatch` without having to write
+an entire script! This is useful for debugging and when you run `sbatch` inside scripts.
+
+:::::::::::
+
+Running `sstat` with a job ID on it's own doesn't work, you need to remember to pass the `-a` flag:
+
+```bash
+sstat -a 16559207
+```
+```output
+JobID         MaxVMSize  MaxVMSizeNode  MaxVMSizeTask  ...
+------------ ---------- -------------- --------------  ...
+16559207.ex+    108056K         il-n11              0  ...
+16559207.ba+    136648K         il-n11              0  ...
+```
+
+There's a lot of output! By default, `sstat` will dump everything it can about the job onto your
+terminal. To control what output gets shown, you can use the `-o` option and supply some fields.
+Below is a recommended command you can use in the future:
+
+```bash
+sstat -ao jobid%15,nodelist,avecpu,maxrss,maxdiskwrite,maxdiskread <jobid>
+```
+
+And below is an example output:
+
+```output
+          JobID             Nodelist     AveCPU     MaxRSS MaxDiskWrite  MaxDiskRead 
+--------------- -------------------- ---------- ---------- ------------ ------------ 
+16559207.extern               il-n11   00:00:00        98K        1.00M         2012 
+ 16559207.batch               il-n11   00:07:53       818K         8309        17747
+```
+
+Which is much more comprehendable!
+
+::: challenge
+
+the arguments to pass to `sstat -ao` have been supplied here for convenience. But, you can create
+your own! Use the `sstat --helpformat` command to see which available fields there are. You'll also
+want to check the `man` page for `sstat` to find out exactly what these fields mean.
+
+What do the fields in the previous `sstat` command mean? reminder: the command is `sstat -ao
+jobid%15,nodelist,avecpu,maxrss,maxdiskwrite,maxdiskread <jobid>`.
+
+:::
+
+::: solution
+
+From the `Job Status Fields` section in the man page, we can see that:
+
+* **AveCPU** Average (system + user) CPU time of all tasks in job.
+* **AveDiskRead** Average number of bytes read by all tasks in job.
+* **AveDiskWrite** Average number of bytes written by all tasks in job.
+* **JobID**  The number of the job or job step.  It is in the form: job.jobstep
+* **MaxDiskRead** Maximum number of bytes read by all tasks in job.
+* **MaxDiskWrite** Maximum number of bytes written by all tasks in job.
+* **MaxRSS** Maximum resident set size of all tasks in job.
+
+Nodelist is left out, but hopefully that's self-explanatory. 
+
+:::
+
+To summarize, the Slurm utilities you can use to monitor your jobs are:
+
+* `squeue` is good for getting the *status* of running or pending jobs, but don't offer much in terms of utilization information.
+* `sacct`, with output formatting can be used to view resource utilsation of jobs that have ended.
+    * `seff` serves a similar purpose to `sacct`, but with the output presented in a more easily understood manner.
+* `sstat` can be used to query resource utilisation of a *running* job. But also requires some output formatting.
+
+## Investigating memory usage of `pi-cpu2`
+
+In the example programs, there should be the `pi-cpu2` executable. Lets see what happens when we run
+it:
+
+```bash
+srun pi-cpu2
+```
+```error
+srun: job 12064697 queued and waiting for resources
+srun: job 12064697 has been allocated resources
+slurmstepd: error: Detected 1 oom_kill event in StepId=12064697.0. Some of the step tasks have been OOM Killed.
+srun: error: il-n01: task 0: Out Of Memory
+```
+
+Ok, that wasn't what we expected! The error message says that our job was `OOM Killed`
+and that `task 0: Out Of Memory`. Here, `OOM` is an abbreviation for Out Of Memory.
+The overall error message is indicating that your job exceeded the memory allocation
+of your job, which caused Slurm to cancel it. If we use `seff` on that job:
+
+```bash
+seff 12064697
+```
+```output
+Job ID: 12064697
+Cluster: milton
+User/Group: yang.e/allstaff
+State: OUT_OF_MEMORY (exit code 0)
+Nodes: 1
+Cores per node: 2
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 00:00:00 core-walltime
+Job Wall-clock time: 00:00:00
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 20.00 MB (10.00 MB/core)
+```
+
+You will find that it produces only the requested resources and the `OUT_OF_MEMORY`
+state and no utilization information is found. Similarly, if we execute `sacct`, 
+we should see `OUT_OF_ME+` and `0:125` under the `STATE` and `ExitCode` columns,
+respectively:
+
+```bash
+sacct
+```
+```output
+JobID           JobName  Partition    Account  AllocCPUS      State ExitCode 
+------------ ---------- ---------- ---------- ---------- ---------- --------
+... skipped output...
+12064697        pi-cpu2    regular       wehi          2 OUT_OF_ME+    0:125 
+12064697.ex+     extern                  wehi          2 OUT_OF_ME+    0:125 
+12064697.0      pi-cpu2                  wehi          2 OUT_OF_ME+    0:125
+```
+
+::: discussion
+
+This job failed because it started and then ran out of memory almost immediately.
+Some jobs may only request large amounts of memory after the program has been
+running awhile. In those cases, `seff` and `sacct` may still produce meaningful output.
+
+::::::::::::::
+
+The Slurm utilities can already tell you a lot of information that you'll find useful when evaluating your Slurm jobs. However,
+there are some important limitations preventing these tools from being "all-purpose".
+
+* The information used by `seff` and `sacct` are collected every 30 seconds only, and information isn't collected about jobs that
+fail for any reason.
+    * this makes it difficult to diagnose jobs that use too much memory.
+    * it also makes it difficult to identify sudden and short-lived spikes in resource usage.
+    * This is why for our short `pi-cpu` job, `seff` doesn't show any memory usage!
+* `sstat` is limited in how frequently it can be used
+    * if used too often, your `sstat` calls will be throttled.
+    * this a system configuration to prevent Slurm from being overloaded.
+
+Because of this, in some cases, it's recommended to use system tools that don't rely on Slurm's infrastructure.
+
+### Introducing `htop`
 
 `htop` is an interactive "process" viewer that lets you monitor processes across
 the entire node. It's very similar to Task Manager on Windows or Activity Monitor
@@ -129,17 +539,9 @@ purpose!
 The most beneficial aspect of using `srun` inside `sbatch` is that if the job
 fails or is cancelled, the CPU efficiency, memory usage, and IO data is saved,
 which makes `seff` and `sacct` still useful. If `srun` is not used, performance
-data from `seff` and `sacct` are useless if the job ends prematurely.
+data from `seff` and `sacct` are discarded if the job ends prematurely.
 
 ::::::::::::::
-
-::: discussion
-
-### `sbatch --wrap`
-
-the `--wrap` option lets us pass a singular command to `sbatch` without having to write
-an entire script! This is useful for debugging and when you run `sbatch` inside scripts.
-:::::::::::
 
 Once you've confirmed the job has started with `squeue`, and determined which
 node it's running on, `ssh` to that node and run `htop -u $USER`. 
@@ -198,7 +600,7 @@ scancel 11088927
 
 And then we can try again, but with more CPUs:
 ```bash
-sbatch --cpus-per-task=4 --wrap="srun ./pi-cpu -r -1"
+sbatch -c 4 --wrap="srun ./pi-cpu -p 4 -r -1"
 ```
 ```output
 Submitted batch job 11089020
@@ -223,367 +625,163 @@ htop -u $USER
 
 ![processes associated with `pi-cpu` after requesting more CPUs from Slurm](fig/htop-picpu-2.png)
 
-Unfortunately, the `pi-cpu` program is still only using 100% - requesting more CPUs from Slurm didn't help your job work in parallel.
+We can see that there is a process using around 300%-400% of CPU which should have `pi-cpu` in the
+command column.
+
+::: challenge
+
+`htop` is a Terminal User Interface (TUI) and allows you to click on the interface to interact with
+it! What happens when you click on `CPU%` and `MEM%`? What if you click on the `Tree` button on The
+bottom?
+
+After this, see if you can add disk read/write information columns to the `htop` interface.
+
+Hint: You'll need to click on `Setup` in the bottom-left corner and you may need to use your
+arrow keys!
+
+:::
+
+::: solution
+
+Clicking on `CPU%` and `MEM%` will order the processes by how much of those resoures are being used.
+Subsequent clicks will reverse the order. 
+
+Clicking on `Tree` will group the processes by sub-processes, so you can see which processes were
+spawned by which.
+
+To add disk read/write columns, you can click on `Setup -> Columns -> press right twice to get the
+cursor to "Available Columns" -> scroll down with your arrow keys and press enter on `IO_READ_WRITE`
+and `IO_WRITE_RATE`
+
+:::
 
 Now, this job runs forever, so we should cancel it and move on.
 ```bash
 scancel 11089020
 ```
 
-::: challenge
+## Monitoring GPU activity
 
-### Job summary with `seff`
+You're consumed by the need-for-speed, and you're ready to try the `pi-gpu` program
+published by the same authors! When running the program, you will need:
 
-Now that the job is over, try verifying the efficiency of the job with `seff`.
-What is the CPU Efficiency (%) that the `pi-cpu` program achieved?
-
-:::::::::::::
-
-::: solution
+* 1GB memory
+* 1 GPU (of any kind)
+* the `cuda/11.7.1` and `gcc/11.2.0` modules loaded
 
 ```bash
-seff 11089020
+module load cuda/11.7.1 gcc/11.2.0
+srun --gres=gpu:1 --mem=1G --partition=gpuq pi-gpu
 ```
 ```output
-Job ID: 11089020
-Cluster: milton
-User/Group: yang.e/allstaff
-State: CANCELLED (exit code 0)
-Nodes: 1
-Cores per node: 4
-CPU Utilized: 00:02:11
-CPU Efficiency: 25.00% of 00:08:44 core-walltime
-Job Wall-clock time: 00:02:11
-Memory Utilized: 4.44 MB
-Memory Efficiency: 11.10% of 40.00 MB
-```
-
-In this scenario, you're interested in the `CPU Efficiency` field, which gives
-a rough indication of the total CPU cores requested being used. This is different from
-`htop`, where the percentage represents the utilization of a single CPU core.
-  
-But as well as CPUs, jobs need to select an amount of memory to request. `seff`
-can help tune this value with the `Memory Utilized` field, which will tell you
-the maximum memory used of your job. The `Memoy Efficiency` percentage is also
-useful to help you choose an appropriate memory to request.
-
-`pi-cpu` turns out to be very lightweight, so doesn't use much memory at all!
-When we run it inside a Slurm job without any options, it comfortably fits
-within the default memory (for Milton, this is 10MB).
-
-::::::::::::
-
-## Looking through help and documentation
-
-::: challenge
-
-Try  running `pi-cpu` with the `--help` option. Do you find any clues? See if 
-you can run the `pi-cpu` in parallel with 4 cores on Slurm!
-
-:::::::::::::
-
-::: solution
-
-Both the documentation and `--help` output would've shown that the `-p <N>` option
-is needed to execute the code with `N` number of cores.
-
-So, to execute `pi-cpu` with 4 cores on Slurm, we can issue the command
-```bash
-srun --cpus-per-task=4 pi-cpu -p 4 
-```
-```output
-srun: job 11250525 queued and waiting for resources
-srun: job 11250525 has been allocated resources
-Result: 3.1418360637907 Error:  0.0002433227781 Time: 1.4548s
-Result: 3.1416882225894 Error:  0.0000954815768 Time: 1.4527s
-Result: 3.1415296893879 Error: -0.0000630516247 Time: 1.4512s
-...
-```
-which will send the output straight to the terminal. You will notice that the
-reported times to calculate `pi-cpu` has more than halved! We can confirm the
-utilization of the 4 CPUs we requested with `seff`:
-```bash
-seff 11250525
-```
-```output
-Job ID: 11250525
-Cluster: milton
-User/Group: yang.e/allstaff
-State: CANCELLED (exit code 0)
-Nodes: 2
-Cores per node: 2
-CPU Utilized: 00:02:47
-CPU Efficiency: 97.09% of 00:02:52 core-walltime
-Job Wall-clock time: 00:00:43
-Memory Utilized: 9.56 MB (estimated maximum)
-Memory Efficiency: 23.91% of 40.00 MB (10.00 MB/core)
-```
-
-The CPU Efficiency is now pretty close to 100%!
-
-Many programs behave like this: they will have parallel capability built in,
-but will need to be switched on perhaps with a flag/option like with `pi-cpu`.
-Sometimes it can also be switched on via an environment variable.
-
-Parallel programs are generally designed to run in this way so that the parallel
-program doesn't unintentionally use up all the resources on the machine you're
-running on.
-
-::::::::::::
-
-::: instructor
-
-The output from the last challenge may suggest to learners that using 4 CPUs
-only results in a 2 times speedup, but this result is due to hyperthreading
-being enabled on Milton, and when you request 2 CPUs from Slurm, you get
-2 hyperthreads which are both assigned to the same physical CPU core.
-
-::::::::::::::
-
-::: challenge
-
-### Using more CPU cores
-
-You're really determined to get the run-time down on this calculation of $\pi$!
-So, try request different number of CPUs and see what happens with the time it
-takes to calculate $\pi$!
-
-Hint: try 4, 8, and then 16 CPUs.
-Hint 2: You may wish to run with `--constraint=Icelake` to ensure results are consistent!
-
-:::::::::::::
-
-::: solution
-
-```bash
-srun --cpus-per-task=4 --constraint=Icelake pi-cpu -p 4
-```
-```output
-srun: job 11250526 queued and waiting for resources
-srun: job 11250526 has been allocated resources
-Result: 3.1414069905868 Error: -0.0001857504258 Time: 1.1907s
-Result: 3.1416068013886 Error:  0.0000140603760 Time: 1.1880s
-Result: 3.1415671113883 Error: -0.0000256296243 Time: 1.1880s
-...
-```
-```bash
-srun --cpus-per-task=8 --constraint=Icelake pi-cpu -p 8
-```
-```output
-srun: job 11250527 queued and waiting for resources
-srun: job 11250527 has been allocated resources
-Result: 3.1416164241887 Error:  0.0000236831761 Time: 0.5980s
-Result: 3.1414225749869 Error: -0.0001701660256 Time: 0.5975s
-Result: 3.1417783593902 Error:  0.0001856183776 Time: 0.5978s   
-...
-```
-```bash
-srun --cpus-per-task=16 --constraint=Icelake pi-cpu -p 16
-```
-```output
-srun: job 11250528 queued and waiting for resources
-srun: job 11250528 has been allocated resources
-Result: 3.1419777489920 Error:  0.0003850079794 Time: 0.3507s
-Result: 3.1415083701877 Error: -0.0000843708248 Time: 0.3018s
-Result: 3.1418214513906 Error:  0.0002287103780 Time: 0.3016s 
+srun: job 12066158 queued and waiting for resources
+srun: job 12066158 has been allocated resources
+Result: 3.1415535681881 Error: -0.0000390854017 Time: 0.2894s
+Result: 3.1416463617890 Error:  0.0000537081992 Time: 0.2065s
+Result: 3.1415584281882 Error: -0.0000342254016 Time: 0.2060s
 ...
 ```
 
-If you're running on Milton, you should see that 4 CPUs brings down the time
-to 2 seconds, down from the original 6 seconds. Running with 8 CPUs brings the
-time down to approx. 1 second (approx 2 times speedup, relative to 4 cores), and bringing it up to 16
-speeds things up almost twice again!
-
-However, this isn't always true of all programs. Often, adding twice the number of
-cores doesn't add twice the speed.
-
-In many cases, the program's documentation will offer some suggestions on how to choose the
-right number of cores. You might even find some advice from others e.g., blog posts or in
-forums. But if this isn't the case, you may need to perform some tests yourself!
-
-For example, I run a program with two cores and I discover it's 1.8 times
-faster than one core. I then run the same program but with 4 cores and find that
-it's only 2.5 times as fast compared to one core. We could say that with two
-cores, the program has a "scaling efficiency" of 1.8/2 = 90% efficient. But, the
-four core case is 2.5/4 = 62.5% efficient. This would tell us that running with
-two cores is *more efficient*, and running with four cores is *less efficient*, but *faster*.
-
-::::::::::::
-
-::: challenge
-
-### Hyperthreading
-
-Do a rough calculation of the speedup efficiency of `pi-cpu` from one core to two.
-
-i.e.,
-
-`srun --constraint=Icelake pi-cpu -p 1`
-
-and then
-
-`srun --cpus-per-task=2 --constraint=Icelake pi-cpu -p 2`
-
-What do you get?
-
-What happens if you run the two-core case again, but this time requesting 4 cores
-from Slurm, but still using `-p 2`?
-
-:::::::::::::
-
-::: solution
-  
-Comparing 1 CPU with 2 CPUs:
+The job ran and it it's about `3.0/0.2 = 15` times faster than `pi-cpu2`!
+You find out from the `--help` option, that `pi-gpu` also has a `-p` option which
+can help you with running the program on more GPUs on the same node. Try it out
+with `-p 2` and see if you get a 2x speedup.
 
 ```bash
-srun --constraint=Icelake pi-cpu -p 1
+srun --gres=gpu:2 --mem=1G --partition=gpuq pi-gpu -p 2
 ```
 ```output
-srun: job 11783722 queued and waiting for resources
-srun: job 11783722 has been allocated resources
-Result: 3.1419098061914 Error:  0.0003170651788 Time: 3.6352s
-Result: 3.1415063289877 Error: -0.0000864120249 Time: 3.6363s
-Result: 3.1416112401887 Error:  0.0000184991761 Time: 3.6349s
-...
-```
-```bash
-srun --cpus-per-task=2 --constraint=Icelake pi-cpu -p 2
-```
-```output
-srun: job 11783726 queued and waiting for resources
-srun: job 11783726 has been allocated resources
-Result: 3.1416992061895 Error:  0.0001064651769 Time: 2.3672s
-Result: 3.1415531793881 Error: -0.0000395616244 Time: 2.3669s
-Result: 3.1416117585887 Error:  0.0000190175761 Time: 2.3668s
+srun: job 12066179 queued and waiting for resources
+srun: job 12066179 has been allocated resources
+Result: 3.1415107353877 Error: -0.0000819182020 Time: 0.4006s
+Result: 3.1417724625901 Error:  0.0001798090003 Time: 0.1990s
+Result: 3.1413390477862 Error: -0.0002536058036 Time: 0.1988s
 ...
 ```
 
-This is approximately 3.64/(2.37*2) = 77% (the times you get may vary).
-Unfortunately not as close to 100% as one might hope!
+The speedup seems to be minimal!
 
-Requesting 4 CPUs from Slurm, but running `pi-cpu -p 2`:
+### Introducing `nvtop`
+
+Let's investigate the program's behavior on the GPUs. We'll do this with `sbatch --wrap`:
 
 ```bash
-srun --cpus-per-task=4 --constraint=Icelake pi-cpu -p 2
+sbatch --partition=gpuq --gres=gpu:2 --mem=1G --wrap "./pi-gpu -p 2 -r -1"
 ```
 ```output
-srun: job 11783729 queued and waiting for resources
-srun: job 11783729 has been allocated resources
-Result: 3.1413841485866 Error: -0.0002085924260 Time: 1.7224s
-Result: 3.1414291845870 Error: -0.0001635564256 Time: 1.7210s
-Result: 3.1414952805876 Error: -0.0000974604250 Time: 1.7257s 
-...
+Submitted batch job 12066180
 ```
 
-Which is now roughly 2.1 times faster than the one-core case! But why the
-difference? In both cases, we requested `pi-cpu` to run in parallel with 2 cores, right (through the `-p 2` flag)?
+Now, ssh to the node you've been allocated and execute the `nvtop` command:
 
-This is because on Milton, hyperthreading is turned on, which is often the case
-for modern CPUs. Milton's Slurm is configured such that when you request 1
-CPU, you're actually getting a hyperthread. For every two hyperthreads, you get 
-one physical CPU core.
-
-So, when you execute `srun --cpus-per-task=2 pi-cpu -p 2`, `pi-cpu -p 2` is 
-actually executed on a single physical core. But thanks to hyperthreading, you
-manage to get some speedup almost for free! When you execute `srun --cpus-per-task=4 pi-cpu 2`,
-`pi-cpu` is now running on two separate physical cores, hence we see a speedup!
-
-This is important to remember because if you forget about how Slurm CPUs are
-equivalent to hyperthreads, rather than physical CPU cores, programs that run
-in parallel might appear less efficient (like in the case of `pi-cpu`!).
-
-NOTE: this configuration is unique to Milton. Most other HPC facilities equate
-Slurm CPUs to physical CPU cores, not hyperthreads.
-
-:::::::::::::
-
-::: challenge
-
-### Using multiple nodes
-
-You may already be aware of the fact that you can request *multiple nodes* from Slurm.
-Maybe we can use multiple nodes to speed up the calculation of $\pi$ more! Let's try
-and run `pi-cpu` on 2 nodes, with 2 CPUs per node, which gives our
-job a total request of 4 CPUs. Remember to add the constraint so we can compare
-the times to the previous tests!
-
-We will submit this job using `srun`:
 ```bash
-srun --nodes=2 --cpus-per-task=2 --constraint=Icelake pi-cpu -p 4 
+ssh gpu-p100-n02
+nvtop
 ```
-```output
-srun: job 11250605 queued and waiting for resources
-srun: job 11250605 has been allocated resources
-Result: 3.1414471989872 Error: -0.0001455420254 Time: 2.3712s
-Result: 3.1417839645902 Error:  0.0001912235777 Time: 2.3745s
-Result: 3.1416039501886 Error:  0.0000112091760 Time: 2.3709s
-Result: 3.1415633529882 Error: -0.0000293880243 Time: 2.3729s
-Result: 3.1415167617878 Error: -0.0000759792248 Time: 2.3712s
-Result: 3.1415245053879 Error: -0.0000682356247 Time: 2.3709s
-...
-```
-So our job has started, but wait... The run times are *slower* than our previous
-tests with 4 cores! You might also notice that two lines with identical results
-are printed together every iteration.
 
-Try and have a look in the [documentation](https://github.com/WEHI-ResearchComputing/Workshop-intermediate-slurm/blob/main/episodes/data/pi-cpu.md) again and see why
-that might be!
+A terminal user interface should open that looks similar to:
 
-:::::::::::::
+![screenshot of `nvtop` output](fig/nvtop-screenshot-empty.png)
+Your output may differ if other people's jobs are running on the same node. 
+The interface will be reminiscent of `htop` but with differences:
 
-::: solution
+* The top section doesn't show the CPU utilization bars. Instead, they show information about the device (we won't be covering this section).
+* The middle section shows a time-series chart of each GPU's compute (cyan) and memory (olive) utilization percentage over time.
+* The bottom section shows process information in a format similar to `htop`:
+  * `PID`: process ID, which will correspond to a process on `htop`
+  * `USER`: The user the process is owned by
+  * `DEV`: the GPU ID the process is running on
+  * `GPU`: the "compute" utilization of the GPU (in percentage)
+  * `GPU MEM`: the memory utilization of the GPU (in MB)
+  * `CPU`: the CPU utilization of the process
+  * `HOST MEM`: the CPU memory utilization of the process
+  * `Command`: the command that the GPU is running
 
-in the [multi-node](https://github.com/WEHI-ResearchComputing/Workshop-intermediate-slurm/blob/main/episodes/data/pi-cpu.md#multi-node--multi-threading) 
-section, you will find that to run the program across nodes, you will
+`nvtop` is a useful tool in evaluating utilization of the GPU while your job is
+running. This tool can be used as a way to check that
 
-1. need to use the `pi-cpu-mpi` program
-2. use `srun` or `mpiexec` to execute the program
-3. ensure the value passed to the `-p` flag is the number of CPUs per node.
+a) the GPUs you requested are actually being used, and
+b) that they are being fully utilized
 
-We've been using `srun` so far, so we only need to change the program. We also
-need to change the number after `-p`:
-```bash
-srun --nodes=2 --cpus-per-task=2 --constraint=Icelake pi-cpu-mpi -p 2 
-```
-```output
-srun: job 11250610 queued and waiting for resources
-srun: job 11250610 has been allocated resources
-Result: 3.1414385805871 Error: -0.0001541604255 Time: 1.2036s
-Result: 3.1417610577900 Error:  0.0001683167775 Time: 1.2036s
-Result: 3.1415069445877 Error: -0.0000857964249 Time: 1.2029s 
-...
-```
-And we can see that the program is now calculating $\pi$ in approximately the same
-time as the single-node 4-core example before. 
+![`nvtop` interface with `pi-gpu -p 2 -r -1` running](fig/nvtop-screenshot-m1.png)
 
-This is because *programs are generally unable to work across nodes by default*.
-They typically require some other framework, with special instructions on how
-to run the software. This will often be explained in the documentation.
+Two processes should show up in the process list with your `pi-gpu` command.
+You will also see that utilization charts move.
 
-Message Passing Interface (MPI) is common in scientific computing - particularly
-when it comes to simulation like for Molecular Dynamics and *distributed* machine
-learning (e.g., PyTorch), but other distributed computing frameworks exist, like Spark + Hadoop.
+In the process list, you will see two entries corresponding to the two GPUs that
+`pi-gpu` is using. Under `DEV` you will see the device IDs which `pi-gpu` is using.
+In the example screenshot above, they are GPU 0 and GPU 1. But, `nvtop` shows
+the information for all the GPUs on the node by default.
 
-::::::::::::
+### Interpreting `nvtop` output
 
-::: instructor
+A good place to start when determining if your program is using the GPU well is
+looking at the utilization. Many programs have parameters which can affect this
+utilization - especially programs that process data.
 
-With regard to the last exercise, you may wish to highlight what happens when
-you try to run a program inside `sbatch`, requesting multiple nodes, but executing
-the program without `srun`.
+Many programs process data on the GPU in chunks as the GPU memory is typically
+too small to handle the entire data set at once. These are often controlled
+through chunk size or number of chunks parameters (you might also see the word
+"block" being used instead). Typically, you want to tune the parameters such that
+utilization is high.
 
-The result is that one node will do all the work, and any other nodes requested
-will be idle. Whereas with `srun`, multiple copies of the program will be started.
+::: callout
 
-::::::::::::::
+Remember to cancel your jobs before moving on! `scancel --me` will cancel all jobs created during this lesson.
+
+:::
 
 ::: keypoints
 
 -   Requesting more resources from Slurm doesn't mean your job knows how to use them!
     - Many programs don't work in parallel by default - either that functionality doesn't exist, or needs to be turned on!
-    - Parallelism across nodes is different from parallelism within nodes. You usually need to run them a little differently than a normal program
+    - More CPUs doesn't always mean an equivalent speedup!
+-   Slurm offers multiple utilities to monitor your jobs. Each serving a slightly different purpose
+    - `squeue` is for running/pending jobs and only provides status/request information
+    - `sacct` and `seff` is best for complete jobs and provides resource utilisation where available
+    - `sstat` is for running jobs and provides a snapshot of resource utilisation
 -   The `htop` system tool is a great way to get live information about how effective your job is
--   `seff` can be used to get summary stats about jobs
--   More CPUs doesn't always mean an equivalent speedup!
+    - is more robust and provides more details than Slurm monitoring tools
+-   `nvtop` offers something similar to `htop`, but for GPU processes.
 
 :::
