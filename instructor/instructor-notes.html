@@ -210,7 +210,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="03-moremonitoring.html">3. Memory and GPU utilization</a>
+        <a href="03-jobarrays.html">3. Job Arrays</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -222,7 +222,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-jobarrays.html">4. Job Arrays</a>
+        <a href="04-jobdependencies.html">4. Organising dependent Slurm jobs</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -234,19 +234,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="05-jobdependencies.html">5. Organising dependent Slurm jobs</a>
-    </div>
-<!--/div.accordion-header-->
-        
-  </div>
-<!--/div.accordion-item-->
-</div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush7">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading7">
-        <a href="06-rpython.html">6. R and Python Slurm scripts</a>
+        <a href="05-rpython.html">5. R and Python Slurm scripts</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -339,7 +327,7 @@ being used to run. Which is important for this purpose!</p>
 efficiency, memory usage, and IO data is saved, which makes
 <code>seff</code> and <code>sacct</code> still useful. If
 <code>srun</code> is not used, performance data from <code>seff</code>
-and <code>sacct</code> are useless if the job ends prematurely.</p>
+and <code>sacct</code> are discarded if the job ends prematurely.</p>
 <hr>
 <br><h3 id="02-cpumonitoring-headingInstructor2">
 <a href="02-cpumonitoring.html#headingInstructor2">Instructor Note</a><a class="anchor" aria-label="anchor" href="#02-cpumonitoring-headingInstructor2"></a>
@@ -348,39 +336,10 @@ and <code>sacct</code> are useless if the job ends prematurely.</p>
 system processes. Usually, the process of interest will be identifiable
 by the command that is being run.</p>
 <hr>
-<br><h3 id="02-cpumonitoring-headingInstructor3">
-<a href="02-cpumonitoring.html#headingInstructor3">Instructor Note</a><a class="anchor" aria-label="anchor" href="#02-cpumonitoring-headingInstructor3"></a>
-</h3>
-<p>The output from the last challenge may suggest to learners that using
-4 CPUs only results in a 2 times speedup, but this result is due to
-hyperthreading being enabled on Milton, and when you request 2 CPUs from
-Slurm, you get 2 hyperthreads which are both assigned to the same
-physical CPU core.</p>
-<hr>
-<br><h3 id="02-cpumonitoring-headingInstructor4">
-<a href="02-cpumonitoring.html#headingInstructor4">Instructor Note</a><a class="anchor" aria-label="anchor" href="#02-cpumonitoring-headingInstructor4"></a>
-</h3>
-<p>With regard to the last exercise, you may wish to highlight what
-happens when you try to run a program inside <code>sbatch</code>,
-requesting multiple nodes, but executing the program without
-<code>srun</code>.</p>
-<p>The result is that one node will do all the work, and any other nodes
-requested will be idle. Whereas with <code>srun</code>, multiple copies
-of the program will be started.</p>
-<hr>
-<br></section><section id="03-moremonitoring"><h2 class="section-heading"><a href="03-moremonitoring.html">Memory and GPU utilization</a></h2>
+<br></section><section id="03-jobarrays"><h2 class="section-heading"><a href="03-jobarrays.html">Job Arrays</a></h2>
 <hr class="half-width">
-<h3 id="03-moremonitoring-headingInstructor1">
-<a href="03-moremonitoring.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#03-moremonitoring-headingInstructor1"></a>
-</h3>
-<p><code>pi-gpu</code>’s numtrials parameter is not a direct analogy to
-chunk-size parameters in data processing programs, so you may need to
-explain further.</p>
-<hr>
-<br></section><section id="04-jobarrays"><h2 class="section-heading"><a href="04-jobarrays.html">Job Arrays</a></h2>
-<hr class="half-width">
-<h3 id="04-jobarrays-headingInstructor1">
-<a href="04-jobarrays.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#04-jobarrays-headingInstructor1"></a>
+<h3 id="03-jobarrays-headingInstructor1">
+<a href="03-jobarrays.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#03-jobarrays-headingInstructor1"></a>
 </h3>
 <p><a href="https://monashdatafluency.github.io/shell-novice/" class="external-link">Intro to
 Linux Command Line</a> is specified as a prerequisite, so learners
@@ -388,17 +347,17 @@ should know how to work with. But due to the infrequency of these
 workshops, this isn’t guaranteed, so you might want to remind people
 what environment variables are.</p>
 <hr>
-<br><h3 id="04-jobarrays-headingInstructor2">
-<a href="04-jobarrays.html#headingInstructor2">Instructor Note</a><a class="anchor" aria-label="anchor" href="#04-jobarrays-headingInstructor2"></a>
+<br><h3 id="03-jobarrays-headingInstructor2">
+<a href="03-jobarrays.html#headingInstructor2">Instructor Note</a><a class="anchor" aria-label="anchor" href="#03-jobarrays-headingInstructor2"></a>
 </h3>
 <p>You may wish to highlight that you cannot change the resource request
 between job array tasks. Everything controlled by an <code>sbatch</code>
 option is fixed between all the array tasks!</p>
 <hr>
-<br></section><section id="05-jobdependencies"><h2 class="section-heading"><a href="05-jobdependencies.html">Organising dependent Slurm jobs</a></h2>
+<br></section><section id="04-jobdependencies"><h2 class="section-heading"><a href="04-jobdependencies.html">Organising dependent Slurm jobs</a></h2>
 <hr class="half-width">
-<h3 id="05-jobdependencies-headingInstructor1">
-<a href="05-jobdependencies.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#05-jobdependencies-headingInstructor1"></a>
+<h3 id="04-jobdependencies-headingInstructor1">
+<a href="04-jobdependencies.html#headingInstructor1">Instructor Note</a><a class="anchor" aria-label="anchor" href="#04-jobdependencies-headingInstructor1"></a>
 </h3>
 <p>As these jobs are quite small, it is quite hard to capture the full
 effect of using the <code>aftercorr</code> condition. This is because
@@ -436,7 +395,7 @@ following scripts should work:</p>
 <span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="fu">date</span></span></code></pre>
 </div>
 <hr>
-<br></section><section id="06-rpython"><h2 class="section-heading"><a href="06-rpython.html">R and Python Slurm scripts</a></h2>
+<br></section><section id="05-rpython"><h2 class="section-heading"><a href="05-rpython.html">R and Python Slurm scripts</a></h2>
 <hr class="half-width"></section></section>
 </div>
     </main>

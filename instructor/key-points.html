@@ -210,7 +210,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="03-moremonitoring.html">3. Memory and GPU utilization</a>
+        <a href="03-jobarrays.html">3. Job Arrays</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -222,7 +222,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-jobarrays.html">4. Job Arrays</a>
+        <a href="04-jobdependencies.html">4. Organising dependent Slurm jobs</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -234,19 +234,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="05-jobdependencies.html">5. Organising dependent Slurm jobs</a>
-    </div>
-<!--/div.accordion-header-->
-        
-  </div>
-<!--/div.accordion-item-->
-</div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush7">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading7">
-        <a href="06-rpython.html">6. R and Python Slurm scripts</a>
+        <a href="05-rpython.html">5. R and Python Slurm scripts</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -326,33 +314,34 @@ to use them!
 <ul>
 <li>Many programs don’t work in parallel by default - either that
 functionality doesn’t exist, or needs to be turned on!</li>
-<li>Parallelism across nodes is different from parallelism within nodes.
-You usually need to run them a little differently than a normal
-program</li>
+<li>More CPUs doesn’t always mean an equivalent speedup!</li>
+</ul>
+</li>
+<li>Slurm offers multiple utilities to monitor your jobs. Each serving a
+slightly different purpose
+<ul>
+<li>
+<code>squeue</code> is for running/pending jobs and only provides
+status/request information</li>
+<li>
+<code>sacct</code> and <code>seff</code> is best for complete jobs
+and provides resource utilisation where available</li>
+<li>
+<code>sstat</code> is for running jobs and provides a snapshot of
+resource utilisation</li>
 </ul>
 </li>
 <li>The <code>htop</code> system tool is a great way to get live
-information about how effective your job is</li>
-<li>
-<code>seff</code> can be used to get summary stats about jobs</li>
-<li>More CPUs doesn’t always mean an equivalent speedup!</li>
-</ul></section><section id="03-moremonitoring"><h2 class="section-heading"><a href="03-moremonitoring.html">Memory and GPU utilization</a></h2>
-<hr class="half-width">
+information about how effective your job is
 <ul>
-<li>Choosing the right memory for you Slurm jobs takes a bit of trial
-and error, but it helps to know a bit about how your program
-behaves!</li>
+<li>is more robust and provides more details than Slurm monitoring
+tools</li>
+</ul>
+</li>
 <li>
-<code>htop</code> should be used to observe memory usage when memory
-usage varies frequently throughout the lifespan of the program.
-<code>sacct</code> and <code>seff</code> are good for programs that
-maintain steady memory usage.</li>
-<li>
-<code>nvtop</code> is a <code>htop</code>-like tool for monitoring
-GPU activity</li>
-<li>When optimizing GPU programs’ parameters, try to aim for full
-utilization!</li>
-</ul></section><section id="04-jobarrays"><h2 class="section-heading"><a href="04-jobarrays.html">Job Arrays</a></h2>
+<code>nvtop</code> offers something similar to <code>htop</code>,
+but for GPU processes.</li>
+</ul></section><section id="03-jobarrays"><h2 class="section-heading"><a href="03-jobarrays.html">Job Arrays</a></h2>
 <hr class="half-width">
 <ul>
 <li>Slurm job arrays are a great way to parallelise similar jobs!</li>
@@ -363,7 +352,7 @@ parameters</li>
 <li>
 <code>readarray</code> and <code>read</code> are useful tools to
 help you parse files. But it can also be done many other ways!</li>
-</ul></section><section id="05-jobdependencies"><h2 class="section-heading"><a href="05-jobdependencies.html">Organising dependent Slurm jobs</a></h2>
+</ul></section><section id="04-jobdependencies"><h2 class="section-heading"><a href="04-jobdependencies.html">Organising dependent Slurm jobs</a></h2>
 <hr class="half-width">
 <ul>
 <li>Make a job depend on another with the <code>--dependency</code> or
@@ -377,7 +366,7 @@ starts</li>
 </li>
 <li>job dependencies can be combined with job arrays to create
 pipelines!</li>
-</ul></section><section id="06-rpython"><h2 class="section-heading"><a href="06-rpython.html">R and Python Slurm scripts</a></h2>
+</ul></section><section id="05-rpython"><h2 class="section-heading"><a href="05-rpython.html">R and Python Slurm scripts</a></h2>
 <hr class="half-width">
 <ul>
 <li>Besides the code itself, the only <em>real</em> difference between a

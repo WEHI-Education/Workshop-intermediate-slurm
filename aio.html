@@ -209,7 +209,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="03-moremonitoring.html">3. Memory and GPU utilization</a>
+        <a href="03-jobarrays.html">3. Job Arrays</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -221,7 +221,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-jobarrays.html">4. Job Arrays</a>
+        <a href="04-jobdependencies.html">4. Organising dependent Slurm jobs</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -233,19 +233,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="05-jobdependencies.html">5. Organising dependent Slurm jobs</a>
-    </div>
-<!--/div.accordion-header-->
-        
-  </div>
-<!--/div.accordion-item-->
-</div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush7">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading7">
-        <a href="06-rpython.html">6. R and Python Slurm scripts</a>
+        <a href="05-rpython.html">5. R and Python Slurm scripts</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -458,7 +446,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-02-cpumonitoring"><p>Content from <a href="02-cpumonitoring.html">Monitoring a Jobs performance</a></p>
 <hr>
-<p>Last updated on 2024-03-12 |
+<p>Last updated on 2024-05-07 |
         
         <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/02-cpumonitoring.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -505,6 +493,19 @@ parallel, and is consequently quite fast! You try running the program on
 your laptop, and it takes about 1.2 seconds for each calculation of
 <span class="math inline">\(\pi\)</span>. This is a little slow, so you
 try running it on Milton</p>
+<div id="callout1" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
+</h3>
+<div class="callout-content">
+<p>Before starting these programs, make sure to load the
+<code>gcc</code> module (<code>module load gcc</code>).</p>
+</div>
+</div>
+</div>
 <div id="running-the-program" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
@@ -558,16 +559,571 @@ that it should be really fast - the presenter at the conference
 demonstrated times way less than 3 seconds!</p>
 <p>Your job now is to figure out why <code>pi-cpu</code> isn’t
 performing fast for you.</p>
-</section><section id="check-1-is-it-really-working-in-parallel"><h2 class="section-heading">Check 1: Is it really working in parallel?<a class="anchor" aria-label="anchor" href="#check-1-is-it-really-working-in-parallel"></a>
+</section><section id="is-it-really-working-in-parallel"><h2 class="section-heading">Is it really working in parallel?<a class="anchor" aria-label="anchor" href="#is-it-really-working-in-parallel"></a>
 </h2>
 <hr class="half-width">
 <p>So far, we’ve only <em>heard</em> that the software works by
 performing computations in parallel with multiple CPUs. One way we can
 verify this is with the <code>htop</code> tool.</p>
+<div id="revisiting-seff" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="revisiting-seff" class="callout-inner">
+<h3 class="callout-title">Revisiting<code>seff</code><a class="anchor" aria-label="anchor" href="#revisiting-seff"></a>
+</h3>
+<div class="callout-content">
+<p><code>seff</code> is a lightweight utility to check the efficiency of
+Slurm jobs. Try and check the efficiency of your job with
+<code>seff</code>. Is it working in parallel?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
+<p>Run <code>seff</code> with your Job ID. For example, with a job ID of
+<code>11087600</code>:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">seff</span> 11087600</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Job ID: 11087600
+Cluster: milton
+User/Group: yang.e/allstaff
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 2
+CPU Utilized: 00:00:14
+CPU Efficiency: 50.00% of 00:00:28 core-walltime
+Job Wall-clock time: 00:00:14
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 20.00 MB (10.00 MB/core)</code></pre>
+</div>
+<p>You should see that the job has requested 2 CPUs by default, and has
+an efficiency of roughly 50%. Definitely not parallel!</p>
+<p>You might’ve also noticed that there’s no memory utilization
+information. We’ll discuss this later.</p>
+</div>
+</div>
+</div>
+</div>
+<p>From <code>seff</code>, it looks like <code>pi-cpu</code> isn’t
+working in parallel. But perhaps you haven’t requested enough resources
+from Slurm? Let’s try double the number of CPUs requested to 4:</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-c</span> 4 pi-cpu</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>srun: job 16555628 queued and waiting for resources
+srun: job 16555628 has been allocated resources
+Result: 3.1413745257865 Error: -0.0002182152261 Time: 3.1130s
+Result: 3.1416269865888 Error:  0.0000342455762 Time: 3.1173s
+Result: 3.1413426117862 Error: -0.0002501292264 Time: 3.1159s
+Result: 3.1416289953888 Error:  0.0000362543763 Time: 3.1151s
+Result: 3.1414934337876 Error: -0.0000993072250 Time: 3.1139s</code></pre>
+</div>
+<p>Not much change in time to calculate pi. Using <code>seff</code> to
+check the CPU utilisation:</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">seff</span> 16555633</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Job ID: 16555633
+Cluster: milton
+User/Group: yang.e/allstaff
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 4
+CPU Utilized: 00:00:16
+CPU Efficiency: 25.00% of 00:01:04 core-walltime
+Job Wall-clock time: 00:00:16
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 40.00 MB (10.00 MB/core)</code></pre>
+</div>
+<p>and our efficiency has decreased proportionally with the number of
+CPUs we’ve requested.</p>
+<div id="getting-help" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="getting-help" class="callout-inner">
+<h3 class="callout-title">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
+</h3>
+<div class="callout-content">
+<p>Most commands that <em>can</em> run in parallel, don’t do so by
+default. See if you can figure out how to get the command to utilize
+multiple CPU cores from the <code>pi-cpu</code> help.</p>
+<p>Hint: use <code>./pi-cpu -h</code></p>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">./pi-cpu</span> <span class="at">-h</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Usage:
+    pi-cpu [options]
+
+Options:
+    --parallel &lt;N&gt;, -p &lt;N&gt;    Number of threads to use (default: 1)
+    --trials &lt;N&gt;, -n &lt;N&gt;      Number of trials to calculate pi (default: 123,456,789)
+    --reps &lt;N&gt;, -r &lt;N&gt;        Number of times to calculate pi (default: 5)
+where &lt;N&gt; is an integer.</code></pre>
+</div>
+<p>It looks like we need to use the <code>--parallel</code> or
+<code>-p</code> option! Let’s try this with our previous command:</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-c</span> 4 pi-cpu <span class="at">-p</span> 4</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>srun: job 16555642 queued and waiting for resources
+srun: job 16555642 has been allocated resources
+Result: 3.1417442421899 Error:  0.0001515011773 Time: 1.0078s
+Result: 3.1415662365883 Error: -0.0000265044243 Time: 1.0076s
+Result: 3.1415902773885 Error: -0.0000024636241 Time: 1.0070s
+Result: 3.1415876205884 Error: -0.0000051204241 Time: 1.0122s
+Result: 3.1414994277876 Error: -0.0000933132249 Time: 1.2378s</code></pre>
+</div>
+<p>The run times have decreased significantly! And checking the
+efficiency with <code>seff</code>:</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">seff</span> 16555642</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Job ID: 16555642
+Cluster: milton
+User/Group: yang.e/allstaff
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 4
+CPU Utilized: 00:00:20
+CPU Efficiency: 83.33% of 00:00:24 core-walltime
+Job Wall-clock time: 00:00:06
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 40.00 MB (10.00 MB/core)</code></pre>
+</div>
+<p>Shows that CPU efficiency is now &gt;80%! Turns out we needed to read
+the instructions carefully first!</p>
+<p>Many programs behave like this: they will have parallel capability
+built in, but will need to be switched on perhaps with a flag/option
+like with <code>pi-cpu</code>. Sometimes it can also be switched on via
+an environment variable.</p>
+<p>Parallel programs are generally designed to run in this way so that
+the parallel program doesn’t unintentionally use up all the resources on
+the machine you’re running on.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="seeing-the-effects-of-hyperthreading" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="seeing-the-effects-of-hyperthreading" class="callout-inner">
+<h3 class="callout-title">Seeing the effects of Hyperthreading<a class="anchor" aria-label="anchor" href="#seeing-the-effects-of-hyperthreading"></a>
+</h3>
+<div class="callout-content">
+<p>Before, we tried requesting more CPUs from Slurm, but that didn’t
+change much about how the program itself ran. But now that we’re using 4
+CPUs with <code>pi-cpu</code> and also requesting 4 CPUs from Slurm. But
+what happens if we double this request from Slurm again (without
+increasing the number passed to <code>-p</code>)?</p>
+<p>Try doing that by requesting 8 CPUs from Slurm. After, try doubling
+it again and requesting 16 CPUs.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
+  <h4 class="accordion-header" id="headingSolution4">Show me the solution</h4>
+</button>
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-c</span> 8 pi-cpu <span class="at">-p</span> 4</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>srun: job 16555656 queued and waiting for resources
+srun: job 16555656 has been allocated resources
+Result: 3.1417761237902 Error:  0.0001833827776 Time: 0.6896s
+Result: 3.1416477873890 Error:  0.0000550463764 Time: 0.6908s
+Result: 3.1416972621894 Error:  0.0001045211769 Time: 0.6859s
+Result: 3.1413705729865 Error: -0.0002221680261 Time: 0.6859s
+Result: 3.1418576745909 Error:  0.0002649335783 Time: 0.6858s</code></pre>
+</div>
+<p>Oh, the time almost halved! If you check the efficiency of
+<code>seff</code>, you should see that the efficiency if roughly 50%. If
+we try double the CPUs requested to 16:</p>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-c</span> 16 pi-cpu <span class="at">-p</span> 4</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>srun: job 16555928 queued and waiting for resources
+srun: job 16555928 has been allocated resources
+Result: 3.1414441209871 Error: -0.0001486200254 Time: 0.6897s
+Result: 3.1415679861883 Error: -0.0000247548243 Time: 0.6862s
+Result: 3.1418510649908 Error:  0.0002583239783 Time: 0.6854s
+Result: 3.1416825849893 Error:  0.0000898439767 Time: 0.6852s
+Result: 3.1415102493877 Error: -0.0000824916248 Time: 0.6853s</code></pre>
+</div>
+<p>But this time, the time has stayed the same. So why does
+<code>pi-cpu -p 4</code> benefit from requesting 8 CPUs from Slurm?</p>
+<p>This is because Milton’s Slurm is configured such that when you
+request 1 CPU, you’re actually getting a hyperthread. For every two
+hyperthreads, you get one physical CPU core.</p>
+<p>So, when you execute <code>srun -c 4 pi-cpu -p 4</code>,
+<code>pi-cpu -p 4</code> is actually executed on a two physical cores.
+But thanks to hyperthreading, you manage to get some speedup almost for
+free! When you execute <code>srun -c 8 pi-cpu 4</code>,
+<code>pi-cpu</code> is now running on two separate physical cores, hence
+we see a speedup!</p>
+<p>This is important to remember because if you forget about how Slurm
+CPUs are equivalent to hyperthreads, rather than physical CPU cores,
+programs that run in parallel might appear less efficient (like in the
+case of <code>pi-cpu</code>!).</p>
+<p>NOTE: this configuration is unique to Milton. Most other HPC
+facilities equate Slurm CPUs to physical CPU cores, not
+hyperthreads.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="discussion5" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion5"></a>
+</h3>
+<div class="callout-content">
+<p>What might happen as we add more CPUs? Most parallel programs
+eventually reach a point where trying to use more CPUs doesn’t actually
+decrease the run time of the program in a linear manner. It may be
+useful to experiment on your program and/or input data to see when it
+stops being worth it to add CPUs (AKA performing a “scaling study”)</p>
+</div>
+</div>
+</div>
+</section><section id="getting-more-information-from-a-running-job"><h2 class="section-heading">Getting more information from a running job<a class="anchor" aria-label="anchor" href="#getting-more-information-from-a-running-job"></a>
+</h2>
+<hr class="half-width">
+<p>We’ve used <code>seff</code> so far to get resource utilisation of a
+job. However, this only works for a complete job, not for a running job.
+Instead, Slurm offers the <code>sstat</code> tool to obtain information
+about a running job. This way, we can check on the utilisation while the
+job is running.</p>
+<p>let’s start a long-running job with our <code>pi-cpu</code>
+program:</p>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--wrap</span> ./pi-cpu <span class="at">-r</span> <span class="at">-1</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Submitted batch job 16559207</code></pre>
+</div>
+<p>Check that the job is running with <code>squeue</code>:</p>
+<div class="codewrapper sourceCode" id="cb21">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">--me</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+          16559207   regular     wrap   yang.e  R       0:01      1 il-n11</code></pre>
+</div>
+<div id="sbatch---wrap" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="sbatch---wrap" class="callout-inner">
+<h3 class="callout-title">
+<code>sbatch --wrap</code><a class="anchor" aria-label="anchor" href="#sbatch---wrap"></a>
+</h3>
+<div class="callout-content">
+<p>the <code>--wrap</code> option lets us pass a singular command to
+<code>sbatch</code> without having to write an entire script! This is
+useful for debugging and when you run <code>sbatch</code> inside
+scripts.</p>
+</div>
+</div>
+</div>
+<p>Running <code>sstat</code> with a job ID on it’s own doesn’t work,
+you need to remember to pass the <code>-a</code> flag:</p>
+<div class="codewrapper sourceCode" id="cb23">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="ex">sstat</span> <span class="at">-a</span> 16559207</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>JobID         MaxVMSize  MaxVMSizeNode  MaxVMSizeTask  ...
+------------ ---------- -------------- --------------  ...
+16559207.ex+    108056K         il-n11              0  ...
+16559207.ba+    136648K         il-n11              0  ...</code></pre>
+</div>
+<p>There’s a lot of output! By default, <code>sstat</code> will dump
+everything it can about the job onto your terminal. To control what
+output gets shown, you can use the <code>-o</code> option and supply
+some fields. Below is a recommended command you can use in the
+future:</p>
+<div class="codewrapper sourceCode" id="cb25">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="ex">sstat</span> <span class="at">-ao</span> jobid%15,nodelist,avecpu,maxrss,maxdiskwrite,maxdiskread <span class="op">&lt;</span>jobid<span class="op">&gt;</span></span></code></pre>
+</div>
+<p>And below is an example output:</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>          JobID             Nodelist     AveCPU     MaxRSS MaxDiskWrite  MaxDiskRead 
+--------------- -------------------- ---------- ---------- ------------ ------------ 
+16559207.extern               il-n11   00:00:00        98K        1.00M         2012 
+ 16559207.batch               il-n11   00:07:53       818K         8309        17747</code></pre>
+</div>
+<p>Which is much more comprehendable!</p>
+<div id="discussion7" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion7"></a>
+</h3>
+<div class="callout-content">
+<p>the arguments to pass to <code>sstat -ao</code> have been supplied
+here for convenience. But, you can create your own! Use the
+<code>sstat --helpformat</code> command to see which available fields
+there are. You’ll also want to check the <code>man</code> page for
+<code>sstat</code> to find out exactly what these fields mean.</p>
+<p>What do the fields in the previous <code>sstat</code> command mean?
+reminder: the command is
+<code>sstat -ao jobid%15,nodelist,avecpu,maxrss,maxdiskwrite,maxdiskread &lt;jobid&gt;</code>.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution5" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
+  <h4 class="accordion-header" id="headingSolution5">Show me the solution</h4>
+</button>
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div class="accordion-body">
+<p>From the <code>Job Status Fields</code> section in the man page, we
+can see that:</p>
+<ul>
+<li>
+<strong>AveCPU</strong> Average (system + user) CPU time of all
+tasks in job.</li>
+<li>
+<strong>AveDiskRead</strong> Average number of bytes read by all
+tasks in job.</li>
+<li>
+<strong>AveDiskWrite</strong> Average number of bytes written by all
+tasks in job.</li>
+<li>
+<strong>JobID</strong> The number of the job or job step. It is in
+the form: job.jobstep</li>
+<li>
+<strong>MaxDiskRead</strong> Maximum number of bytes read by all
+tasks in job.</li>
+<li>
+<strong>MaxDiskWrite</strong> Maximum number of bytes written by all
+tasks in job.</li>
+<li>
+<strong>MaxRSS</strong> Maximum resident set size of all tasks in
+job.</li>
+</ul>
+<p>Nodelist is left out, but hopefully that’s self-explanatory.</p>
+</div>
+</div>
+</div>
+</div>
+<p>To summarize, the Slurm utilities you can use to monitor your jobs
+are:</p>
+<ul>
+<li>
+<code>squeue</code> is good for getting the <em>status</em> of
+running or pending jobs, but don’t offer much in terms of utilization
+information.</li>
+<li>
+<code>sacct</code>, with output formatting can be used to view
+resource utilsation of jobs that have ended.
+<ul>
+<li>
+<code>seff</code> serves a similar purpose to <code>sacct</code>,
+but with the output presented in a more easily understood manner.</li>
+</ul>
+</li>
+<li>
+<code>sstat</code> can be used to query resource utilisation of a
+<em>running</em> job. But also requires some output formatting.</li>
+</ul></section><section id="investigating-memory-usage-of-pi-cpu2"><h2 class="section-heading">Investigating memory usage of <code>pi-cpu2</code><a class="anchor" aria-label="anchor" href="#investigating-memory-usage-of-pi-cpu2"></a>
+</h2>
+<hr class="half-width">
+<p>In the example programs, there should be the <code>pi-cpu2</code>
+executable. Lets see what happens when we run it:</p>
+<div class="codewrapper sourceCode" id="cb27">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="ex">srun</span> pi-cpu2</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>srun: job 12064697 queued and waiting for resources
+srun: job 12064697 has been allocated resources
+slurmstepd: error: Detected 1 oom_kill event in StepId=12064697.0. Some of the step tasks have been OOM Killed.
+srun: error: il-n01: task 0: Out Of Memory</code></pre>
+</div>
+<p>Ok, that wasn’t what we expected! The error message says that our job
+was <code>OOM Killed</code> and that <code>task 0: Out Of Memory</code>.
+Here, <code>OOM</code> is an abbreviation for Out Of Memory. The overall
+error message is indicating that your job exceeded the memory allocation
+of your job, which caused Slurm to cancel it. If we use
+<code>seff</code> on that job:</p>
+<div class="codewrapper sourceCode" id="cb29">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="ex">seff</span> 12064697</span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Job ID: 12064697
+Cluster: milton
+User/Group: yang.e/allstaff
+State: OUT_OF_MEMORY (exit code 0)
+Nodes: 1
+Cores per node: 2
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 00:00:00 core-walltime
+Job Wall-clock time: 00:00:00
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 20.00 MB (10.00 MB/core)</code></pre>
+</div>
+<p>You will find that it produces only the requested resources and the
+<code>OUT_OF_MEMORY</code> state and no utilization information is
+found. Similarly, if we execute <code>sacct</code>, we should see
+<code>OUT_OF_ME+</code> and <code>0:125</code> under the
+<code>STATE</code> and <code>ExitCode</code> columns, respectively:</p>
+<div class="codewrapper sourceCode" id="cb31">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="ex">sacct</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>JobID           JobName  Partition    Account  AllocCPUS      State ExitCode 
+------------ ---------- ---------- ---------- ---------- ---------- --------
+... skipped output...
+12064697        pi-cpu2    regular       wehi          2 OUT_OF_ME+    0:125 
+12064697.ex+     extern                  wehi          2 OUT_OF_ME+    0:125 
+12064697.0      pi-cpu2                  wehi          2 OUT_OF_ME+    0:125</code></pre>
+</div>
+<div id="discussion8" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion8"></a>
+</h3>
+<div class="callout-content">
+<p>This job failed because it started and then ran out of memory almost
+immediately. Some jobs may only request large amounts of memory after
+the program has been running awhile. In those cases, <code>seff</code>
+and <code>sacct</code> may still produce meaningful output.</p>
+</div>
+</div>
+</div>
+<p>The Slurm utilities can already tell you a lot of information that
+you’ll find useful when evaluating your Slurm jobs. However, there are
+some important limitations preventing these tools from being
+“all-purpose”.</p>
+<ul>
+<li>The information used by <code>seff</code> and <code>sacct</code> are
+collected every 30 seconds only, and information isn’t collected about
+jobs that fail for any reason.
+<ul>
+<li>this makes it difficult to diagnose jobs that use too much
+memory.</li>
+<li>it also makes it difficult to identify sudden and short-lived spikes
+in resource usage.</li>
+<li>This is why for our short <code>pi-cpu</code> job, <code>seff</code>
+doesn’t show any memory usage!</li>
+</ul>
+</li>
+<li>
+<code>sstat</code> is limited in how frequently it can be used
+<ul>
+<li>if used too often, your <code>sstat</code> calls will be
+throttled.</li>
+<li>this a system configuration to prevent Slurm from being
+overloaded.</li>
+</ul>
+</li>
+</ul>
+<p>Because of this, in some cases, it’s recommended to use system tools
+that don’t rely on Slurm’s infrastructure.</p>
+<div class="section level3">
+<h3 id="introducing-htop">Introducing <code>htop</code>
+<a class="anchor" aria-label="anchor" href="#introducing-htop"></a>
+</h3>
 <p><code>htop</code> is an interactive “process” viewer that lets you
 monitor processes across the entire node. It’s very similar to Task
 Manager on Windows or Activity Monitor on Macs, but it works from the
 command line!</p>
+</div>
 <div class="section level3">
 <h3 id="interpreting-htops-output">Interpreting <code>htop</code>’s output<a class="anchor" aria-label="anchor" href="#interpreting-htops-output"></a>
 </h3>
@@ -609,10 +1165,10 @@ related to your job.</li>
 <p>By default, <code>htop</code> will show you <em>everyone’s</em>
 processes, which is not relevant to us. To get only your processes, quit
 <code>htop</code> by pressing <code>q</code>, and run it again with</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
 <p>You should see a list of processes that belong to you only!</p>
 </div>
@@ -624,45 +1180,29 @@ processes, which is not relevant to us. To get only your processes, quit
 job with <code>sbatch</code>. We’re also going to add the
 <code>-r -1</code> flag and value, so that the program will run
 indefinitely. We can do so by</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -r -1"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -r -1"</span></span></code></pre>
 </div>
 
-<div id="sbatch---wrap" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div id="sbatch---wrap" class="callout-inner">
-<h3 class="callout-title">
-<code>sbatch --wrap</code><a class="anchor" aria-label="anchor" href="#sbatch---wrap"></a>
-</h3>
-<div class="callout-content">
-<p>the <code>--wrap</code> option lets us pass a singular command to
-<code>sbatch</code> without having to write an entire script! This is
-useful for debugging and when you run <code>sbatch</code> inside
-scripts.</p>
-</div>
-</div>
-</div>
 <p>Once you’ve confirmed the job has started with <code>squeue</code>,
 and determined which node it’s running on, <code>ssh</code> to that node
 and run <code>htop -u $USER</code>.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -r -1"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -r -1"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>Submitted batch job 11088927</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -670,10 +1210,10 @@ and run <code>htop -u $USER</code>.</p>
 <pre class="output" tabindex="0"><code>     JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
   11088927   regular     wrap   yang.e  R       0:12      1 sml-n15</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">ssh</span> sml-n15</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">ssh</span> sml-n15</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -681,10 +1221,10 @@ and run <code>htop -u $USER</code>.</p>
 <pre class="output" tabindex="0"><code>yang.e@sml-n15s password: # enter your password
 Last login: Fri Apr 14 14:40:38 2023 from slurm-login.hpc.wehi.edu.au</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
 <figure><img src="fig/htop-picpu-1.png" alt="processes associated with pi-cpu" class="figure mx-auto d-block"><div class="figcaption">processes associated with
 <code>pi-cpu</code>
@@ -704,26 +1244,26 @@ your PI promised!</p>
 <p>But maybe it’s because we didn’t request more CPUs? We didn’t ask for
 any specific number of CPUs in our command after all. Let’s try request
 4 CPUs instead. But first, let’s cancel the already running job.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">scancel</span> 11088927</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="ex">scancel</span> 11088927</span></code></pre>
 </div>
 <p>And then we can try again, but with more CPUs:</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -r -1"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">-c</span> 4 <span class="at">--wrap</span><span class="op">=</span><span class="st">"srun ./pi-cpu -p 4 -r -1"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>Submitted batch job 11089020</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -731,10 +1271,10 @@ any specific number of CPUs in our command after all. Let’s try request
 <pre class="output" tabindex="0"><code>   JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
 11089020   regular     wrap   yang.e  R       0:12      1 sml-n15</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb47">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">ssh</span> sml-n15</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">ssh</span> sml-n15</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -742,395 +1282,31 @@ any specific number of CPUs in our command after all. Let’s try request
 <pre class="output" tabindex="0"><code>yang.e@sml-n15s password: # enter your password
 Last login: Fri Apr 14 14:40:38 2023 from slurm-login.hpc.wehi.edu.au</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb49">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
 </div>
 <figure><img src="fig/htop-picpu-2.png" alt="processes associated with pi-cpu after requesting more CPUs from Slurm" class="figure mx-auto d-block"><div class="figcaption">processes associated with <code>pi-cpu</code>
 after requesting more CPUs from Slurm</div>
-</figure><p>Unfortunately, the <code>pi-cpu</code> program is still only using
-100% - requesting more CPUs from Slurm didn’t help your job work in
-parallel.</p>
-<p>Now, this job runs forever, so we should cancel it and move on.</p>
-<div class="codewrapper sourceCode" id="cb20">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="ex">scancel</span> 11089020</span></code></pre>
-</div>
-<div id="job-summary-with-seff" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div id="job-summary-with-seff" class="callout-inner">
-<h3 class="callout-title">Job summary with<code>seff</code><a class="anchor" aria-label="anchor" href="#job-summary-with-seff"></a>
-</h3>
-<div class="callout-content">
-<p>Now that the job is over, try verifying the efficiency of the job
-with <code>seff</code>. What is the CPU Efficiency (%) that the
-<code>pi-cpu</code> program achieved?</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
-</button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
-<div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb21">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="ex">seff</span> 11089020</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>Job ID: 11089020
-Cluster: milton
-User/Group: yang.e/allstaff
-State: CANCELLED (exit code 0)
-Nodes: 1
-Cores per node: 4
-CPU Utilized: 00:02:11
-CPU Efficiency: 25.00% of 00:08:44 core-walltime
-Job Wall-clock time: 00:02:11
-Memory Utilized: 4.44 MB
-Memory Efficiency: 11.10% of 40.00 MB</code></pre>
-</div>
-<p>In this scenario, you’re interested in the
-<code>CPU Efficiency</code> field, which gives a rough indication of the
-total CPU cores requested being used. This is different from
-<code>htop</code>, where the percentage represents the utilization of a
-single CPU core.</p>
-<p>But as well as CPUs, jobs need to select an amount of memory to
-request. <code>seff</code> can help tune this value with the
-<code>Memory Utilized</code> field, which will tell you the maximum
-memory used of your job. The <code>Memoy Efficiency</code> percentage is
-also useful to help you choose an appropriate memory to request.</p>
-<p><code>pi-cpu</code> turns out to be very lightweight, so doesn’t use
-much memory at all! When we run it inside a Slurm job without any
-options, it comfortably fits within the default memory (for Milton, this
-is 10MB).</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section><section id="looking-through-help-and-documentation"><h2 class="section-heading">Looking through help and documentation<a class="anchor" aria-label="anchor" href="#looking-through-help-and-documentation"></a>
-</h2>
-<hr class="half-width">
-<div id="discussion4" class="callout discussion">
+</figure><p>We can see that there is a process using around 300%-400% of CPU
+which should have <code>pi-cpu</code> in the command column.</p>
+<div id="discussion9" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion4"></a>
+<h3 class="callout-title">Challenge<a class="anchor" aria-label="anchor" href="#discussion9"></a>
 </h3>
 <div class="callout-content">
-<p>Try running <code>pi-cpu</code> with the <code>--help</code> option.
-Do you find any clues? See if you can run the <code>pi-cpu</code> in
-parallel with 4 cores on Slurm!</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
-  <h4 class="accordion-header" id="headingSolution3">Show me the solution</h4>
-</button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
-<div class="accordion-body">
-<p>Both the documentation and <code>--help</code> output would’ve shown
-that the <code>-p &lt;N&gt;</code> option is needed to execute the code
-with <code>N</code> number of cores.</p>
-<p>So, to execute <code>pi-cpu</code> with 4 cores on Slurm, we can
-issue the command</p>
-<div class="codewrapper sourceCode" id="cb23">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 pi-cpu <span class="at">-p</span> 4 </span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>srun: job 11250525 queued and waiting for resources
-srun: job 11250525 has been allocated resources
-Result: 3.1418360637907 Error:  0.0002433227781 Time: 1.4548s
-Result: 3.1416882225894 Error:  0.0000954815768 Time: 1.4527s
-Result: 3.1415296893879 Error: -0.0000630516247 Time: 1.4512s
-...</code></pre>
-</div>
-<p>which will send the output straight to the terminal. You will notice
-that the reported times to calculate <code>pi-cpu</code> has more than
-halved! We can confirm the utilization of the 4 CPUs we requested with
-<code>seff</code>:</p>
-<div class="codewrapper sourceCode" id="cb25">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="ex">seff</span> 11250525</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>Job ID: 11250525
-Cluster: milton
-User/Group: yang.e/allstaff
-State: CANCELLED (exit code 0)
-Nodes: 2
-Cores per node: 2
-CPU Utilized: 00:02:47
-CPU Efficiency: 97.09% of 00:02:52 core-walltime
-Job Wall-clock time: 00:00:43
-Memory Utilized: 9.56 MB (estimated maximum)
-Memory Efficiency: 23.91% of 40.00 MB (10.00 MB/core)</code></pre>
-</div>
-<p>The CPU Efficiency is now pretty close to 100%!</p>
-<p>Many programs behave like this: they will have parallel capability
-built in, but will need to be switched on perhaps with a flag/option
-like with <code>pi-cpu</code>. Sometimes it can also be switched on via
-an environment variable.</p>
-<p>Parallel programs are generally designed to run in this way so that
-the parallel program doesn’t unintentionally use up all the resources on
-the machine you’re running on.</p>
-</div>
-</div>
-</div>
-</div>
-
-<div id="using-more-cpu-cores" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div id="using-more-cpu-cores" class="callout-inner">
-<h3 class="callout-title">Using more CPU cores<a class="anchor" aria-label="anchor" href="#using-more-cpu-cores"></a>
-</h3>
-<div class="callout-content">
-<p>You’re really determined to get the run-time down on this calculation
-of <span class="math inline">\(\pi\)</span>! So, try request different
-number of CPUs and see what happens with the time it takes to calculate
-<span class="math inline">\(\pi\)</span>!</p>
-<p>Hint: try 4, 8, and then 16 CPUs. Hint 2: You may wish to run with
-<code>--constraint=Icelake</code> to ensure results are consistent!</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
-  <h4 class="accordion-header" id="headingSolution4">Show me the solution</h4>
-</button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
-<div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb27">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 4</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>srun: job 11250526 queued and waiting for resources
-srun: job 11250526 has been allocated resources
-Result: 3.1414069905868 Error: -0.0001857504258 Time: 1.1907s
-Result: 3.1416068013886 Error:  0.0000140603760 Time: 1.1880s
-Result: 3.1415671113883 Error: -0.0000256296243 Time: 1.1880s
-...</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb29">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>8 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 8</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>srun: job 11250527 queued and waiting for resources
-srun: job 11250527 has been allocated resources
-Result: 3.1416164241887 Error:  0.0000236831761 Time: 0.5980s
-Result: 3.1414225749869 Error: -0.0001701660256 Time: 0.5975s
-Result: 3.1417783593902 Error:  0.0001856183776 Time: 0.5978s   
-...</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb31">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>16 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 16</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>srun: job 11250528 queued and waiting for resources
-srun: job 11250528 has been allocated resources
-Result: 3.1419777489920 Error:  0.0003850079794 Time: 0.3507s
-Result: 3.1415083701877 Error: -0.0000843708248 Time: 0.3018s
-Result: 3.1418214513906 Error:  0.0002287103780 Time: 0.3016s 
-...</code></pre>
-</div>
-<p>If you’re running on Milton, you should see that 4 CPUs brings down
-the time to 2 seconds, down from the original 6 seconds. Running with 8
-CPUs brings the time down to approx. 1 second (approx 2 times speedup,
-relative to 4 cores), and bringing it up to 16 speeds things up almost
-twice again!</p>
-<p>However, this isn’t always true of all programs. Often, adding twice
-the number of cores doesn’t add twice the speed.</p>
-<p>In many cases, the program’s documentation will offer some
-suggestions on how to choose the right number of cores. You might even
-find some advice from others e.g., blog posts or in forums. But if this
-isn’t the case, you may need to perform some tests yourself!</p>
-<p>For example, I run a program with two cores and I discover it’s 1.8
-times faster than one core. I then run the same program but with 4 cores
-and find that it’s only 2.5 times as fast compared to one core. We could
-say that with two cores, the program has a “scaling efficiency” of 1.8/2
-= 90% efficient. But, the four core case is 2.5/4 = 62.5% efficient.
-This would tell us that running with two cores is <em>more
-efficient</em>, and running with four cores is <em>less efficient</em>,
-but <em>faster</em>.</p>
-</div>
-</div>
-</div>
-</div>
-<div id="hyperthreading" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div id="hyperthreading" class="callout-inner">
-<h3 class="callout-title">Hyperthreading<a class="anchor" aria-label="anchor" href="#hyperthreading"></a>
-</h3>
-<div class="callout-content">
-<p>Do a rough calculation of the speedup efficiency of
-<code>pi-cpu</code> from one core to two.</p>
-<p>i.e.,</p>
-<p><code>srun --constraint=Icelake pi-cpu -p 1</code></p>
-<p>and then</p>
-<p><code>srun --cpus-per-task=2 --constraint=Icelake pi-cpu -p 2</code></p>
-<p>What do you get?</p>
-<p>What happens if you run the two-core case again, but this time
-requesting 4 cores from Slurm, but still using <code>-p 2</code>?</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution5" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
-  <h4 class="accordion-header" id="headingSolution5">Show me the solution</h4>
-</button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
-<div class="accordion-body">
-<p>Comparing 1 CPU with 2 CPUs:</p>
-<div class="codewrapper sourceCode" id="cb33">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 1</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>srun: job 11783722 queued and waiting for resources
-srun: job 11783722 has been allocated resources
-Result: 3.1419098061914 Error:  0.0003170651788 Time: 3.6352s
-Result: 3.1415063289877 Error: -0.0000864120249 Time: 3.6363s
-Result: 3.1416112401887 Error:  0.0000184991761 Time: 3.6349s
-...</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb35">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>2 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 2</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>srun: job 11783726 queued and waiting for resources
-srun: job 11783726 has been allocated resources
-Result: 3.1416992061895 Error:  0.0001064651769 Time: 2.3672s
-Result: 3.1415531793881 Error: -0.0000395616244 Time: 2.3669s
-Result: 3.1416117585887 Error:  0.0000190175761 Time: 2.3668s
-...</code></pre>
-</div>
-<p>This is approximately 3.64/(2.37*2) = 77% (the times you get may
-vary). Unfortunately not as close to 100% as one might hope!</p>
-<p>Requesting 4 CPUs from Slurm, but running
-<code>pi-cpu -p 2</code>:</p>
-<div class="codewrapper sourceCode" id="cb37">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 2</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>srun: job 11783729 queued and waiting for resources
-srun: job 11783729 has been allocated resources
-Result: 3.1413841485866 Error: -0.0002085924260 Time: 1.7224s
-Result: 3.1414291845870 Error: -0.0001635564256 Time: 1.7210s
-Result: 3.1414952805876 Error: -0.0000974604250 Time: 1.7257s 
-...</code></pre>
-</div>
-<p>Which is now roughly 2.1 times faster than the one-core case! But why
-the difference? In both cases, we requested <code>pi-cpu</code> to run
-in parallel with 2 cores, right (through the <code>-p 2</code>
-flag)?</p>
-<p>This is because on Milton, hyperthreading is turned on, which is
-often the case for modern CPUs. Milton’s Slurm is configured such that
-when you request 1 CPU, you’re actually getting a hyperthread. For every
-two hyperthreads, you get one physical CPU core.</p>
-<p>So, when you execute <code>srun --cpus-per-task=2 pi-cpu -p 2</code>,
-<code>pi-cpu -p 2</code> is actually executed on a single physical core.
-But thanks to hyperthreading, you manage to get some speedup almost for
-free! When you execute <code>srun --cpus-per-task=4 pi-cpu 2</code>,
-<code>pi-cpu</code> is now running on two separate physical cores, hence
-we see a speedup!</p>
-<p>This is important to remember because if you forget about how Slurm
-CPUs are equivalent to hyperthreads, rather than physical CPU cores,
-programs that run in parallel might appear less efficient (like in the
-case of <code>pi-cpu</code>!).</p>
-<p>NOTE: this configuration is unique to Milton. Most other HPC
-facilities equate Slurm CPUs to physical CPU cores, not
-hyperthreads.</p>
-</div>
-</div>
-</div>
-</div>
-<div id="using-multiple-nodes" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div id="using-multiple-nodes" class="callout-inner">
-<h3 class="callout-title">Using multiple nodes<a class="anchor" aria-label="anchor" href="#using-multiple-nodes"></a>
-</h3>
-<div class="callout-content">
-<p>You may already be aware of the fact that you can request
-<em>multiple nodes</em> from Slurm. Maybe we can use multiple nodes to
-speed up the calculation of <span class="math inline">\(\pi\)</span>
-more! Let’s try and run <code>pi-cpu</code> on 2 nodes, with 2 CPUs per
-node, which gives our job a total request of 4 CPUs. Remember to add the
-constraint so we can compare the times to the previous tests!</p>
-<p>We will submit this job using <code>srun</code>:</p>
-<div class="codewrapper sourceCode" id="cb39">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>2 <span class="at">--cpus-per-task</span><span class="op">=</span>2 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu <span class="at">-p</span> 4 </span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>srun: job 11250605 queued and waiting for resources
-srun: job 11250605 has been allocated resources
-Result: 3.1414471989872 Error: -0.0001455420254 Time: 2.3712s
-Result: 3.1417839645902 Error:  0.0001912235777 Time: 2.3745s
-Result: 3.1416039501886 Error:  0.0000112091760 Time: 2.3709s
-Result: 3.1415633529882 Error: -0.0000293880243 Time: 2.3729s
-Result: 3.1415167617878 Error: -0.0000759792248 Time: 2.3712s
-Result: 3.1415245053879 Error: -0.0000682356247 Time: 2.3709s
-...</code></pre>
-</div>
-<p>So our job has started, but wait… The run times are <em>slower</em>
-than our previous tests with 4 cores! You might also notice that two
-lines with identical results are printed together every iteration.</p>
-<p>Try and have a look in the <a href="https://github.com/WEHI-ResearchComputing/Workshop-intermediate-slurm/blob/main/episodes/data/pi-cpu.md" class="external-link">documentation</a>
-again and see why that might be!</p>
+<p><code>htop</code> is a Terminal User Interface (TUI) and allows you
+to click on the interface to interact with it! What happens when you
+click on <code>CPU%</code> and <code>MEM%</code>? What if you click on
+the <code>Tree</code> button on The bottom?</p>
+<p>After this, see if you can add disk read/write information columns to
+the <code>htop</code> interface.</p>
+<p>Hint: You’ll need to click on <code>Setup</code> in the bottom-left
+corner and you may need to use your arrow keys!</p>
 </div>
 </div>
 </div>
@@ -1141,393 +1317,22 @@ again and see why that might be!</p>
 </button>
 <div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
 <div class="accordion-body">
-<p>in the <a href="https://github.com/WEHI-ResearchComputing/Workshop-intermediate-slurm/blob/main/episodes/data/pi-cpu.md#multi-node--multi-threading" class="external-link">multi-node</a>
-section, you will find that to run the program across nodes, you
-will</p>
-<ol style="list-style-type: decimal">
-<li>need to use the <code>pi-cpu-mpi</code> program</li>
-<li>use <code>srun</code> or <code>mpiexec</code> to execute the
-program</li>
-<li>ensure the value passed to the <code>-p</code> flag is the number of
-CPUs per node.</li>
-</ol>
-<p>We’ve been using <code>srun</code> so far, so we only need to change
-the program. We also need to change the number after
-<code>-p</code>:</p>
-<div class="codewrapper sourceCode" id="cb41">
+<p>Clicking on <code>CPU%</code> and <code>MEM%</code> will order the
+processes by how much of those resoures are being used. Subsequent
+clicks will reverse the order.</p>
+<p>Clicking on <code>Tree</code> will group the processes by
+sub-processes, so you can see which processes were spawned by which.</p>
+<p>To add disk read/write columns, you can click on
+<code>Setup -&gt; Columns -&gt; press right twice to get the cursor to "Available Columns" -&gt; scroll down with your arrow keys and press enter on</code>IO_READ_WRITE<code>and</code>IO_WRITE_RATE`</p>
+</div>
+</div>
+</div>
+</div>
+<p>Now, this job runs forever, so we should cancel it and move on.</p>
+<div class="codewrapper sourceCode" id="cb50">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>2 <span class="at">--cpus-per-task</span><span class="op">=</span>2 <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu-mpi <span class="at">-p</span> 2 </span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>srun: job 11250610 queued and waiting for resources
-srun: job 11250610 has been allocated resources
-Result: 3.1414385805871 Error: -0.0001541604255 Time: 1.2036s
-Result: 3.1417610577900 Error:  0.0001683167775 Time: 1.2036s
-Result: 3.1415069445877 Error: -0.0000857964249 Time: 1.2029s 
-...</code></pre>
-</div>
-<p>And we can see that the program is now calculating <span class="math inline">\(\pi\)</span> in approximately the same time as the
-single-node 4-core example before.</p>
-<p>This is because <em>programs are generally unable to work across
-nodes by default</em>. They typically require some other framework, with
-special instructions on how to run the software. This will often be
-explained in the documentation.</p>
-<p>Message Passing Interface (MPI) is common in scientific computing -
-particularly when it comes to simulation like for Molecular Dynamics and
-<em>distributed</em> machine learning (e.g., PyTorch), but other
-distributed computing frameworks exist, like Spark + Hadoop.</p>
-</div>
-</div>
-</div>
-</div>
-
-<div id="keypoints1" class="callout keypoints">
-<div class="callout-square">
-<i class="callout-icon" data-feather="key"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
-<div class="callout-content">
-<ul>
-<li>Requesting more resources from Slurm doesn’t mean your job knows how
-to use them!
-<ul>
-<li>Many programs don’t work in parallel by default - either that
-functionality doesn’t exist, or needs to be turned on!</li>
-<li>Parallelism across nodes is different from parallelism within nodes.
-You usually need to run them a little differently than a normal
-program</li>
-</ul>
-</li>
-<li>The <code>htop</code> system tool is a great way to get live
-information about how effective your job is</li>
-<li>
-<code>seff</code> can be used to get summary stats about jobs</li>
-<li>More CPUs doesn’t always mean an equivalent speedup!</li>
-</ul>
-</div>
-</div>
-</div>
-<!-- 
-Place links that you need to refer to multiple times across pages here. Delete
-any links that you are not going to use. 
- -->
-</section></section><section id="aio-03-moremonitoring"><p>Content from <a href="03-moremonitoring.html">Memory and GPU utilization</a></p>
-<hr>
-<p>Last updated on 2024-03-12 |
-        
-        <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/03-moremonitoring.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
-<div class="text-end">
-          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
-        </div>
-<div class="overview card">
-<h2 class="card-header">Overview</h2>
-<div class="row g-0">
-<div class="col-md-4">
-<div class="card-body">
-<div class="inner">
-<h3 class="card-title">Questions</h3>
-<ul>
-<li>How do I track how much memory my jobs are using?</li>
-<li>How do I select an appropriate memory value for my Slurm job?</li>
-<li>How can I monitor performance of jobs that use GPUs?</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="col-md-8">
-<div class="card-body">
-<div class="inner bordered">
-<h3 class="card-title">Objectives</h3>
-<ul>
-<li>Learn how to use <code>htop</code>, <code>seff</code>, and
-<code>sacct</code> to view memory usage</li>
-<li>Learn how to use <code>nvidia-smi</code>, <code>nvtop</code>, and
-<code>dcgmstats</code> to query GPU activity</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-<section id="investigating-other-implementations-of-the-pi-algorithm"><h2 class="section-heading">Investigating other implementations of the <span class="math inline">\(\pi\)</span> algorithm<a class="anchor" aria-label="anchor" href="#investigating-other-implementations-of-the-pi-algorithm"></a>
-</h2>
-<hr class="half-width">
-<p>Some time after your initial investigation, your supervisor shares
-that the authors of the previous <code>pi-cpu</code> program has now
-released the <code>pi-cpu2</code> program, as well as the
-<code>pi-gpu</code> program - both implementing the same algorithm for
-calculating <span class="math inline">\(\pi\)</span>.
-<code>pi-gpu</code> ports the <span class="math inline">\(\pi\)</span>
-calculation algorithm to the GPU, and <code>pi-cpu2</code> changes the
-algorithm to improve speed at the cost of memory usage.</p>
-</section><section id="investigating-memory-usage-of-pi-cpu2"><h2 class="section-heading">Investigating memory usage of <code>pi-cpu2</code><a class="anchor" aria-label="anchor" href="#investigating-memory-usage-of-pi-cpu2"></a>
-</h2>
-<hr class="half-width">
-<p>In the example programs, there should be the <code>pi-cpu2</code>
-executable. Lets verify the authors claims that it should be faster
-using <code>srun</code>. Make sure to add the <code>--constraint</code>
-option to ensure your times are consistent!</p>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>srun: job 12064697 queued and waiting for resources
-srun: job 12064697 has been allocated resources
-slurmstepd: error: Detected 1 oom_kill event in StepId=12064697.0. Some of the step tasks have been OOM Killed.
-srun: error: il-n01: task 0: Out Of Memory</code></pre>
-</div>
-<p>Ok, that wasn’t what we expected! The error message says that our job
-was <code>OOM Killed</code> and that <code>task 0: Out Of Memory</code>.
-Here, <code>OOM</code> is an abbreviation for Out Of Memory. The overall
-error message is indicating that your job exceeded the memory allocation
-of your job, which caused Slurm to cancel it. If we use
-<code>seff</code> on that job:</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">seff</span> 12064697</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>Job ID: 12064697
-Cluster: milton
-User/Group: yang.e/allstaff
-State: OUT_OF_MEMORY (exit code 0)
-Nodes: 1
-Cores per node: 2
-CPU Utilized: 00:00:00
-CPU Efficiency: 0.00% of 00:00:00 core-walltime
-Job Wall-clock time: 00:00:00
-Memory Utilized: 0.00 MB (estimated maximum)
-Memory Efficiency: 0.00% of 20.00 MB (10.00 MB/core)</code></pre>
-</div>
-<p>You will find that it produces only the requested resources and the
-<code>OUT_OF_MEMORY</code> state and no utilization information is
-found. Similarly, if we execute <code>sacct</code>, we should see
-<code>OUT_OF_ME+</code> and <code>0:125</code> under the
-<code>STATE</code> and <code>ExitCode</code> columns, respectively:</p>
-<div class="codewrapper sourceCode" id="cb5">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">sacct</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>JobID           JobName  Partition    Account  AllocCPUS      State ExitCode 
------------- ---------- ---------- ---------- ---------- ---------- --------
-... skipped output...
-12064697        pi-cpu2    regular       wehi          2 OUT_OF_ME+    0:125 
-12064697.ex+     extern                  wehi          2 OUT_OF_ME+    0:125 
-12064697.0      pi-cpu2                  wehi          2 OUT_OF_ME+    0:125</code></pre>
-</div>
-<div id="discussion1" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion1"></a>
-</h3>
-<div class="callout-content">
-<p>This job failed because it started and then ran out of memory almost
-immediately. Some jobs may only request large amounts of memory after
-the program has been running awhile. In those cases, <code>seff</code>
-and <code>sacct</code> may still produce meaningful output.</p>
-</div>
-</div>
-</div>
-<p>Unfortunately, Slurm hasn’t given you a lot of information about how
-much memory you <em>should</em> request. When you’re first testing out a
-program, a good test is to run the program on your laptop or on the
-login node (for a short amount of time) and monitor the process using
-<code>htop</code>.</p>
-<div id="revising-htop" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div id="revising-htop" class="callout-inner">
-<h3 class="callout-title">Revising<code>htop</code><a class="anchor" aria-label="anchor" href="#revising-htop"></a>
-</h3>
-<div class="callout-content">
-<p>You learnt how to use <code>htop</code> in the previous lesson, but
-for when your job is running on a compute node. So you can find out how
-much memory to request from Slurm, try run <code>pi-cpu2</code> on one
-of the login nodes to see how much memory it needs. Remember: you’re
-interested in the <code>RES</code> column!</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
-</button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
-<div class="accordion-body">
-<p>On one of the login nodes, execute the <code>pi-cpu2</code> program.
-You will want to ensure it runs indefinitely, so you have time to run
-<code>htop</code>:</p>
-<div class="codewrapper sourceCode" id="cb7">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">./pi-cpu2</span> <span class="at">-r</span> <span class="at">-1</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>Result: 3.1418780541911 Error:  0.0002853131785 Time: 6.2856s
-Result: 3.1416545913891 Error:  0.0000618503765 Time: 4.6628s
-Result: 3.1414653105873 Error: -0.0001274304252 Time: 4.1556s
-... It will continue on...</code></pre>
-</div>
-<p>In another terminal, you can ssh to the same login node you ran
-<code>pi-cpu2</code> on and then run <code>htop</code>:</p>
-<div class="codewrapper sourceCode" id="cb9">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">ssh</span> slurm-login01</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="ex">htop</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre>
-</div>
-<figure><img src="fig/htop-screenshot-pi2.png" alt="htop screenshot with pi-cpu2 running" class="figure mx-auto d-block"><div class="figcaption">
-<code>htop</code> screenshot with
-<code>pi-cpu2</code> running</div>
-</figure><p>The RES column should show a <em>peak</em> usage of roughly 1900MB,
-but that number will fluctuate while the program runs.</p>
-</div>
-</div>
-</div>
-</div>
-<p>You now know that requesting 2GB of memory from Slurm should be
-sufficient. The default memory on Milton is 10MB per CPU, and that
-definitely wouldn’t be enough! Try running <code>pi-cpu2</code> with the
-appropriate amount of memory:</p>
-<div class="codewrapper sourceCode" id="cb10">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>2G <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>srun: job 12066042 queued and waiting for resources
-srun: job 12066042 has been allocated resources
-Result: 3.1416610065891 Error:  0.0000682655765 Time: 2.9627s
-Result: 3.1416797985893 Error:  0.0000870575767 Time: 2.9501s
-Result: 3.1418230713906 Error:  0.0002303303780 Time: 2.9519s</code></pre>
-</div>
-<p>And it’s now running successfully! We can also see that the program
-is indeed faster, as the old version took roughly 3.6s for each
-calculation of <span class="math inline">\(\pi\)</span> on one core.</p>
-<div id="discussion3" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Discussion<a class="anchor" aria-label="anchor" href="#discussion3"></a>
-</h3>
-<div class="callout-content">
-<p>Determining how much memory to request from Slurm is not
-straightforward. Sometimes, the documentation may provide some
-indication of how much resources the software will use. However if this
-isn’t the case, testing the program on your laptop or the login node can
-be used to give an indication.</p>
-<p>If your program uses too much memory, see if you can find smaller
-test cases, and study how the memory usage changes with the size or
-types of these inputs. You can use this to infer how much memory your
-program might use with your real inputs.</p>
-<p>But if neither of those options are available, the easiest way to go
-about it is to over-allocate and to use the tools discussed so far to
-refine your future jobs’ resource request.</p>
-</div>
-</div>
-</div>
-</section><section id="comparing-htop-and-seff-memory-values"><h2 class="section-heading">Comparing <code>htop</code> and <code>seff</code> memory values<a class="anchor" aria-label="anchor" href="#comparing-htop-and-seff-memory-values"></a>
-</h2>
-<hr class="half-width">
-<p>You might be wondering how <code>htop</code> and <code>seff</code>
-may be used differently, since they both provide information about your
-job. Mainly, <code>htop</code> gives a more detailed view into your job,
-whereas <code>seff</code> provides only a single summary stat.
-Furthermore, <code>seff</code> results are only available at the end of
-the job. Another important distinction between <code>htop</code> and
-<code>seff</code>, is the accuracy of the statistics.</p>
-<p>We now know that the maximum memory used by the <code>pi-cpu2</code>
-program is approximately 1900MB. We can check this by trying to run the
-program in Slurm, but requesting only 1800MB.</p>
-<div class="codewrapper sourceCode" id="cb12">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>1800M <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>srun: job 12066092 queued and waiting for resources
-srun: job 12066092 has been allocated resources
-slurmstepd: error: Detected 1 oom_kill event in StepId=12066092.0. Some of the step tasks have been OOM Killed.
-srun: error: il-n02: task 0: Out Of Memory</code></pre>
-</div>
-<p>This confirms our job’s maximum memory is somewhere between 1800MB
-and 2GB (based on our runs so far). Now try running running
-<code>pi-cpu2</code> on Slurm again with the right amount of memory.
-Make the <code>pi-cpu2</code> program calculate <span class="math inline">\(\pi\)</span> 15 times with <code>-r 15</code>, so
-it runs for long enough for memory usage stats to be collected by
-Slurm.</p>
-<div class="codewrapper sourceCode" id="cb14">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>2G <span class="at">--constraint</span><span class="op">=</span>Icelake pi-cpu2 <span class="at">-r</span> 15</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>srun: job 12066094 queued and waiting for resources
-srun: job 12066094 has been allocated resources
-Result: 3.1415999649886 Error:  0.0000072239760 Time: 2.9642s
-... skipped output...</code></pre>
-</div>
-<p>And now let’s execute <code>seff</code> on the job and look at the
-<code>Memory Utilized</code> field:</p>
-<div class="codewrapper sourceCode" id="cb16">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="ex">seff</span> 12066094</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>... skipped output...
-Memory Utilized: 377.43 MB
-Memory Efficiency: 18.43% of 2.00 GB</code></pre>
-</div>
-<p>We know that <code>pi-cpu2</code> will need at least 1800MB of memory
-to even calculate <span class="math inline">\(\pi\)</span> once, but the
-value shown by <code>seff</code> will be <em>far lower</em> than
-that!</p>
-<div id="slurm-job-resource-utilization-accuracy" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<div id="slurm-job-resource-utilization-accuracy" class="callout-inner">
-<h3 class="callout-title">Slurm job resource utilization accuracy<a class="anchor" aria-label="anchor" href="#slurm-job-resource-utilization-accuracy"></a>
-</h3>
-<div class="callout-content">
-<p>Slurm collects job information by occasionally asking the system how
-much resources the job is using. This is not a problem for jobs whose
-memory usage stays steady throughout the lifetime of the job. However,
-this is insufficient for jobs whose memory usage changes suddenly or
-frequently.</p>
-</div>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="ex">scancel</span> 11089020</span></code></pre>
 </div>
 </div>
 </section><section id="monitoring-gpu-activity"><h2 class="section-heading">Monitoring GPU activity<a class="anchor" aria-label="anchor" href="#monitoring-gpu-activity"></a>
@@ -1542,11 +1347,11 @@ the program, you will need:</p>
 <li>the <code>cuda/11.7.1</code> and <code>gcc/11.2.0</code> modules
 loaded</li>
 </ul>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb51">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="ex">module</span> load cuda/11.7.1 gcc/11.2.0</span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:1 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--partition</span><span class="op">=</span>gpuq pi-gpu</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="ex">module</span> load cuda/11.7.1 gcc/11.2.0</span>
+<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:1 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--partition</span><span class="op">=</span>gpuq pi-gpu</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1558,16 +1363,15 @@ Result: 3.1416463617890 Error:  0.0000537081992 Time: 0.2065s
 Result: 3.1415584281882 Error: -0.0000342254016 Time: 0.2060s
 ...</code></pre>
 </div>
-<p>The job ran on a P100 GPU and it it’s about <code>3.0/0.2 = 15</code>
-times faster than <code>pi-cpu2</code>! You find out from the
-<code>--help</code> option, that <code>pi-gpu</code> also has a
-<code>-p</code> option which can help you with running the program on
-more GPUs on the same node. Try it out with <code>-p 2</code> and see if
-you get a 2x speedup.</p>
-<div class="codewrapper sourceCode" id="cb20">
+<p>The job ran and it it’s about <code>3.0/0.2 = 15</code> times faster
+than <code>pi-cpu2</code>! You find out from the <code>--help</code>
+option, that <code>pi-gpu</code> also has a <code>-p</code> option which
+can help you with running the program on more GPUs on the same node. Try
+it out with <code>-p 2</code> and see if you get a 2x speedup.</p>
+<div class="codewrapper sourceCode" id="cb53">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--partition</span><span class="op">=</span>gpuq pi-gpu <span class="at">-p</span> 2</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--partition</span><span class="op">=</span>gpuq pi-gpu <span class="at">-p</span> 2</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1585,30 +1389,24 @@ Result: 3.1413390477862 Error: -0.0002536058036 Time: 0.1988s
 <a class="anchor" aria-label="anchor" href="#introducing-nvtop"></a>
 </h3>
 <p>Let’s investigate the program’s behavior on the GPUs. We’ll do this
-inside a <code>salloc</code> session instead of via <code>srun</code>
-like we have so far:</p>
-<div class="codewrapper sourceCode" id="cb22">
+with <code>sbatch --wrap</code>:</p>
+<div class="codewrapper sourceCode" id="cb55">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="ex">salloc</span> <span class="at">--partition</span><span class="op">=</span>gpuq <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">--partition</span><span class="op">=</span>gpuq <span class="at">--gres</span><span class="op">=</span>gpu:2 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--wrap</span> <span class="st">"./pi-gpu -p 2 -r -1"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>salloc: Pending job allocation 12066180
-salloc: job 12066180 queued and waiting for resources
-salloc: job 12066180 has been allocated resources
-salloc: Granted job allocation 12066180
-salloc: Waiting for resource configuration
-salloc: Nodes gpu-p100-n02 are ready for job</code></pre>
+<pre class="output" tabindex="0"><code>Submitted batch job 12066180</code></pre>
 </div>
-<p>Now on a seperate terminal, ssh to the node you’ve been allocated and
-execute the <code>nvtop</code> command:</p>
-<div class="codewrapper sourceCode" id="cb24">
+<p>Now, ssh to the node you’ve been allocated and execute the
+<code>nvtop</code> command:</p>
+<div class="codewrapper sourceCode" id="cb57">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">ssh</span> gpu-p100-n02</span>
-<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="ex">nvtop</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="fu">ssh</span> gpu-p100-n02</span>
+<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a><span class="ex">nvtop</span></span></code></pre>
 </div>
 <p>A terminal user interface should open that looks similar to:</p>
 <p><img src="fig/nvtop-screenshot-empty.png" alt="screenshot of nvtop output" class="figure"> Your output may differ if other
@@ -1653,51 +1451,18 @@ that</p>
 <li>the GPUs you requested are actually being used, and</li>
 <li>that they are being fully utilized</li>
 </ol>
-<p>Back in your <code>salloc</code> session, try running
-<code>pi-gpu -p 2 -r -1</code> again. The <code>-r -1</code> option is
-added to ensure it continues running. Once it’s running, return to your
-<code>nvtop</code> window.</p>
-<div class="codewrapper sourceCode" id="cb25">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>Result: 3.1415107353877 Error: -0.0000819182020 Time: 0.4045s
-Result: 3.1417724625901 Error:  0.0001798090003 Time: 0.1996s
-Result: 3.1413390477862 Error: -0.0002536058036 Time: 0.1987s
-...</code></pre>
-</div>
 <figure><img src="fig/nvtop-screenshot-m1.png" alt="nvtop interface with pi-gpu -p 2 -r -1 running" class="figure mx-auto d-block"><div class="figcaption">
 <code>nvtop</code> interface with
 <code>pi-gpu -p 2 -r -1</code> running</div>
-</figure><p>Two new processes would’ve popped up in the process list with your
+</figure><p>Two processes should show up in the process list with your
 <code>pi-gpu</code> command. You will also see that utilization charts
-will start to move.</p>
+move.</p>
 <p>In the process list, you will see two entries corresponding to the
 two GPUs that <code>pi-gpu</code> is using. Under <code>DEV</code> you
 will see the device IDs which <code>pi-gpu</code> is using. In the
 example screenshot above, they are GPU 0 and GPU 1. But,
 <code>nvtop</code> shows the information for all the GPUs on the node by
-default. To see the GPUs assigned to <code>pi-gpu</code>, quit
-<code>nvtop</code> by pressing <code>q</code> on your keyboard, and then
-execute <code>nvtop</code> again, but with the
-<code>--gpu-select &lt;GPUs&gt;</code> where <code>&lt;GPUs</code> is a
-colon (<code>:</code>) seperated list of GPU IDs. As per the example
-above, the command would be:</p>
-<div class="codewrapper sourceCode" id="cb27">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="ex">nvtop</span> <span class="at">--gpu-select</span> 0:1</span></code></pre>
-</div>
-<p>Change the ID’s based on the GPUs you see <code>pi-gpu</code> running
-on. You should now see information only for the GPUs you specified:</p>
-<figure><img src="fig/nvtop-screenshot-myjob.png" alt="nvtop with only our job’s GPUs" class="figure mx-auto d-block"><div class="figcaption">
-<code>nvtop</code> with only our job’s
-GPUs</div>
-</figure>
+default.</p>
 </div>
 <div class="section level3">
 <h3 id="interpreting-nvtop-output">Interpreting <code>nvtop</code> output<a class="anchor" aria-label="anchor" href="#interpreting-nvtop-output"></a>
@@ -1711,113 +1476,20 @@ typically too small to handle the entire data set at once. These are
 often controlled through chunk size or number of chunks parameters (you
 might also see the word “block” being used instead). Typically, you want
 to tune the parameters such that utilization is high.</p>
-<p>In our case, the GPU utilization of each GPU that <code>pi-gpu</code>
-is using, is approximately 78%. Which is not necessarily ideal.</p>
-<div id="seeing-chunk-size-in-action" class="callout discussion">
+<div id="callout2" class="callout">
 <div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
+<i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="seeing-chunk-size-in-action" class="callout-inner">
-<h3 class="callout-title">Seeing chunk-size in action!<a class="anchor" aria-label="anchor" href="#seeing-chunk-size-in-action"></a>
+<div class="callout-inner">
+<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout2"></a>
 </h3>
 <div class="callout-content">
-<p><code>pi-gpu</code> doesn’t process data, but it does have a
-parameter which is similar to a data set chunk: the number of trials
-parameter! In your <code>salloc</code> session, try changing the number
-of trials <code>pi-gpu</code> uses using the <code>-n</code> flag
-e.g.</p>
-<div class="codewrapper sourceCode" id="cb28">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> <span class="op">&lt;</span>numtrials<span class="op">&gt;</span></span></code></pre>
-</div>
-<p>Note that the default is 123,456,789</p>
+<p>Remember to cancel your jobs before moving on!
+<code>scancel --me</code> will cancel all jobs created during this
+lesson.</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
-</button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
-<div class="accordion-body">
-<p>Trying 12,345,678 (about 10x fewer trials than default):</p>
-<div class="codewrapper sourceCode" id="cb29">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 12345678</span></code></pre>
-</div>
-<figure><img src="fig/nvtop-screenshot-1e7.png" alt="nvtop shows pi-gpu GPU utilization at around 57% when number of trials is 10x less than default" class="figure mx-auto d-block"><div class="figcaption">
-<code>nvtop</code> shows <code>pi-gpu</code> GPU
-utilization at around 57% when number of trials is 10x less than
-default</div>
-</figure><p>Trying 1,234,567 (about 100x fewer trials than default):</p>
-<div class="codewrapper sourceCode" id="cb30">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 1234567</span></code></pre>
-</div>
-<figure><img src="fig/nvtop-screenshot-1e6.png" alt="nvtop shows pi-gpu GPU utilization at around 40% when number of trials is 100x less than default" class="figure mx-auto d-block"><div class="figcaption">
-<code>nvtop</code> shows <code>pi-gpu</code> GPU
-utilization at around 40% when number of trials is 100x less than
-default</div>
-</figure><p>Trying 500,000,000 (about 4x as many trials than default):</p>
-<div class="codewrapper sourceCode" id="cb31">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> 2 <span class="at">-r</span> <span class="at">-1</span> <span class="at">-n</span> 500000000</span></code></pre>
-</div>
-<figure><img src="fig/nvtop-screenshot-5e8.png" alt="nvtop shows pi-gpu “spiky” GPU utilization when number of trials is 4x more than default" class="figure mx-auto d-block"><div class="figcaption">
-<code>nvtop</code> shows <code>pi-gpu</code>
-“spiky” GPU utilization when number of trials is 4x more than
-default</div>
-</figure><p>Importantly, you should’ve seen that the utilization of the GPU grows
-as you increase the number of trials for <code>pi-gpu</code> to use to
-estimate <span class="math inline">\(\pi\)</span>! And the opposite
-should also be observed when you lower the number of trials.</p>
-<p>In this case, increasing the number of trials can be roughly
-interpreted as giving the GPUs enough work to keep them busy, whereas if
-too few trials are being used, then there may not be enough work to keep
-the GPU’s “compute units” busy.</p>
-<p>When tuning your GPU programs, it’s important to keep the GPU
-utilized. Note that if you are <em>writing</em> a program that uses the
-GPU, utilization is not the only consideration!</p>
-</div>
-</div>
-</div>
-</div>
-
-<p>So far, we’ve highlighted GPU utilization as a key indicator of
-performance, but we can see that on two P100 GPUs, <code>pi-gpu</code>
-the utilization of both GPUs is at about 78% - not quite fully
-utilized.</p>
-<p>If you look at the output of <code>pi-gpu --help</code>, you’ll see
-that the “mode” flag is available, which can be used to enable an
-experimental, higher-performance, algorithm. Trying that “experimental
-mode” with the default number of trials:</p>
-<div class="codewrapper sourceCode" id="cb32">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="ex">srun</span> pi-gpu <span class="at">-p</span> <span class="at">-2</span> <span class="at">-r</span> <span class="at">-1</span> <span class="at">-m</span> 2</span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>Result: 3.1416099117887 Error:  0.0000172581989 Time: 0.2929s
-Result: 3.1415823393884 Error: -0.0000103142014 Time: 0.0546s
-Result: 3.1418233305906 Error:  0.0002306770008 Time: 0.0567s
-...</code></pre>
-</div>
-<p>You should be able to see that the time to calculate <span class="math inline">\(\pi\)</span> is almost 4 times faster than the
-default algorithm. If you look at the output of <code>nvtop</code>, you
-should be able to see the difference in utilization:</p>
-<figure><img src="fig/nvtop-screenshot-m2.png" alt="nvtop with the experimental algorithm enabled showing higher utilization" class="figure mx-auto d-block"><div class="figcaption">
-<code>nvtop</code> with the experimental
-algorithm enabled showing higher utilization</div>
-</figure><p>In this case, the utilization has shot up to about 98%! GPU memory
-utilization has also increased, which is a reflection of the algorithm
-used in this new mode.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -1827,19 +1499,38 @@ used in this new mode.</p>
 </h3>
 <div class="callout-content">
 <ul>
-<li>Choosing the right memory for you Slurm jobs takes a bit of trial
-and error, but it helps to know a bit about how your program
-behaves!</li>
+<li>Requesting more resources from Slurm doesn’t mean your job knows how
+to use them!
+<ul>
+<li>Many programs don’t work in parallel by default - either that
+functionality doesn’t exist, or needs to be turned on!</li>
+<li>More CPUs doesn’t always mean an equivalent speedup!</li>
+</ul>
+</li>
+<li>Slurm offers multiple utilities to monitor your jobs. Each serving a
+slightly different purpose
+<ul>
 <li>
-<code>htop</code> should be used to observe memory usage when memory
-usage varies frequently throughout the lifespan of the program.
-<code>sacct</code> and <code>seff</code> are good for programs that
-maintain steady memory usage.</li>
+<code>squeue</code> is for running/pending jobs and only provides
+status/request information</li>
 <li>
-<code>nvtop</code> is a <code>htop</code>-like tool for monitoring
-GPU activity</li>
-<li>When optimizing GPU programs’ parameters, try to aim for full
-utilization!</li>
+<code>sacct</code> and <code>seff</code> is best for complete jobs
+and provides resource utilisation where available</li>
+<li>
+<code>sstat</code> is for running jobs and provides a snapshot of
+resource utilisation</li>
+</ul>
+</li>
+<li>The <code>htop</code> system tool is a great way to get live
+information about how effective your job is
+<ul>
+<li>is more robust and provides more details than Slurm monitoring
+tools</li>
+</ul>
+</li>
+<li>
+<code>nvtop</code> offers something similar to <code>htop</code>,
+but for GPU processes.</li>
 </ul>
 </div>
 </div>
@@ -1849,11 +1540,11 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
 </div>
-</section></section><section id="aio-04-jobarrays"><p>Content from <a href="04-jobarrays.html">Job Arrays</a></p>
+</section></section><section id="aio-03-jobarrays"><p>Content from <a href="03-jobarrays.html">Job Arrays</a></p>
 <hr>
-<p>Last updated on 2024-03-12 |
+<p>Last updated on 2024-05-07 |
         
-        <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/04-jobarrays.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/03-jobarrays.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -2799,11 +2490,11 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
 </div>
-</section></section><section id="aio-05-jobdependencies"><p>Content from <a href="05-jobdependencies.html">Organising dependent Slurm jobs</a></p>
+</section></section><section id="aio-04-jobdependencies"><p>Content from <a href="04-jobdependencies.html">Organising dependent Slurm jobs</a></p>
 <hr>
-<p>Last updated on 2024-03-12 |
+<p>Last updated on 2024-05-07 |
         
-        <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/05-jobdependencies.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/04-jobdependencies.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -3176,7 +2867,7 @@ first column.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Script could look like:</p>
 <div class="codewrapper sourceCode" id="cb28">
@@ -3352,11 +3043,11 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
 </div>
-</section></section><section id="aio-06-rpython"><p>Content from <a href="06-rpython.html">R and Python Slurm scripts</a></p>
+</section></section><section id="aio-05-rpython"><p>Content from <a href="05-rpython.html">R and Python Slurm scripts</a></p>
 <hr>
-<p>Last updated on 2024-03-12 |
+<p>Last updated on 2024-05-07 |
         
-        <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/06-rpython.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/WEHI-ResearchComputing/intermediate-slurm/edit/main/episodes/05-rpython.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
