@@ -61,10 +61,9 @@ contact: 'research.computing@wehi.edu.au' # FIXME
 episodes:
 - 01-introduction.Rmd
 - 02-cpumonitoring.Rmd
-- 03-moremonitoring.Rmd
-- 04-jobarrays.Rmd
-- 05-jobdependencies.Rmd
-- 06-rpython.Rmd
+- 03-jobarrays.Rmd
+- 04-jobdependencies.Rmd
+- 05-rpython.Rmd
 
 # Information for Learners
 learners:
