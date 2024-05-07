@@ -384,6 +384,31 @@ Nodelist is left out, but hopefully that's self-explanatory.
 
 :::
 
+To summarize, the Slurm utilities you can use to monitor your jobs are:
+
+* `squeue` is good for getting the *status* of running or pending jobs, but don't offer much in terms of utilization information.
+* `sacct`, with output formatting can be used to view resource utilsation of jobs that have ended.
+    * `seff` serves a similar purpose to `sacct`, but with the output presented in a more easily understood manner.
+* `sstat` can be used to query resource utilisation of a *running* job. But also requires some output formatting.
+
+## Getting a more detailed using system tools
+
+The Slurm utilities can already tell you a lot of information that you'll find useful when evaluating your Slurm jobs. However,
+there are some important limitations preventing these tools from being "all-purpose".
+
+* The information used by `seff` and `sacct` are collected every 30 seconds only, and information isn't collected about jobs that
+fail for any reason.
+    * this makes it difficult to diagnose jobs that use too much memory.
+    * it also makes it difficult to identify sudden and short-lived spikes in resource usage.
+    * This is why for our short `pi-cpu` job, `seff` doesn't show any memory usage!
+* `sstat` is limited in how frequently it can be used
+    * if used too often, your `sstat` calls will be throttled.
+    * this a system configuration to prevent Slurm from being overloaded.
+
+Because of this, in some cases, it's recommended to use system tools that don't rely on Slurm's infrastructure.
+
+## Introducing `htop`
+
 `htop` is an interactive "process" viewer that lets you monitor processes across
 the entire node. It's very similar to Task Manager on Windows or Activity Monitor
 on Macs, but it works from the command line!
@@ -448,7 +473,7 @@ purpose!
 The most beneficial aspect of using `srun` inside `sbatch` is that if the job
 fails or is cancelled, the CPU efficiency, memory usage, and IO data is saved,
 which makes `seff` and `sacct` still useful. If `srun` is not used, performance
-data from `seff` and `sacct` are useless if the job ends prematurely.
+data from `seff` and `sacct` are discarded if the job ends prematurely.
 
 ::::::::::::::
 
@@ -509,7 +534,7 @@ scancel 11088927
 
 And then we can try again, but with more CPUs:
 ```bash
-sbatch --cpus-per-task=4 --wrap="srun ./pi-cpu -r -1"
+sbatch -c 4 --wrap="srun ./pi-cpu -p 4 -r -1"
 ```
 ```output
 Submitted batch job 11089020
@@ -534,7 +559,35 @@ htop -u $USER
 
 ![processes associated with `pi-cpu` after requesting more CPUs from Slurm](fig/htop-picpu-2.png)
 
-Unfortunately, the `pi-cpu` program is still only using 100% - requesting more CPUs from Slurm didn't help your job work in parallel.
+We can see that there is a process using around 300%-400% of CPU which should have `pi-cpu` in the
+command column.
+
+::: challenge
+
+`htop` is a Terminal User Interface (TUI) and allows you to click on the interface to interact with
+it! What happens when you click on `CPU%` and `MEM%`? What if you click on the `Tree` button on The
+bottom?
+
+After this, see if you can add disk read/write information columns to the `htop` interface.
+
+Hint: You'll need to click on `Setup` in the bottom-left corner and you may need to use your
+arrow keys!
+
+:::
+
+::: solution
+
+Clicking on `CPU%` and `MEM%` will order the processes by how much of those resoures are being used.
+Subsequent clicks will reverse the order. 
+
+Clicking on `Tree` will group the processes by sub-processes, so you can see which processes were
+spawned by which.
+
+To add disk read/write columns, you can click on `Setup -> Columns -> press right twice to get the
+cursor to "Available Columns" -> scroll down with your arrow keys and press enter on `IO_READ_WRITE`
+and `IO_WRITE_RATE`
+
+:::
 
 Now, this job runs forever, so we should cancel it and move on.
 ```bash
@@ -545,9 +598,12 @@ scancel 11089020
 
 -   Requesting more resources from Slurm doesn't mean your job knows how to use them!
     - Many programs don't work in parallel by default - either that functionality doesn't exist, or needs to be turned on!
-    - Parallelism across nodes is different from parallelism within nodes. You usually need to run them a little differently than a normal program
+    - More CPUs doesn't always mean an equivalent speedup!
+-   Slurm offers multiple utilities to monitor your jobs. Each serving a slightly different purpose
+    - `squeue` is for running/pending jobs and only provides status/request information
+    - `sacct` and `seff` is best for complete jobs and provides resource utilisation where available
+    - `sstat` is for running jobs and provides a snapshot of resource utilisation
 -   The `htop` system tool is a great way to get live information about how effective your job is
--   `seff` can be used to get summary stats about jobs
--   More CPUs doesn't always mean an equivalent speedup!
+    - is more robust and provides more details than Slurm monitoring tools
 
 :::
