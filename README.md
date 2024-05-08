@@ -1,6 +1,6 @@
 # Intermediate Slurm on WEHI Milton
 
-This lesson is created using [The Carpentries Workbench][workbench] and follows the eorkshop [Introduction to HPC and Slurm]([https://carpentries-incubator.github.io/hpc-intro/](https://wehi-researchcomputing.github.io/Workshop-IntroToHPC-Slurm/). It has been customised to work for users of WEHI Milton.
+This lesson is created using [The Carpentries Workbench][workbench] and follows the workshop [Introduction to HPC and Slurm]([https://carpentries-incubator.github.io/hpc-intro/](https://wehi-researchcomputing.github.io/Workshop-IntroToHPC-Slurm/). It has been customised to work for users of WEHI Milton.
 
 This lesson is targeted to learners who are researchers who have started using Slurm on Milton, and now have a sense of how to submit Slurm jobs and request resources through sbatch.
 
@@ -25,11 +25,11 @@ high-performance computing from an academic and/or commercial background are
 provided to help guide planning and decision-making guidence on how to make use of Milton.
 
 
-1. [Introduction](episodes/01-introduction) (12 minutes)
-2. [Monitoring a Jobs performance](episodes/02-cpumonitoring) (12 minutes)
-3. [Job Arrays](episodes/03-jobarrays) (12 minutes)
-4. [Organising dependent Slurm jobs](episodes/04-jobdependencies) (12 minutes)
-5. [R and Python Slurm scripts](episodes/05-rpython) (12 minutes)
+1. [Introduction](episodes/01-introduction) (10 minutes)
+2. [Monitoring a Jobs performance](episodes/02-cpumonitoring) (60 minutes)
+3. [Job Arrays](episodes/03-jobarrays) (60 minutes)
+4. [Organising dependent Slurm jobs](episodes/04-jobdependencies) (35 minutes)
+5. [R and Python Slurm scripts](episodes/05-rpython) (15 minutes)
 
 If you have any questions, contact [@edoyango](https://github.com/edoyango)
 
