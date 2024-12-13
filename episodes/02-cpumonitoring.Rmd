@@ -667,10 +667,10 @@ published by the same authors! When running the program, you will need:
 
 * 1GB memory
 * 1 GPU (of any kind)
-* the `cuda/11.7.1` and `gcc/11.2.0` modules loaded
+* the `CUDA/11.8` module is loaded
 
 ```bash
-module load cuda/11.7.1 gcc/11.2.0
+module load CUDA/11.8
 srun --gres=gpu:1 --mem=1G --partition=gpuq pi-gpu
 ```
 ```output
@@ -716,6 +716,7 @@ Now, ssh to the node you've been allocated and execute the `nvtop` command:
 
 ```bash
 ssh gpu-p100-n02
+module load nvtop
 nvtop
 ```
 
