@@ -10,29 +10,29 @@
 carpentry: 'wehi'
 
 # Overall title for pages.
-title: 'Intermediate Slurm' # FIXME
+title: 'Intermediate Slurm' 
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
 created: '2023-04-13'
 
 # Comma-separated list of keywords for the lesson
-keywords: 'Slurm, HPC' # FIXME
+keywords: 'Slurm, HPC'
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
-life_cycle: 'pre-alpha' # FIXME
+life_cycle: 'stable'
 
 # License of the lesson
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/WEHI-ResearchComputing/intermediate-slurm' # FIXME
+source: 'https://github.com/WEHI-Education/Workshop-intermediate-slurm'
 
 # Default branch of your lesson
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'research.computing@wehi.edu.au' # FIXME
+contact: 'research.computing@wehi.edu.au' 
 
 # Navigation ------------------------------------------------
 #
