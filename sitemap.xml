@@ -1,135 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/01-introduction.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/01-introduction.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/02-cpumonitoring.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/02-cpumonitoring.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/03-jobarrays.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/03-jobarrays.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/03-moremonitoring.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/03-moremonitoring.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/04-jobarrays.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/04-jobarrays.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/04-jobdependencies.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/04-jobdependencies.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/05-jobdependencies.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/05-jobdependencies.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/05-rpython.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/05-rpython.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/06-rpython.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/06-rpython.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/07-usefulopts.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/07-usefulopts.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/404.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/404.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/CODE_OF_CONDUCT.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/LICENSE.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/aio.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/aio.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/images.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/images.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/index.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/index.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/01-introduction.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/01-introduction.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/02-cpumonitoring.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/02-cpumonitoring.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/03-jobarrays.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/03-jobarrays.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/03-moremonitoring.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/03-moremonitoring.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/04-jobarrays.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/04-jobarrays.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/04-jobdependencies.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/04-jobdependencies.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/05-jobdependencies.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/05-jobdependencies.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/05-rpython.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/05-rpython.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/06-rpython.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/06-rpython.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/07-usefulopts.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/07-usefulopts.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/404.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/404.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/CODE_OF_CONDUCT.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/LICENSE.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/aio.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/aio.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/images.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/images.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/index.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/index.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/instructor-notes.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/instructor-notes.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/introduction.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/introduction.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/key-points.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/key-points.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/keypoints.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/keypoints.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/profiles.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/profiles.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor/reference.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor/reference.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/instructor-notes.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/instructor-notes.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/introduction.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/introduction.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/key-points.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/key-points.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/keypoints.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/keypoints.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/profiles.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/profiles.html</loc>
   </url>
   <url>
-    <loc>https://WEHI-ResearchComputing.github.io/intermediate-slurm/reference.html</loc>
+    <loc>https://WEHI-Education.github.io/Workshop-intermediate-slurm/reference.html</loc>
   </url>
 </urlset>
