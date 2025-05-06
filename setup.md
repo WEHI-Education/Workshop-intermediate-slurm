@@ -27,7 +27,7 @@ cd /vast/scratch/users/$USER
 
 **Download Data**
 
-Download the [demo programs](episodes/data/example-programs.tar.gz) and untar it on Milton. 
+Download the [demo programs](../episodes/data/example-programs.tar.gz) and untar it on Milton. 
 
 ```
 # Fetch the data bundle
