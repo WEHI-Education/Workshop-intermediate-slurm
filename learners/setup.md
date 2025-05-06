@@ -27,11 +27,11 @@ cd /vast/scratch/users/$USER
 
 **Download Data**
 
-Download the [demo programs](data/example-programs.tar.gz) and untar it on Milton. 
+Download the [demo programs](episodes/data/example-programs.tar.gz) and untar it on Milton. 
 
 ```
 # Fetch the data bundle
-wget https://wehi-researchcomputing.github.io/Workshop-intermediate-slurm/data/example-programs.tar.gz
+wget https://raw.githubusercontent.com/WEHI-Education/Workshop-intermediate-slurm/main/episodes/data/example-programs.tar.gz
 
 # Unzip the data
 tar -xzvf example-programs.tar.gz
