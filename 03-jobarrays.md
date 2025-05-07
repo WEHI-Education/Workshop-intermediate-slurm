@@ -58,12 +58,12 @@ submission. However, job arrays have some advantages over this approach:
 or code to submit to Slurm.
 * each job array "task" is linked to the same job ID, and can be more easily
 queried with `sacct` and `squeue`. 
+* large array jobs [put far less strain on the Slurm controller than individual jobs](https://groups.google.com/g/slurm-users/c/GvxcsUS1gs4/m/LWfBNSSEAAAJ)
 
 Why you might prefer the "for loop" approach over job arrays:
 
-* each task in the job array has the same resources - seperate `sbatch` commands allow you to change the resource request.
-* when the work being done differs significantly between tasks - making it difficult
-to control the behaviour solely through a "task ID".
+* each task in the job array has the same resources - separate `sbatch` commands allow you to change the resource request.
+* when the work being done differs significantly between tasks - making it difficult to control the behaviour solely through a "task ID".
 
 ### Job Array Syntax
 
@@ -119,7 +119,7 @@ squeue -u $USER
 Each job is referred to as a "task" of a single job, each associated with their
 own index. In the above example, each array task will have a task ID of 1-10.
 
-The `--array` option can also accept lists of integers and ranges, seperated by
+The `--array` option can also accept lists of integers and ranges, separated by
 commas. For example, `--array=1-3,7` is acceptable too! This is useful for
 testing or rerunning only specific indices.
 
@@ -320,6 +320,7 @@ line1: this, line2: is an, line3: example
 ```
 
 A couple things to note about referencing elements in bash arrays:
+
 * Array indices start at 0
 * `${}` are on the outside of `array[index]`.
 

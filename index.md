@@ -2,7 +2,7 @@
 site: sandpaper::sandpaper_site
 ---
 
-Welcome to Intermediate Slurm! Delivered by WEHI's Research Computing Platform.
+Welcome to Intermediate Slurm, delivered by WEHI's Research Computing Platform.
 
 This lesson is targeted to learners who are researchers who have started using Slurm on Milton, and now have
 a sense of how to submit Slurm jobs and request resources through `sbatch`.

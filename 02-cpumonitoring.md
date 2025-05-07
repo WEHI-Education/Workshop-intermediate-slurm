@@ -1,5 +1,5 @@
 ---
-title: "Monitoring a Jobs performance"
+title: "Monitoring a Job's Performance"
 teaching: 10
 exercises: 2
 editor_options: 
@@ -26,12 +26,6 @@ about at a conference recently. A useful feature is that it works in parallel,
 and is consequently quite fast! You try running the program on your laptop, and
 it takes about 1.2 seconds for each calculation of $\pi$. This is a little slow, so
 you try running it on Milton
-
-::: callout
-
-Before starting these programs, make sure to load the `gcc` module (`module load gcc`).
-
-:::
 
 ::: challenge
 
@@ -308,7 +302,7 @@ on the utilisation while the job is running.
 let's start a long-running job with our `pi-cpu` program:
 
 ```bash
-sbatch --wrap ./pi-cpu -r -1
+sbatch --wrap './pi-cpu -r -1'
 ```
 ```output
 Submitted batch job 16559207
