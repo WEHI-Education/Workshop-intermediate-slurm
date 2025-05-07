@@ -14,7 +14,7 @@ We will complete this workshop on the WEHI HPC (Milton). You will need to connec
 
 **Working Directory**
 
-If you have VAST Scratch, dowload the workshop data there. Remember VAST Scratch has a 14-day no-access deletion policy. It is not backed up. 
+If you have VAST Scratch, download the workshop data there. Remember VAST Scratch has a 30-day no-access deletion policy. It is not backed up. 
 
 In this case it is a good place to store data that we want automatically cleaned up.
 
@@ -39,4 +39,3 @@ tar -xzvf example-programs.tar.gz
 # Navigate into the data directory
 cd example-programs
 ```
-

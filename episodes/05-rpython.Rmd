@@ -1,5 +1,5 @@
 ---
-title: "R and Python Slurm scripts"
+title: "R and Python Slurm Scripts"
 teaching: 10
 exercises: 2
 editor_options: 
@@ -159,7 +159,7 @@ For example, if you have an environment located at
 `/vast/scratch/users/<userid>/mycondaenv`, the corresponding interpreter is located in
 `/vast/scratch/users/<userid>/mycondaenv/bin/python`, which you can use in the
 hash-bang statement. Similarly, with `Rscript`, you can find where your preferred
-`Rscript` interepreter is by:
+`Rscript` interpreted is by:
 
 ```bash
 module show R/<preferred version>
