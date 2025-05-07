@@ -1,5 +1,5 @@
 ---
-title: "Organising dependent Slurm jobs"
+title: "Organising Dependent Slurm Jobs"
 teaching: 10
 exercises: 2
 editor_options: 
@@ -341,7 +341,7 @@ do
     # get average error from pi-avg-${i}.out
     data=$(cat pi-avg-${i}.out)
     
-    # print labal with data
+    # print label with data
     echo "$label $data"
 done
 ```
